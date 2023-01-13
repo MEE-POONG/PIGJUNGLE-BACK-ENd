@@ -33,7 +33,7 @@ export default function TheSlideNav() {
             <a className="navbar-brand mx-4 mb-3" >
               <h3 className="text-primary">
                 <FaUserEdit className="fa me-2" />
-                ร้านช่างพอง
+                PigJungle
               </h3>
             </a>
           </Link>
@@ -80,60 +80,40 @@ export default function TheSlideNav() {
               </Link>
             </Dropdown.Menu>
 
-            <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle onClick={() => { setCheckClickPath('/products') }} className={checkClickPath === "/products" || checkClickPath === "/products/type" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
               จัดการสินค้า
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show>
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/products" || checkClickPath === "/products/type"}>
               <Link id="buttons" href="/products">
                 <a className={asPath === "/products" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สินค้า
                 </a>
               </Link>
-              <Link id="buttons" href="/products/type ">
+              <Link id="buttons" href="/products/type">
                 <a className={asPath === "/products/type" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  ประเภทสินค้า
+                ประเภทสินค้า
                 </a>
               </Link>
             </Dropdown.Menu>
-            <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+
+            <Dropdown.Toggle onClick={() => { setCheckClickPath('/products') }} className={checkClickPath === "/products" || checkClickPath === "/products/type" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
-              จัดการผลงาน
+              จัดการสลิป
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show>
-              <Link id="buttons" href="/portfolio">
-                <a className={asPath === "/portfolio" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  ผลงาน
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/products" || checkClickPath === "/products/type"}>
+              <Link id="buttons" href="/products">
+                <a className={asPath === "/products" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                สลิป
                 </a>
               </Link>
             </Dropdown.Menu>
-            <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
-              <i className="me-2">
-                <BsFillBagFill />
-              </i>
-              จัดการออเดอร์
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-            </Dropdown.Menu>
+
+
 
 
           </div>

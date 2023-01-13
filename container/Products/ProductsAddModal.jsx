@@ -90,11 +90,11 @@ export default function ProductsAddModal(props) {
     return (
         <>
             <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
-                <FaPlus />{" "}เพิ่มสมาชิก
+                <FaPlus />{" "}เพิ่มสินค้า
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg' className='form-Products'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>เพิ่มสมาชิกพนักงานองค์กร</Modal.Title>
+                    <Modal.Title className='text-center'>เพิ่มสินค้า</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <Row>

@@ -55,7 +55,7 @@ export default function ProductsTypeAddModal(props) {
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg' className='form-Products'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>เพิ่มสมาชิกพนักงานองค์กร</Modal.Title>
+                    <Modal.Title className='text-center'>เพิ่มประเภทสินค้า</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                 <Form.Group className="mb-3" controlId="name">

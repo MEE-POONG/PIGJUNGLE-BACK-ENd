@@ -63,7 +63,7 @@ export default function ProductsTypeEditModal(props) {
 
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                  <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>เพิ่มสมาชิกพนักงานองค์กร</Modal.Title>
+                    <Modal.Title className='text-center'>แก้ไขประเภทสินค้า</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                 <Form.Group className="mb-3" controlId="name">

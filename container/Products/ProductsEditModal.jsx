@@ -41,6 +41,7 @@ export default function ProductsEditModal(props) {
             setName(props?.value?.name);
             setPrice(props?.value?.price);
             setImage(props?.value?.image);
+            setType(props?.value?.type);
             }
             
         
@@ -108,7 +109,7 @@ export default function ProductsEditModal(props) {
 
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                  <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>เพิ่มสมาชิกพนักงานองค์กร</Modal.Title>
+                    <Modal.Title className='text-center'>แก้ไขสินค้า</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <Row>
