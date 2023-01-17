@@ -17,21 +17,41 @@ model ProductType {
 }
 
 model Products {
-  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   image       String?
   name        String?
   price       Int?
-  type        String?      @db.Uuid
-  createdAt   DateTime?    @default(now())
-  updatedAt   DateTime?    @updatedAt
-  deleted_at  DateTime?    @map("deleted_at")
-  order       Order[]
-  productType ProductType? @relation(fields: [type], references: [id])
+  type        String?       @db.Uuid
+  createdAt   DateTime?     @default(now())
+  updatedAt   DateTime?     @updatedAt
+  deleted_at  DateTime?     @map("deleted_at")
+  OrderDetail OrderDetail[]
+  productType ProductType?  @relation(fields: [type], references: [id])
 }
 
 model Order {
-  id       String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  image    String?
-  product  String?   @db.Uuid
-  products Products? @relation(fields: [product], references: [id])
+  id          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  image       String?
+  address     String?
+  city        String?
+  createdAt   DateTime?     @default(now())
+  deleted_at  DateTime?     @map("deleted_at")
+  district    String?
+  firstname   String?
+  lastname    String?
+  postalCod   String?
+  province    String?
+  updatedAt   DateTime?     @updatedAt
+  status      String?
+  tel         String?
+  total       String?
+  OrderDetail OrderDetail[]
+}
+
+model OrderDetail {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productId String?   @db.Uuid
+  orderId   String?   @db.Uuid
+  order     Order?    @relation(fields: [orderId], references: [id])
+  products  Products? @relation(fields: [productId], references: [id])
 }
