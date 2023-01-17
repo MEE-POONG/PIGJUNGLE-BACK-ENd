@@ -6,24 +6,19 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.position.findMany({
-                    select: {
-                        id: true,
-                        team: true
-                    },
+                const data = await prisma.contact.findMany({
                     where: {
-                        team: {
-                            not: ''
-                        }
-                    },
+                        id: req.query.id
+                    }
                 });
+
                 res.status(200).json(data)
             } catch (error) {
                 res.status(400).json({ success: false })
             }
             break
         default:
-            res.setHeader('Allow', ['GET', 'POST'])
+            res.setHeader('Allow', ['GET', 'PUT'])
             res.status(405).end(`Method ${method} Not Allowed`)
     }
 }

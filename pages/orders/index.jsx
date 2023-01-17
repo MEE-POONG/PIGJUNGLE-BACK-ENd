@@ -5,10 +5,10 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-// import OrderAddModal from '@/container/Order/OrderAddModal'
-// import OrderDeleteModal from '@/container/Order/OrderDeleteModal'
-// import OrderShowDetailModal  from '@/container/Order/OrderShowDetailModal'
-// import OrderEditModal from '@/container/Order/OrderEditModal'
+// import OrderAddModal from '@/container/Orders/OrderAddModal'
+// import OrderDeleteModal from '@/container/Orders/OrderDeleteModal'
+// import OrderShowDetailModal  from '@/container/Orders/OrderShowDetailModal'
+// import OrderEditModal from '@/container/Orders/OrderEditModal'
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
@@ -40,6 +40,7 @@ function MyTable(props) {
                             </td>
                             <td>
                                 {item.name}
+                                 {/* <OrderShowDetailModal value={item} getData={props?.getData} /> */}
                             </td>
                             <td>
                                 <Badge bg="primary">
@@ -51,7 +52,6 @@ function MyTable(props) {
                             </td>
                             <td>
                                 {/* <OrderEditModal value={item} getData={props?.getData} />
-                                <OrderShowDetailModal value={item} getData={props?.getData} />
                                 <OrderDeleteModal value={item} getData={props?.getData} /> */}
                             </td>
                         </tr>

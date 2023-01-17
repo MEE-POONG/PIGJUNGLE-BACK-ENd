@@ -61,21 +61,21 @@ export default function TheSlideNav() {
                 Home
               </a>
             </Link>
-            <Dropdown.Toggle onClick={() => { setCheckClickPath('/customer') }} className={checkClickPath === "/customer" || checkClickPath === "/customer/position" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle onClick={() => { setCheckClickPath('/home') }} className={checkClickPath === "/home" || checkClickPath === "/Contact" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
-              Customer
+              จัดการหน้าเว็บ
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/customer/position"}>
-              <Link id="buttons" href="/customer">
-                <a className={asPath === "/customer" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สมาชิก
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/home" || checkClickPath === "/Contact"}>
+              <Link id="buttons" href="/home">
+                <a className={asPath === "/home" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  
                 </a>
               </Link>
-              <Link id="buttons" href="/customer/position">
-                <a className={asPath === "/customer/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  ทีม
+              <Link id="buttons" href="/Contact">
+                <a className={asPath === "/Contact" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  หน้าติดต่อเรา
                 </a>
               </Link>
             </Dropdown.Menu>

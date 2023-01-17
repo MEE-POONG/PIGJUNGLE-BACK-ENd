@@ -47,7 +47,7 @@ export default function ProductsDeleteModal(props) {
                         ยกเลิก
                     </Button>
                     <Button bsPrefix="succeed" className='my-0' onClick={handleDeleteData}>
-                        ยืนยันการลบ
+                        ยืนยันคำสั่งซื้อ
                     </Button>
                 </Modal.Footer>
             </Modal>
