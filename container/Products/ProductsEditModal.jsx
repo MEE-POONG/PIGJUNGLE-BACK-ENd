@@ -116,7 +116,7 @@ export default function ProductsEditModal(props) {
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="formFile">
                                 <Form.Label className='text-center'>เลือกรูปสินค้า</Form.Label>
-
+ 
                                 <Form.Label className='d-block'>รูปภาพ</Form.Label>
                                 {imageURL?.length === 0 && <Image className="mb-2" style={{ height: 200 }} src={image} alt="product_img" fluid rounded />}
                                 {imageURL?.map((imageSrcProduct, index) => <Image key={index} className="mb-2" style={{ height: 200 }} src={imageSrcProduct} alt="product_img" fluid rounded />)}
