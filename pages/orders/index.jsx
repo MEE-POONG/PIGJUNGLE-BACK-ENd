@@ -23,15 +23,16 @@ function MyTable(props) {
                 <tr>
                     <th>No.</th>
                     <th>ภาพ</th>
-                    <th>ชื่อสินค่า</th>
-                    <th>ประเภทสินค้า</th>
-                    <th>ราคา</th>
+                    <th>รายละเอียดที่ต้องจัดส่ง</th>
+                    <th>สถานะ</th>
+                    <th>ราคารวม</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
             <tbody>
                 {currentItems.length ? (
                     currentItems?.map((item, index) => (
+                        
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
                             <td>
@@ -42,11 +43,11 @@ function MyTable(props) {
                             </td>
                             <td>
                                 <Badge bg="primary">
-                                    {item.productType?.name}
+                                    {item.status}
                                 </Badge>
                             </td>
                             <td>
-                                {item.price}{' '}บาท
+                                {item.total}{' '}บาท
                             </td>
                             <td>
                                 {/* <OrderEditModal value={item} getData={props?.getData} />
@@ -100,8 +101,8 @@ export default function ProductPage() {
                     </Card.Title>
                     {/* <OrderAddModal getData={getProduct}/> */}
                 </div>
-                <MyTable data={OrderData?.data} setNum={(OrderData?.page * OrderData?.pageSize) - OrderData?.pageSize} getData={getProduct} />
-                <MyPagination page={OrderData.page} totalPages={OrderData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
+                <MyTable data={orderData?.data} setNum={(orderData?.page * orderData?.pageSize) - orderData?.pageSize} getData={getProduct} />
+                <MyPagination page={orderData.page} totalPages={orderData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
     );

@@ -99,16 +99,16 @@ export default function TheSlideNav() {
               </Link>
             </Dropdown.Menu>
 
-            <Dropdown.Toggle onClick={() => { setCheckClickPath('/products') }} className={checkClickPath === "/products" || checkClickPath === "/products/type" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle onClick={() => { setCheckClickPath('/orders') }} className={checkClickPath === "/orders" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
-              จัดการสลิป
+              จัดการคำสั่งซื้อ
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/products" || checkClickPath === "/products/type"}>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/products" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                สลิป
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/orders" }>
+              <Link id="buttons" href="/orders">
+                <a className={asPath === "/orders" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                คำสั่งซื้อ
                 </a>
               </Link>
             </Dropdown.Menu>
