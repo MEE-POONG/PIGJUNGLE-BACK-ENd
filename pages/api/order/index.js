@@ -41,18 +41,19 @@ export default async function handler(req, res) {
             address:req.body.address,
             subDistrict:req.body.subDistrict,
             district:req.body.district,
-            postalCod:req.body.postal,
+            postalCode:req.body.postalCode,
             province:req.body.province,
             status:req.body.status,
             total:parseInt(req.body.total),
-            
+
             OrderDetail: {
-              sumPrice:parseInt(req.body.sumPrice),
-              sumQty:parseInt(req.body.sumQty),
-              create: 
+              create:
                 req.body.productIdList.map((product) => ({
                   productId: product.productId,
+                  sumPrice:parseInt(product.sumPrice),
+                  sumQty:parseInt(product.sumQty),
                 })),
+                
               
             },
           },

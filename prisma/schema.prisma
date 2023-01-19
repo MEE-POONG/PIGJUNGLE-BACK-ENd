@@ -38,7 +38,7 @@ model Order {
   district    String?
   firstname   String?
   lastname    String?
-  postalCod   String?
+  postalCode   String?
   province    String?
   updatedAt   DateTime?     @updatedAt
   status      String?
