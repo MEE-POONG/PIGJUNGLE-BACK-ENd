@@ -37,14 +37,18 @@ export default async function handler(req, res) {
             lastname: req.body.lastname,
             tel:req.body.tel,
             image:req.body.image,
+            email:req.body.email,
             address:req.body.address,
-            city:req.body.city,
+            subDistrict:req.body.subDistrict,
             district:req.body.district,
             postalCod:req.body.postal,
             province:req.body.province,
             status:req.body.status,
-            total:req.body.body,
+            total:parseInt(req.body.total),
+            
             OrderDetail: {
+              sumPrice:parseInt(req.body.sumPrice),
+              sumQty:parseInt(req.body.sumQty),
               create: 
                 req.body.productIdList.map((product) => ({
                   productId: product.productId,

@@ -142,7 +142,7 @@ export default function ProductsAddModal(props) {
                                          isValid={checkValue === false && type !== '' ? true : false}
                                          isInvalid={checkValue === false && type === '' ? true : false}>
                                             <option value="">ประเภทสินค้า</option>
-                                            {productTypeData?.data?.map((productType, index) => (
+                                            {productTypeData.data?.map((productType, index) => (
                                                 <option key={index} value={productType.id}>{productType.name}</option>
                                             ))}
 

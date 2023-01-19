@@ -7,7 +7,7 @@ import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
 // import OrderAddModal from '@/container/Orders/OrderAddModal'
 // import OrderDeleteModal from '@/container/Orders/OrderDeleteModal'
-// import OrderShowDetailModal  from '@/container/Orders/OrderShowDetailModal'
+import OrderShowDetailModal  from '@/container/Orders/OrderShowDetailModal'
 // import OrderEditModal from '@/container/Orders/OrderEditModal'
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
@@ -22,7 +22,7 @@ function MyTable(props) {
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ภาพ</th>
+                    <th>ชื่อผู้สั่งสินค้า</th>
                     <th>รายละเอียดที่ต้องจัดส่ง</th>
                     <th>สถานะ</th>
                     <th>ราคารวม</th>
@@ -36,11 +36,10 @@ function MyTable(props) {
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
                             <td>
-                                <Image src={item.image}  width="150px" height="150px" className='object-fit-cover' />
+                                {item.firstname}{" "}{item.lastname}
                             </td>
                             <td>
-                                {item.name}
-                                 {/* <OrderShowDetailModal value={item} getData={props?.getData} /> */}
+                                 <OrderShowDetailModal value={item} getData={props?.getData} />
                             </td>
                             <td>
                                 <Badge bg="primary">
@@ -51,7 +50,7 @@ function MyTable(props) {
                                 {item.total}{' '}บาท
                             </td>
                             <td>
-                                {/* <OrderEditModal value={item} getData={props?.getData} />
+                                {/* <OrderConfirmModal value={item} getData={props?.getData} />
                                 <OrderDeleteModal value={item} getData={props?.getData} /> */}
                             </td>
                         </tr>

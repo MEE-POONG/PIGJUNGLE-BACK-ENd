@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Button, Form, Row, Col, Image ,Table } from 'react-bootstrap'
+import { Modal, Button, Form, Row, Col, Image  } from 'react-bootstrap'
 import { FaTrash ,FaPlus } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import CardLoading from '@/components/CardChange/CardLoading'
@@ -47,36 +47,26 @@ export default function ProductsDeleteModal(props) {
                     </Row>
                     
                     <h4>สินค้าที่ต้องจัดส่ง</h4>
-
-                    <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>ชื่อสินค้า</th>
-                    <th>จำนวนสินค้า</th>
-                    <th>ราคารวม</th>
-                </tr>
-            </thead>
-            <tbody>
-            {props?.value?.OrderDetail?.map((product , index) => (
-                        
-                        <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>
-                            {product.products.name} 
-                            </td>
-                            <td>
-                            {product.products.name} 
-                            </td>
-                            <td>
-                            {product.products.name}
-                            </td>
-                        </tr>
-                    ))}
-            </tbody>
-        </Table>
-   
-        <Modal.Title className="mb-3">ราคารวมทั้งหมด : <span className='text-danger'> {props?.value?.total}{" "}บาท</span></Modal.Title>
+                     {props?.value?.OrderDetail?.map((product , index) => (
+                    <Row className="mb-3 "key={index}>
+                    <Col md='6'>
+                        <h4 className="mb-3 mt-3">รูปสินค้า</h4>
+                       <Image src={product.products.image}  width="400px" height="200px"  />
+                    </Col>  
+                    <Col md='6'>
+                                <h4 className="mb-3 mt-5">
+                                ชื่อสินค้า :{product.products.name}
+                                </h4> 
+                                <h4 className="mb-3">
+                                จำนวนสินค้า :{product.products.name}
+                                </h4> 
+                                <h4 className="mb-3">
+                                ราคารวม :{product.products.name}
+                                </h4> 
+                    </Col> 
+                    </Row>
+                       ))}    
+                    <Modal.Title className="mb-3">ราคารวมทั้งหมด : <span className='text-danger'> {props?.value?.total}{" "}บาท</span></Modal.Title>
                 </Modal.Body>
                 <Modal.Footer>
                 </Modal.Footer>

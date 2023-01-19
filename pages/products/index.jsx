@@ -11,6 +11,8 @@ import ProductsEditModal from '@/container/Products/ProductsEditModal'
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
+    const [typeId] = useState(props?.dataType);
+    console.log(typeId);
     useEffect(() => {
         setCurrentItems(currentItems);
         console.log(props);
@@ -31,6 +33,7 @@ function MyTable(props) {
             <tbody>
                 {currentItems.length ? (
                     currentItems?.map((item, index) => (
+                    item.productType?.id === typeId ?(
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
                             <td>
@@ -52,6 +55,9 @@ function MyTable(props) {
                                 <ProductsDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
+                    ):("")
+                     
+                        
                     )))
                     : ""}
             </tbody>
@@ -76,6 +82,10 @@ export default function ProductPage() {
         }
     }, [productsData]);
 
+    const [{ data: productTypeData }, getProductsType] = useAxios({ url: '../api/productType?' })
+    const [typeId, setTypeId] = useState("");
+   
+
     const handleSelectPage = (pageValue) => {
         getProduct({ url: `/api/products?page=${pageValue}&pageSize=${params.pageSize}` })
     };
@@ -95,10 +105,25 @@ export default function ProductPage() {
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
                         รายการสินค้า
-                    </Card.Title>
+                    </Card.Title>   
+                    <Form.Group className="mb-3" controlId="price">
+                        <Form.Label>ประเภทสินค้า</Form.Label>
+                            <Form.Select 
+                            onChange={(e) => { setTypeId(e.target.value) }}
+                            value={typeId} >
+                             <option value="">ประเภทสินค้า</option>
+                            {productTypeData.data?.map((productType, index) => (
+                             <option key={index} value={productType.id}>{productType.name}</option>
+                            ))} 
+
+                            </Form.Select>
+                    </Form.Group>
                     <ProductsAddModal getData={getProduct}/>
+
+                 
+                    
                 </div>
-                <MyTable data={productsData?.data} setNum={(productsData?.page * productsData?.pageSize) - productsData?.pageSize} getData={getProduct} />
+                <MyTable data={productsData?.data} dataType={typeId} setNum={(productsData?.page * productsData?.pageSize) - productsData?.pageSize} getData={getProduct} />
                 <MyPagination page={productsData.page} totalPages={productsData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
