@@ -40,7 +40,7 @@ export default function ProductsDeleteModal(props) {
                         </Col> 
                         <Col md='6'>
                             <h4 className="mb-3">จังหวัด : {props?.value?.province}</h4>
-                            <h4 className="mb-3">ไปรษณีย์ : {props?.value?.postalCod}</h4>
+                            <h4 className="mb-3">ไปรษณีย์ : {props?.value?.postalCode}</h4>
                         </Col>  
                    
                     
@@ -66,10 +66,10 @@ export default function ProductsDeleteModal(props) {
                             {product.products.name} 
                             </td>
                             <td>
-                            {product.products.name} 
+                            {product.sumQty} 
                             </td>
                             <td>
-                            {product.products.name}
+                            {product.sumPrice}{" "}บาท
                             </td>
                         </tr>
                     ))}

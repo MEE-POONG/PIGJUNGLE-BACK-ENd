@@ -61,16 +61,26 @@ export default function TheSlideNav() {
                 Home
               </a>
             </Link>
-            <Dropdown.Toggle onClick={() => { setCheckClickPath('/home') }} className={checkClickPath === "/home" || checkClickPath === "/Contact" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle onClick={() => { setCheckClickPath('/homeFront') }} className={checkClickPath === "/homeFront" ||  checkClickPath === "/homeFront/slid" || checkClickPath === "/homeFront/howToOrder" || checkClickPath === "/Contact" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
               จัดการหน้าเว็บ
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/home" || checkClickPath === "/Contact"}>
-              <Link id="buttons" href="/home">
-                <a className={asPath === "/home" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/homeFront" || checkClickPath === "/homeFront/slid" || checkClickPath === "/homeFront/howToOrder" || checkClickPath === "/Contact"}>
+              <Link id="buttons" href="/homeFront">
+                <a className={asPath === "/homeFront" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  หน้าหลัก
+                </a>
+              </Link>
+              <Link id="buttons" href="//homeFront/slid">
+                <a className={asPath === "//homeFront/slid" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  หน้าสไลด์รูปภาพ
+                </a>
+              </Link>
+              <Link id="buttons" href="//homeFront/howToOrder">
+                <a className={asPath === "//homeFront/howToOrder" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  หน้าวิธีการสั่งซื้อ
                 </a>
               </Link>
               <Link id="buttons" href="/Contact">

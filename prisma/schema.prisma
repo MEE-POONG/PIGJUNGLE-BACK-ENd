@@ -38,7 +38,7 @@ model Order {
   district    String?
   firstname   String?
   lastname    String?
-  postalCode   String?
+  postalCode  String?
   province    String?
   updatedAt   DateTime?     @updatedAt
   status      String?
@@ -71,4 +71,38 @@ model Contact {
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
   linkmap    String?
+}
+
+model HomeFront {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  image      String?
+  name       String?
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
+}
+
+model Slid {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  image      String?
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
+}
+
+model HowToOrder {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  title      String?
+  detail     String?
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
+}
+
+model LinkVideo {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  link  String?
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
 }

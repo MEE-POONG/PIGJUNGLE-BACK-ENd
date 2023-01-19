@@ -33,7 +33,7 @@ function MyTable(props) {
             <tbody>
                 {currentItems.length ? (
                     currentItems?.map((item, index) => (
-                    item.productType?.id === typeId ?(
+                    item.productType?.name === "กัญชา" ?(
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
                             <td>

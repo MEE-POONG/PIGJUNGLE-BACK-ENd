@@ -14,6 +14,7 @@ import {
   Badge,
   Modal,
   Row,
+  Alert,
 } from "react-bootstrap";
 // import Editor from '@/components/Ckeditor/Editor';
 import useAxios from "axios-hooks";
@@ -78,71 +79,73 @@ export default function ContactPage() {
 
             <div className="d-flex align-items-center border-bottom py-2">
               <div className="table-responsive w-100 ">
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>ชื่อร้าน</Form.Label>
-                  <Form.Control
-                    type="text"
-                    style={{ width: "500px" }}
-                    value={contact.title}
-                  />
+                <Form.Group  className="mb-3 my-3">
+                  <Form.Label> <h4>ชื่อร้าน</h4></Form.Label>
+                  <Alert variant="warning" style={{ width: "500px"}}>
+                  <h5>{contact.title}</h5>
+                  </Alert>
                 </Form.Group>
 
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>ที่อยู่</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    style={{ width: "500px" }}
-                    value={contact.address}
-                  />
+                <hr style={{ width: "500px"}} />
+
+                <Form.Group className="mb-3 my-3">
+                <Form.Label> <h4>ที่อยู่</h4></Form.Label>
+                <Alert variant="warning" style={{ width: "500px"}}>
+                <h5>{contact.address}</h5>
+                </Alert>
                 </Form.Group>
 
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>เบอร์โทรศัพท์</Form.Label>
-                  <Form.Control
-                    type="text"
-                    style={{ width: "500px" }}
-                    value={contact.tel}
-                  />
+                <hr style={{ width: "500px"}} />
+
+                <Form.Group className="mb-3 my-3">
+                <Form.Label> <h4>เบอร์โทรศัพท์</h4></Form.Label>
+                <Alert variant="warning" style={{ width: "500px"}}>
+                <h5>{contact.tel}</h5>
+                </Alert>
                 </Form.Group>
 
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>อีเมล์</Form.Label>
-                  <Form.Control
-                    type="text"
-                    style={{ width: "500px" }}
-                    value={contact.email}
-                  />
+                <hr style={{ width: "500px"}} />
+
+                
+                <Form.Group className="mb-3 my-3">
+                <Form.Label> <h4>อีเมล์</h4></Form.Label>
+                <Alert variant="warning" style={{ width: "500px"}}>
+                <h5>{contact.email}</h5>
+                </Alert>
                 </Form.Group>
 
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>เฟสบุค</Form.Label>
-                  <Form.Control
-                    type="text"
-                    style={{ width: "500px" }}
-                    value={contact.facebook}
-                  />
+                <hr style={{ width: "500px"}} />
+
+                <Form.Group className="mb-3 my-3">
+                <Form.Label> <h4>เฟสบุค</h4></Form.Label>
+                <Alert variant="warning" style={{ width: "500px"}}>
+                <h5>{contact.facebook}</h5>
+                </Alert>
                 </Form.Group>
 
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>ไลน์</Form.Label>
-                  <Form.Control
-                    type="text"
-                    style={{ width: "500px" }}
-                    value={contact.line}
-                  />
+                <hr style={{ width: "500px"}} />
+
+                <Form.Group className="mb-3 my-3">
+                <Form.Label> <h4>ไลน์</h4></Form.Label>
+                <Alert variant="warning" style={{ width: "500px"}}>
+                <h5>{contact.line}</h5>
+                </Alert>
                 </Form.Group>
 
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>ลิงค์แผนที่</Form.Label>
-                  <Form.Control
-                    type="text"
-                    style={{ width: "500px" }}
-                    value={contact.linkmap}
-                  />
+                <hr style={{ width: "500px"}} />
+
+                
+                <Form.Group className="mb-3 my-3">
+                <Form.Label> <h4>ลิงค์แผนที่</h4></Form.Label>
+                <Alert variant="warning" style={{ width: "500px"}}>
+                <h5>{contact.linkmap}</h5>
+                </Alert>
                 </Form.Group>
+
+                <hr style={{ width: "500px"}} />
 
                 <Button
-                  variant="warning "
+                  variant="warning"
                   onClick={() => ShowModalEdit(contact.id)}
                 >
                   แก้ไข

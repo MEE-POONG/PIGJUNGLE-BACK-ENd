@@ -22,6 +22,7 @@ export default function ProductsEditModal(props) {
 
     const[{loading: imgLoading, error: imgError}, uploadImage]= useAxios({url: '/api/upload', method: 'POST'},{manual: true});
 
+    const [img, setImg] = useState([])
     const [image, setImage] = useState([])
     const [imageURL, setImageURL] = useState([])
     
@@ -40,16 +41,16 @@ export default function ProductsEditModal(props) {
             if (props){
             setName(props?.value?.name);
             setPrice(props?.value?.price);
-            setImage(props?.value?.image);
+            setImg(props?.value?.image);
             setType(props?.value?.type);
             }
             
         
 
-        //    if (image.length < 1)  return
-        //     const newImageUrl = []
-        //     image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
-        //     setImageURL(newImageUrl)  
+           if (image.length < 1)  return
+            const newImageUrl = []
+            image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
+            setImageURL(newImageUrl)  
            
             
            
@@ -118,7 +119,7 @@ export default function ProductsEditModal(props) {
                                 <Form.Label className='text-center'>เลือกรูปสินค้า</Form.Label>
  
                                 <Form.Label className='d-block'>รูปภาพ</Form.Label>
-                                {imageURL?.length === 0 && <Image className="mb-2" style={{ height: 200 }} src={image} alt="product_img" fluid rounded />}
+                                {imageURL?.length === 0 && <Image className="mb-2" style={{ height: 200 }} src={img} alt="product_img" fluid rounded />}
                                 {imageURL?.map((imageSrcProduct, index) => <Image key={index} className="mb-2" style={{ height: 200 }} src={imageSrcProduct} alt="product_img" fluid rounded />)}
                                 <Form.Control type="file" accept="image/*" onChange={onImageProductChange} />
                     
