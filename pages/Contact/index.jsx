@@ -151,7 +151,9 @@ export default function ContactPage() {
                     </Form.Group>
                     <hr style={{ width: "500px" }} />
 
-                    <Form.Group className="mb-3 my-3">
+                  </Col>
+                  <Col>
+                  <Form.Group className="mb-3 my-3">
                       <Form.Label>
                         {" "}
                         <h4>เวลาทำการ</h4>
@@ -160,11 +162,8 @@ export default function ContactPage() {
                         <h5>{contact.opentime}</h5>
                       </Alert>
                     </Form.Group>
-
                     <hr style={{ width: "500px" }} />
-                  </Col>
-
-                  <Col>
+                    
                   <Form.Group className="mb-3 my-3">
                       <Form.Label>
                         {" "}
