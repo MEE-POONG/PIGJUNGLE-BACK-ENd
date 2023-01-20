@@ -66,6 +66,7 @@ model Contact {
   address    String?
   tel        String?
   email      String?
+  opentime   String?
   facebook   String?
   line       String?
   createdAt  DateTime? @default(now())
@@ -102,7 +103,7 @@ model HowToOrder {
 
 model LinkVideo {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  link  String?
+  link       String?
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")

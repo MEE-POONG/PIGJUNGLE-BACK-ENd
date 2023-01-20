@@ -47,6 +47,7 @@ export default function ContactPage() {
   const [address, setAddress] = useState("");
   const [tel, setTel] = useState("");
   const [email, setEmail] = useState("");
+  const [opentime, setOpentime] = useState("");
   const [facebook, setFacebook] = useState("");
   const [line, setLine] = useState("");
   const [linkmap, setLinkmap] = useState("");
@@ -63,6 +64,7 @@ export default function ContactPage() {
     setAddress(contactById?.address);
     setTel(contactById?.tel);
     setEmail(contactById?.email);
+    setOpentime(contactById?.opentime);
     setFacebook(contactById?.facebook);
     setLine(contactById?.line);
     setLinkmap(contactById?.linkmap);
@@ -145,6 +147,17 @@ export default function ContactPage() {
                       </Form.Label>
                       <Alert variant="warning" style={{ width: "500px" }}>
                         <h5>{contact.email}</h5>
+                      </Alert>
+                    </Form.Group>
+                    <hr style={{ width: "500px" }} />
+
+                    <Form.Group className="mb-3 my-3">
+                      <Form.Label>
+                        {" "}
+                        <h4>เวลาทำการ</h4>
+                      </Form.Label>
+                      <Alert variant="warning" style={{ width: "500px" }}>
+                        <h5>{contact.opentime}</h5>
                       </Alert>
                     </Form.Group>
 
@@ -260,7 +273,7 @@ export default function ContactPage() {
               onChange={(event) => setAddress(event.target.value)}
             />
           </Form.Group>
-
+       
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>เบอร์โทรศัพท์</Form.Label>
             <Form.Control
@@ -276,6 +289,15 @@ export default function ContactPage() {
               type="text"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+            />
+          </Form.Group>
+             
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label>เวลาทำการ</Form.Label>
+            <Form.Control
+              as="textarea"
+              value={opentime}
+              onChange={(event) => setAddress(event.target.value)}
             />
           </Form.Group>
 
@@ -314,6 +336,7 @@ export default function ContactPage() {
                   address: address,
                   tel: tel,
                   email: email,
+                  opentime: opentime,
                   facebook: facebook,
                   line: line,
                   linkmap: linkmap,
@@ -325,6 +348,7 @@ export default function ContactPage() {
                   setAddress(""),
                   setTel(""),
                   setEmail(""),
+                  setOpentime(""),
                   setFacebook(""),
                   setLine(""),
                   setLinkmap(""),
