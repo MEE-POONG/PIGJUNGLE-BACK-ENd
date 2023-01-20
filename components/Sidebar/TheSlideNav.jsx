@@ -88,6 +88,11 @@ export default function TheSlideNav() {
                   หน้าติดต่อเรา
                 </a>
               </Link>
+              <Link id="buttons" href="//homeFront/popup">
+                <a className={asPath === "//homeFront/popup" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  หน้าโฆษณา
+                </a>
+              </Link>
             </Dropdown.Menu>
 
             <Dropdown.Toggle onClick={() => { setCheckClickPath('/products') }} className={checkClickPath === "/products" || checkClickPath === "/products/type" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >

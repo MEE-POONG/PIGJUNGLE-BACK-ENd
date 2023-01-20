@@ -109,3 +109,11 @@ model LinkVideo {
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
 }
+
+model Popup{
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  image      String?
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
+}
