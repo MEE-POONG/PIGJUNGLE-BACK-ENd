@@ -24,9 +24,11 @@ export default async function handler(req, res) {
                     },
                     data: {
                         title: req.body.title,
+                        image: req.body.image,
                         address: req.body.address,
                         tel: req.body.tel,
                         email: req.body.email,
+                        opentime: req.body.opentime,
                         facebook: req.body.facebook,
                         line: req.body.line,
                         linkmap:req.body.linkmap,     
