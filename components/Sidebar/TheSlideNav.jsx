@@ -67,14 +67,14 @@ export default function TheSlideNav() {
               </i>
               จัดการหน้าเว็บ
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/homeFront" || checkClickPath === "/homeFront/slid" || checkClickPath === "/homeFront/howToOrder" || checkClickPath === "/Contact"}>
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/homeFront" || checkClickPath === "/homeFront/slides" || checkClickPath === "/homeFront/howToOrder" || checkClickPath === "/Contact"}>
               <Link id="buttons" href="/homeFront">
                 <a className={asPath === "/homeFront" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   หน้าหลัก
                 </a>
               </Link>
-              <Link id="buttons" href="//homeFront/slid">
-                <a className={asPath === "//homeFront/slid" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              <Link id="buttons" href="//homeFront/slides">
+                <a className={asPath === "//homeFront/slides" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   หน้าสไลด์รูปภาพ
                 </a>
               </Link>

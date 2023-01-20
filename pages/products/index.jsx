@@ -33,7 +33,7 @@ function MyTable(props) {
             <tbody>
                 {currentItems.length ? (
                     currentItems?.map((item, index) => (
-                    item.productType?.name === "กัญชา" ?(
+                   
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
                             <td>
@@ -55,7 +55,7 @@ function MyTable(props) {
                                 <ProductsDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
-                    ):("")
+
                      
                         
                     )))
@@ -71,7 +71,7 @@ export default function ProductPage() {
         pageSize: '10'
     });
 
-    const [{ data: productsData, loading, error }, getProduct] = useAxios({ url: `/api/products?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: productsData, loading, error }, getProduct] = useAxios({ url: `/api/products?page=1&pageSize=10&type=`, method: 'GET' });
     useEffect(() => {
         if (productsData) {
             setParams({
@@ -84,6 +84,7 @@ export default function ProductPage() {
 
     const [{ data: productTypeData }, getProductsType] = useAxios({ url: '../api/productType?' })
     const [typeId, setTypeId] = useState("");
+    const [name, setName] = useState("");
    
 
     const handleSelectPage = (pageValue) => {
@@ -105,7 +106,13 @@ export default function ProductPage() {
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
                         รายการสินค้า
-                    </Card.Title>   
+                    </Card.Title> 
+                    <Form.Group className="mb-3" controlId="price">
+                        <Form.Label>ค้นหาสินค้ส</Form.Label>
+                        <form className="d-none d-md-flex ms-4">
+                            <input className="form-control bg-dark border-0" type="search" placeholder="Search" onChange={(e) => { setName(e.target.value) }} />
+                        </form>  
+                    </Form.Group>
                     <Form.Group className="mb-3" controlId="price">
                         <Form.Label>ประเภทสินค้า</Form.Label>
                             <Form.Select 
