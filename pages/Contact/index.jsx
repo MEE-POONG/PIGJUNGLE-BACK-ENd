@@ -7,7 +7,6 @@ import PageError from "@/components/PageChange/pageError";
 import {
   Container,
   Image,
-  Table,
   Button,
   Form,
   OverlayTrigger,
@@ -16,6 +15,7 @@ import {
   Row,
   Col,
   Alert,
+  Card,
 } from "react-bootstrap";
 // import Editor from '@/components/Ckeditor/Editor';
 import useAxios from "axios-hooks";
@@ -34,6 +34,15 @@ export default function ContactPage() {
     executeContactPut,
   ] = useAxios({}, { manual: true });
 
+  const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios(
+    { url: "/api/upload", method: "POST" },
+    { manual: true }
+  );
+
+  const [img, setImg] = useState([]);
+  const [image, setImage] = useState([]);
+  const [imageURL, setImageURL] = useState([]);
+
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [tel, setTel] = useState("");
@@ -50,20 +59,31 @@ export default function ContactPage() {
 
   useEffect(() => {
     setTitle(contactById?.title);
+    setImage(contactById?.image);
     setAddress(contactById?.address);
     setTel(contactById?.tel);
     setEmail(contactById?.email);
     setFacebook(contactById?.facebook);
     setLine(contactById?.line);
     setLinkmap(contactById?.linkmap);
+
+    // if (image.length < 1) return;
+    // const newImageUrl = [];
+    // image.forEach((image) => newImageUrl.push(URL.createObjectURL(image)));
+    // setImageURL(newImageUrl);
   }, [contactById]);
+
+  const onImageLogoChange = (e) => {
+    setImage([...e.target.files]);
+  };
 
   const CloseModal = () => {
     setShowModalEdit(false);
   };
-  if (loading || updateContactLoading || contactByIdLoading)
+  if (loading || updateContactLoading || contactByIdLoading || imgLoading)
     return <PageLoading />;
-  if (error || updateContactError || contactByIdError) return <PageError />;
+  if (error || updateContactError || contactByIdError || imgError)
+    return <PageError />;
   return (
     <>
       <Head>
@@ -81,81 +101,109 @@ export default function ContactPage() {
             <div className="d-flex align-items-center border-bottom py-2">
               <div className="table-responsive w-100 ">
                 <Row>
-
                   <Col>
-                  <Form.Group  className="mb-3 my-3">
-                  <Form.Label> <h4>ชื่อร้าน</h4></Form.Label>
-                  <Alert variant="warning" style={{ width: "500px"}}>
-                  <h5>{contact.title}</h5>
-                  </Alert>
-                </Form.Group>
+                    <Form.Group className="mb-3 my-3">
+                      <Form.Label>
+                        {" "}
+                        <h4>ชื่อร้าน</h4>
+                      </Form.Label>
+                      <Alert variant="warning" style={{ width: "500px" }}>
+                        <h5>{contact.title}</h5>
+                      </Alert>
+                    </Form.Group>
 
-                <hr style={{ width: "500px"}} />
+                    <hr style={{ width: "500px" }} />
 
-                <Form.Group className="mb-3 my-3">
-                <Form.Label> <h4>ที่อยู่</h4></Form.Label>
-                <Alert variant="warning" style={{ width: "500px"}}>
-                <h5>{contact.address}</h5>
-                </Alert>
-                </Form.Group>
+                    <Form.Group className="mb-3 my-3">
+                      <Form.Label>
+                        {" "}
+                        <h4> ภาพโลโก้ร้าน</h4>
+                      </Form.Label>
+                      <Card style={{ width: "500px" }}>
+                        <Card.Img  src={contact.image}  width="500px"height="300px"
+                        />
+                      </Card>
+                    </Form.Group>
+                    <hr style={{ width: "500px" }} />
 
-                <hr style={{ width: "500px"}} />
+                    <Form.Group className="mb-3 my-3">
+                      <Form.Label>
+                        {" "}
+                        <h4>ลิงค์แผนที่</h4>
+                      </Form.Label>
+                      <Alert variant="warning" style={{ width: "500px" }}>
+                        <h5>{contact.linkmap}</h5>
+                      </Alert>
+                    </Form.Group>
 
-                <Form.Group className="mb-3 my-3">
-                <Form.Label> <h4>เบอร์โทรศัพท์</h4></Form.Label>
-                <Alert variant="warning" style={{ width: "500px"}}>
-                <h5>{contact.tel}</h5>
-                </Alert>
-                </Form.Group>
+                    <hr style={{ width: "500px" }} />
+                    
+                    <Form.Group className="mb-3 my-3">
+                      <Form.Label>
+                        {" "}
+                        <h4>อีเมล์</h4>
+                      </Form.Label>
+                      <Alert variant="warning" style={{ width: "500px" }}>
+                        <h5>{contact.email}</h5>
+                      </Alert>
+                    </Form.Group>
 
-                <hr style={{ width: "500px"}} />
-
-                 <Form.Group className="mb-3 my-3">
-                <Form.Label> <h4>อีเมล์</h4></Form.Label>
-                <Alert variant="warning" style={{ width: "500px"}}>
-                <h5>{contact.email}</h5>
-                </Alert>
-                </Form.Group>
-
-                <hr style={{ width: "500px"}} />
+                    <hr style={{ width: "500px" }} />
                   </Col>
 
                   <Col>
-                 
+                  <Form.Group className="mb-3 my-3">
+                      <Form.Label>
+                        {" "}
+                        <h4>ที่อยู่</h4>
+                      </Form.Label>
+                      <Alert variant="warning" style={{ width: "500px" }}>
+                        <h5>{contact.address}</h5>
+                      </Alert>
+                    </Form.Group>
 
-                <Form.Group className="mb-3 my-3">
-                <Form.Label> <h4>เฟสบุค</h4></Form.Label>
-                <Alert variant="warning" style={{ width: "500px"}}>
-                <h5>{contact.facebook}</h5>
-                </Alert>
-                </Form.Group>
+                    <hr style={{ width: "500px" }} />
 
-                <hr style={{ width: "500px"}} />
+                    <Form.Group className="mb-3 my-3">
+                      <Form.Label>
+                        {" "}
+                        <h4>เบอร์โทรศัพท์</h4>
+                      </Form.Label>
+                      <Alert variant="warning" style={{ width: "500px" }}>
+                        <h5>{contact.tel}</h5>
+                      </Alert>
+                    </Form.Group>
 
-                <Form.Group className="mb-3 my-3">
-                <Form.Label> <h4>ไลน์</h4></Form.Label>
-                <Alert variant="warning" style={{ width: "500px"}}>
-                <h5>{contact.line}</h5>
-                </Alert>
-                </Form.Group>
+                    <hr style={{ width: "500px" }} />
 
-                <hr style={{ width: "500px"}} />
+                    <Form.Group className="mb-3 my-3">
+                      <Form.Label>
+                        {" "}
+                        <h4>เฟสบุค</h4>
+                      </Form.Label>
+                      <Alert variant="warning" style={{ width: "500px" }}>
+                        <h5>{contact.facebook}</h5>
+                      </Alert>
+                    </Form.Group>
 
-                
-                <Form.Group className="mb-3 my-3">
-                <Form.Label> <h4>ลิงค์แผนที่</h4></Form.Label>
-                <Alert variant="warning" style={{ width: "500px"}}>
-                <h5>{contact.linkmap}</h5>
-                </Alert>
-                </Form.Group>
+                    <hr style={{ width: "500px" }} />
 
-                <hr style={{ width: "500px"}} />
-              </Col>
+                    <Form.Group className="mb-3 my-3">
+                      <Form.Label>
+                        {" "}
+                        <h4>ไลน์</h4>
+                      </Form.Label>
+                      <Alert variant="warning" style={{ width: "500px" }}>
+                        <h5>{contact.line}</h5>
+                      </Alert>
+                    </Form.Group>
 
-                  
+                    <hr style={{ width: "500px" }} />
 
+                   
+                  </Col>
                 </Row>
-              
+
                 <Button
                   variant="warning"
                   onClick={() => ShowModalEdit(contact.id)}
@@ -184,6 +232,23 @@ export default function ContactPage() {
               type="text"
               value={title}
               onChange={(event) => setTitle(event.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formFile">
+            <Form.Label className='text-center'>เลือกรูปโลโก้</Form.Label>
+            <Form.Label className='d-block'>รูปภาพ</Form.Label>
+            {imageURL?.length === 0 && <Image className="mb-2" style={{ height: 200 }} src={img} alt="logo_img" fluid rounded />}
+            {imageURL?.map((imageSrcContact, index) => <Image key={index} className="mb-2" style={{ height: 200 }} src={imageSrcContact} alt="logo_img" fluid rounded />)}
+            <Form.Control type="file" accept="image/*" onChange={onImageLogoChange} />                   
+        </Form.Group>
+
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label>ลิงค์แผนที่</Form.Label>
+            <Form.Control
+              type="text"
+              value={linkmap}
+              onChange={(event) => setLinkmap(event.target.value)}
             />
           </Form.Group>
 
@@ -232,14 +297,6 @@ export default function ContactPage() {
             />
           </Form.Group>
 
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>ลิงค์แผนที่</Form.Label>
-            <Form.Control
-              type="text"
-              value={linkmap}
-              onChange={(event) => setLinkmap(event.target.value)}
-            />
-          </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={CloseModal}>
@@ -248,28 +305,30 @@ export default function ContactPage() {
           <Button
             variant="success"
             onClick={() => {
-                executeContactPut({
+              executeContactPut({
                 url: "/api/contact/" + contactById?.id,
                 method: "PUT",
                 data: {
-                    title: title,
-                    address: address,
-                    tel: tel,
-                    email: email,
-                    facebook: facebook,
-                    line: line,
-                    linkmap: linkmap,
+                  title: title,
+                  image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
+                  address: address,
+                  tel: tel,
+                  email: email,
+                  facebook: facebook,
+                  line: line,
+                  linkmap: linkmap,
                 },
               }).then(() => {
                 Promise.all([
-                    setTitle(''),
-                    setAddress(''),
-                    setTel(''),
-                    setEmail(''),
-                    setFacebook(''),
-                    setLine(''),
-                    setLinkmap(''),
-                    getContact()
+                  setTitle(""),
+                  setImage(""),
+                  setAddress(""),
+                  setTel(""),
+                  setEmail(""),
+                  setFacebook(""),
+                  setLine(""),
+                  setLinkmap(""),
+                  getContact(),
                 ]).then(() => {
                   CloseModal();
                 });
