@@ -61,10 +61,12 @@ model OrderDetail {
 
 model Contact {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  image      String?
   title      String?
   address    String?
   tel        String?
   email      String?
+  opentime   String?
   facebook   String?
   line       String?
   createdAt  DateTime? @default(now())
@@ -92,6 +94,7 @@ model Slid {
 
 model HowToOrder {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  image      String?
   title      String?
   detail     String?
   createdAt  DateTime? @default(now())
@@ -101,7 +104,7 @@ model HowToOrder {
 
 model LinkVideo {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  link  String?
+  link       String?
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")

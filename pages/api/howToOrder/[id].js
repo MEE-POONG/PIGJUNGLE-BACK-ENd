@@ -6,11 +6,12 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.contact.findFirst({
+                const data = await prisma.howToOrder.findFirst({
                     where: {
                         id: req.query.id
                     }
                 });
+                prisma.$disconnect();
                 res.status(200).json(data)
             } catch (error) {
                 res.status(400).json({ success: false })
@@ -18,27 +19,34 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.contact.update({
+                await prisma.howToOrder.update({
                     where: {
                         id: req.query.id
                     },
                     data: {
                         title: req.body.title,
+                        detail: req.body.detail,
                         image: req.body.image,
-                        address: req.body.address,
-                        tel: req.body.tel,
-                        email: req.body.email,
-                        opentime: req.body.opentime,
-                        facebook: req.body.facebook,
-                        line: req.body.line,
-                        linkmap:req.body.linkmap,     
-                       
+                        
                     }
                 })
+                prisma.$disconnect();
                 res.status(201).json({ success: true })
             } catch (error) {
-               console.log(error);
-                // res.status(400).json({ success: false })
+                res.status(400).json({ success: false })
+            }
+            break
+        case 'DELETE':
+            try {
+                await prisma.howToOrder.delete({
+                    where: {
+                        id: req.query.id
+                    }
+                });
+                prisma.$disconnect();
+                res.status(204).json({ success: true })
+            } catch (error) {
+                res.status(400).json({ success: false })
             }
             break
         default:
