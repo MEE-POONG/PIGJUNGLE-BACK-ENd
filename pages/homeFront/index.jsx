@@ -98,7 +98,7 @@ export default function homeFrontPage() {
   return (
     <>
       <Head>
-        <title>T-ACTIVE BACKEND</title>
+        <title>PIG JUNGLE BACKEND</title>
         <meta name="description" content="I2AROBOT 2" />
         <link rel="icon" href="/images/logo.png" />
       </Head>

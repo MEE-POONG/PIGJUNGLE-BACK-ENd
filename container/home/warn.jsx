@@ -19,7 +19,7 @@ export default function Warn(props) {
                 <Card>
                     <Card.Header>
                         <Card.Title className='text-center'>
-                            ติดต่อเรา
+                            ออเดอร์วันนี้
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>
@@ -38,7 +38,7 @@ export default function Warn(props) {
                 <Card>
                     <Card.Header>
                         <Card.Title className='text-center'>
-                            แก้ไขเปลี่ยนแปลงข้อมูล
+                            ออเดอร์ที่ส่งแล้ว
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>
