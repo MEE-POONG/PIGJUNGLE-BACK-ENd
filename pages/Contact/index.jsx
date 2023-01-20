@@ -14,6 +14,7 @@ import {
   Badge,
   Modal,
   Row,
+  Col,
   Alert,
 } from "react-bootstrap";
 // import Editor from '@/components/Ckeditor/Editor';
@@ -79,7 +80,10 @@ export default function ContactPage() {
 
             <div className="d-flex align-items-center border-bottom py-2">
               <div className="table-responsive w-100 ">
-                <Form.Group  className="mb-3 my-3">
+                <Row>
+
+                  <Col>
+                  <Form.Group  className="mb-3 my-3">
                   <Form.Label> <h4>ชื่อร้าน</h4></Form.Label>
                   <Alert variant="warning" style={{ width: "500px"}}>
                   <h5>{contact.title}</h5>
@@ -106,8 +110,7 @@ export default function ContactPage() {
 
                 <hr style={{ width: "500px"}} />
 
-                
-                <Form.Group className="mb-3 my-3">
+                 <Form.Group className="mb-3 my-3">
                 <Form.Label> <h4>อีเมล์</h4></Form.Label>
                 <Alert variant="warning" style={{ width: "500px"}}>
                 <h5>{contact.email}</h5>
@@ -115,6 +118,10 @@ export default function ContactPage() {
                 </Form.Group>
 
                 <hr style={{ width: "500px"}} />
+                  </Col>
+
+                  <Col>
+                 
 
                 <Form.Group className="mb-3 my-3">
                 <Form.Label> <h4>เฟสบุค</h4></Form.Label>
@@ -143,7 +150,12 @@ export default function ContactPage() {
                 </Form.Group>
 
                 <hr style={{ width: "500px"}} />
+              </Col>
 
+                  
+
+                </Row>
+              
                 <Button
                   variant="warning"
                   onClick={() => ShowModalEdit(contact.id)}
