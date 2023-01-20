@@ -38,14 +38,14 @@ export default function homeFrontPage() {
   const [{ data: linkVideoData, loading:linkVideoLoading,error:linkVideoError }, getLinkVideoFront] = useAxios({
     url: "/api/linkVideo",
   });
-  // const [
-  //   { data: homeFrontById, loading: homeFrontByIdLoading, error: homeFrontByIdError },
-  //   getHomeFrontById,
-  // ] = useAxios({}, { manual: true });
-  // const [
-  //   { loading: updateHomeFrontLoading, error: updateHomeFrontError },
-  //   executeHomeFrontPut,
-  // ] = useAxios({}, { manual: true });
+  const [
+    { data: linkVideoById, loading: linkVideoByIdLoading, error: linkVideoByIdError },
+    getLinkVideoById,
+  ] = useAxios({}, { manual: true });
+  const [
+    { loading: updateLinkVideoLoading, error: updateLinkVideoError },
+    executeLinkVideoPut,
+  ] = useAxios({}, { manual: true });
 
 
   const[{loading: imgLoading, error: imgError}, uploadImage]= useAxios({url: '/api/upload', method: 'POST'},{manual: true});
@@ -53,20 +53,23 @@ export default function homeFrontPage() {
   const [img, setImg] = useState([])
   const [image, setImage] = useState([])
   const [imageURL, setImageURL] = useState([])
+  
+  const [link , setLink] = useState([])
 
   const [name, setName] = useState("");
 
   useEffect(() => {
       setName(homeFrontById?.name);
-
       setImg(homeFrontById?.image);
+
+      setLink(linkVideoById?.link)
 
       if (image.length < 1) return
       const newImageUrl = []
       image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
       setImageURL(newImageUrl)
 
-    }, [homeFrontById ,image]);
+    }, [homeFrontById, linkVideoById ,image]);
 
       const onImageLogoChange = (e) => {
           setImage([...e.target.files])
@@ -80,14 +83,15 @@ export default function homeFrontPage() {
   };
   const [showModalEditLinkVideo , setShowModalEditLinkVideo] =useState(false);
   const ShowModalEditLinkVideo = async (id) => {
-    await getHomeFrontById({ url: "/api/homeFront/" + id, method: "GET" });
-    setShowModalEdit(true);
+    await getLinkVideoById({ url: "/api/linkVideo/" + id, method: "GET" });
+    setShowModalEditLinkVideo(true);
   };
 
 
 
   const CloseModal = () => {
     setShowModalEdit(false);
+    setShowModalEditLinkVideo(false);
   };
   if (loading || updateHomeFrontLoading || homeFrontByIdLoading || imgLoading)return <PageLoading />;
   if (error || updateHomeFrontError || homeFrontByIdError || imgError) return <PageError />;
@@ -138,11 +142,17 @@ export default function homeFrontPage() {
                 ))}
                 {linkVideoData?.map((linkVideo, index) => (
                 <Col key={index}>
-                
-                <iframe
+
+                  <Form.Group  className="mb-3 my-3" >
+                  <Form.Label> <h4> วิดีโอร้าน</h4></Form.Label>
+                  <Card  style={{ width: "500px"}}>
+                  <iframe
                   width="500px" height="500px"
-                  src="https://player.vimeo.com/video/789978770?h=443b05e023"
+                  src={linkVideo.link}
                 ></iframe>
+                  </Card>
+                </Form.Group>
+  
                 
                 <Form.Group  className="mb-3 my-3">
                   <Form.Label> <h4>ลิ้งค์วิดีโอ</h4></Form.Label>
@@ -155,7 +165,7 @@ export default function homeFrontPage() {
                 
                 <Button
                   variant="warning"
-                  onClick={() => ShowModalEdit(homeFront.id)}
+                  onClick={() => ShowModalEditLinkVideo(linkVideo.id)}
                 >
                   แก้ไข
                 </Button>
@@ -238,7 +248,7 @@ export default function homeFrontPage() {
         </Modal.Footer>
       </Modal>
 
-      {/* <Modal
+      <Modal
         show={showModalEditLinkVideo}
         onHide={CloseModal}
         centered
@@ -253,8 +263,8 @@ export default function homeFrontPage() {
             <Form.Label>ลิ้งค์วิดีโอ</Form.Label>
             <Form.Control
               type="text"
-              value={linkVideo}
-              onChange={(event) => setLinkVideo(event.target.value)}
+              value={link}
+              onChange={(event) => setLink(event.target.value)}
             />
           </Form.Group>
         </Modal.Body>
@@ -265,16 +275,16 @@ export default function homeFrontPage() {
           <Button
             variant="success"
             onClick={  () => {
-              executeHomeFrontPut({
-                url: "/api/homeFront/" + homeFrontById?.id,
+              executeLinkVideoPut({
+                url: "/api/linkVideo/" + linkVideoById?.id,
                 method: "PUT",
                 data: {
-                  linkVideo: linkVideo,
+                  link: link,
                     
                 },
               }).then(() => {
                 Promise.all([
-                  setLinkVideo(''),
+                  setLink(''),
 
                 ]).then(() => {
                   CloseModal();
@@ -285,7 +295,7 @@ export default function homeFrontPage() {
             บันทึก
           </Button>
         </Modal.Footer>
-      </Modal> */}
+      </Modal>
     </>
   );
 }
