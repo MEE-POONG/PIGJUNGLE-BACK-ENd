@@ -84,13 +84,13 @@ export default function PopupEditModal(props) {
 
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                  <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>แก้ไขสินค้า</Modal.Title>
+                    <Modal.Title className='text-center'>แก้ไขโฆษณา</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <Row>
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="formFile">
-                                <Form.Label className='text-center'>เลือกรูปสินค้า</Form.Label>
+                                <Form.Label className='text-center'>เลือกรูปโฆษณา</Form.Label>
  
                                 <Form.Label className='d-block'>รูปภาพ</Form.Label>
                                 {imageURL?.length === 0 && <Image className="mb-2" style={{ height: 200 }} src={img} alt="Popup_img" fluid rounded />}
@@ -107,7 +107,7 @@ export default function PopupEditModal(props) {
                         ยกเลิก
                     </Button>
                     <Button bsPrefix="succeed" className='my-0' onClick={handlePutData}>
-                        ยืนยันการเพิ่ม
+                        ยืนยันแก้ไข
                     </Button>
                 </Modal.Footer>
             </Modal>
