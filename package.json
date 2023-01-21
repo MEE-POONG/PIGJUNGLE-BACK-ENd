@@ -5,8 +5,11 @@
   "scripts": {
     "dev": "next dev -p 83",
     "build": "next build",
-    "start": "next start -p 83",
-    "lint": "next lint"
+    "start": "next start",
+    "lint": "next lint",
+    "docker:build": "docker build -t chunwarayut/pig-jungle-back-end:latest .",
+    "docker:push": "docker push chunwarayut/pig-jungle-back-end:latest",
+    "docker:b:p": "npm run docker:build && npm run docker:push"
   },
   "dependencies": {
     "@prisma/client": "^4.8.1",
