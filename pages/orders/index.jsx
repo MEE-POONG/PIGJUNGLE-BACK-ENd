@@ -11,61 +11,6 @@ import OrderShowDetailModal  from '@/container/Orders/OrderShowDetailModal'
 // import OrderEditModal from '@/container/Orders/OrderEditModal'
 import  {format}  from "date-fns";
 
-function MyTable(props) {
-    const [currentItems, setCurrentItems] = useState(props?.data);
-    const [numberSet, setNumberSet] = useState(props?.setNum);
-    useEffect(() => {
-        setCurrentItems(currentItems);
-        console.log(props);
-    }, [props]);
-
-    return (
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>ชื่อผู้สั่งสินค้า</th>
-                    <th>รายละเอียดที่ต้องจัดส่ง</th>
-                    <th>เวลาที่สั่งซื้อ</th>
-                    <th>สถานะ</th>
-                    <th>ราคารวม</th>
-                    <th>จัดการ</th>
-                </tr>
-            </thead>
-            <tbody>
-                {currentItems.length ? (
-                    currentItems?.map((item, index) => (
-                        
-                        <tr key={item.id}>
-                            <td>{index + 1 + numberSet}</td>
-                            <td>
-                                {item.firstname}{" "}{item.lastname}
-                            </td>
-                            <td>
-                                 <OrderShowDetailModal value={item} getData={props?.getData} />
-                            </td>
-                            <td>
-                            {format(new Date(item.createdAt), "dd/MM/yyyy")}
-                            </td>
-                            <td>
-                                <Badge bg="primary">
-                                    {item.status}
-                                </Badge>
-                            </td>
-                            <td>
-                                {item.total}{' '}บาท
-                            </td>
-                            <td>
-                                {/* <OrderConfirmModal value={item} getData={props?.getData} /> */}
-                                <OrderDeleteModal value={item} getData={props?.getData} />
-                            </td>
-                        </tr>
-                    )))
-                    : ""}
-            </tbody>
-        </Table>
-    );
-}
 
 export default function ProductPage() {
     const [params, setParams] = useState({
@@ -73,7 +18,7 @@ export default function ProductPage() {
         pageSize: '10'
     });
 
-    const [status,setStatus] = useState("รอการตรวจสอบ");
+    const [status,setStatus] = useState("กำลังดำเนินการ");
     
     const [{ data: orderData, loading, error }, getProduct] = useAxios({ url: `/api/order?page=1&pageSize=10&status=${status}`, method: 'GET' });
     useEffect(() => {
@@ -137,6 +82,61 @@ export default function ProductPage() {
                 <MyPagination page={orderData.page} totalPages={orderData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
+    );
+}
+function MyTable(props) {
+    const [currentItems, setCurrentItems] = useState(props?.data);
+    const [numberSet, setNumberSet] = useState(props?.setNum);
+    useEffect(() => {
+        setCurrentItems(currentItems);
+        console.log(props);
+    }, [props]);
+
+    return (
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>ชื่อผู้สั่งสินค้า</th>
+                    <th>รายละเอียดที่ต้องจัดส่ง</th>
+                    <th>เวลาที่สั่งซื้อ</th>
+                    <th>สถานะ</th>
+                    <th>ราคารวม</th>
+                    <th>จัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {currentItems.length ? (
+                    currentItems?.map((item, index) => (
+                        
+                        <tr key={item.id}>
+                            <td>{index + 1 + numberSet}</td>
+                            <td>
+                                {item.firstname}{" "}{item.lastname}
+                            </td>
+                            <td>
+                                 <OrderShowDetailModal value={item} getData={props?.getData} />
+                            </td>
+                            <td>
+                            {format(new Date(item.createdAt), "dd/MM/yyyy")}
+                            </td>
+                            <td>
+                                <Badge bg="primary">
+                                    {item.status}
+                                </Badge>
+                            </td>
+                            <td>
+                                {item.total}{' '}บาท
+                            </td>
+                            <td>
+                                {/* <OrderConfirmModal value={item} getData={props?.getData} /> */}
+                                <OrderDeleteModal value={item} getData={props?.getData} />
+                            </td>
+                        </tr>
+                    )))
+                    : ""}
+            </tbody>
+        </Table>
     );
 }
 ProductPage.layout = IndexPage
