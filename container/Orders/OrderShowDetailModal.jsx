@@ -4,6 +4,7 @@ import { FaTrash ,FaPlus } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
+import  {format}  from "date-fns";
 export default function ProductsDeleteModal(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
@@ -30,6 +31,7 @@ export default function ProductsDeleteModal(props) {
                         <h4 className="mb-3">E-mail : {props?.value?.email}</h4>
                         <h4 className="mb-3">เบอร์มือถือ : {props?.value?.tel}</h4>
                         <h4 className="mb-3">เพิ่มเติม : {props?.value?.notes}</h4>
+                        <h4 className="mb-3">เวลาที่สั่งซื้อ : {format(new Date(props?.value?.createdAt), "dd/MM/yyyy HH:mm:ss")}</h4>
                       </Col>      
                     </Row>
                     <h4>ที่อยู่ที่ต้องจัดส่ง</h4>
