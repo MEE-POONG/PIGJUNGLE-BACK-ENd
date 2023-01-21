@@ -12,7 +12,7 @@ export const config = {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, `pages/api/upload/`)
+        cb(null, `./public/upload/`)
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
