@@ -11,7 +11,6 @@ import axios from 'axios'
 import { CKEditor } from 'ckeditor4-react'
 
 export default function HowToOrdersAddModal(props) {
-    const [{ data: howToOrdersData ,loading ,error }, getHowToOrders] = useAxios({ url: '/api/howToOrders' })
     const [{ data:howToOrdersPost, error: errorMessage, loading: howToOrdersLoading }, executeHowToOrders] = useAxios({ url: '/api/howToOrder', method: 'POST' }, { manual: true });
     
     const [checkValue, setCheckValue] = useState(true);
@@ -79,8 +78,8 @@ export default function HowToOrdersAddModal(props) {
         
     }
 
-    if (loading || howToOrdersLoading || imgLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (error || errorMessage ||imgError ) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (howToOrdersLoading || imgLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (errorMessage ||imgError ) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>

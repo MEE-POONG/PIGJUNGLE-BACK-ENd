@@ -10,7 +10,6 @@ import FormData from 'form-data';
 import { CKEditor } from 'ckeditor4-react'
 
 export default function ProductsTypeEditModal(props) {
-    const [{ data: productsTypeData, loading, error }, getProductType] = useAxios({ url: '/api/productType' })
     const [{ loading: updateProductTypeLoading, error: updateProductsError }, executeProductTypePut] = useAxios({}, { manual: true })
 
     const [checkValue, setCheckValue] = useState(true);
@@ -52,8 +51,8 @@ export default function ProductsTypeEditModal(props) {
         }
     }
 
-    // if (loading || updateProductsLoading) return <ModelLoading showCheck={showCheck}/>
-    // if (error || updateProductsError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+    if (updateProductTypeLoading) return <ModelLoading showCheck={showCheck}/>
+    if (updateProductsError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (
         <>

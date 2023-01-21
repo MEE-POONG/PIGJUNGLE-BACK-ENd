@@ -34,7 +34,7 @@ function MyTable(props) {
                 {currentItems.length ? (
                     currentItems?.map((item, index) => (
                         <tr key={item.id}>
-                            <td>{index + 1 + numberSet}</td>
+                            <td className="text-center">{index + 1 + numberSet}</td>
                             <td>
                                 <Image src={item.image}  width="100px" height="100px" className='object-fit-cover' />
                             </td>

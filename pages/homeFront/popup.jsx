@@ -6,7 +6,7 @@ import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
 import PopupEditModal from '@/container/popup/PopupEditModal'
-import PopupAddModal from '@/container/popup/PopupAddModal'
+
 
 // import PopupDeleteModal from '@/container/Popup/PopupDeleteModal'
 
@@ -25,6 +25,7 @@ function MyTable(props) {
         <Table striped bordered hover>
             <thead>
                 <tr>
+                    <th>ลำดับ</th>
                     <th>รูปภาพ</th>
                     <th>จัดการ</th>
                 </tr>
@@ -33,9 +34,9 @@ function MyTable(props) {
                 {currentItems.length ? (
                     currentItems?.map((item, index) => (
                         <tr key={item.id}>
-                            <td>{index + 1 + numberSet}</td>
+                            <td className="text-center">{index + 1 + numberSet}</td>
                             <td>
-                                <Image src={item.image}  width="100px" height="100px" className='object-fit-cover' />
+                                <Image src={item.image}  width="300px" height="300px" className='object-fit-cover' />
                             </td>
                             <td>
                                 <PopupEditModal value={item} getData={props?.getData} />
@@ -86,10 +87,10 @@ export default function PopupPage() {
                     <Card.Title className="mb-0">
                         จัดการวิธีการใช้
                     </Card.Title>   
-                    <PopupAddModal getData={getPopup}/>
+                    {/* <PopupAddModal getData={getPopup}/> */}
                 </div>
                 <MyTable data={popupData?.data} setNum={(popupData?.page * popupData?.pageSize) - popupData?.pageSize} getData={getPopup} />
-                <MyPagination page={popupData.page} totalPages={popupData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
+                {/* <MyPagination page={popupData.page} totalPages={popupData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} /> */}
             </Card >
         </Container >
     );

@@ -2,16 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Modal, Button, Form, Row, Col,Image } from 'react-bootstrap'
 import { FaEdit } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
-import AutoComplete from '@/components/AutoComplete'
-import CardError from '@/components/CardChange/CardError'
+// import AutoComplete from '@/components/AutoComplete'
+// import CardError from '@/components/CardChange/CardError'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
-import ModelError from '@/components/ModelChange/ModelError'
+// import ModelError from '@/components/ModelChange/ModelError'
 import FormData from 'form-data';
 import { CKEditor } from 'ckeditor4-react'
 
 export default function PopupEditModal(props) {
-    const [{ data: PopupData, loading, error }, getPopup] = useAxios({ url: '/api/popup' })
-
     const [{ loading: updatePopupLoading, error: updatePopupError }, executePopupPut] = useAxios({}, { manual: true })
 
     const [checkValue, setCheckValue] = useState(true);
@@ -49,7 +47,7 @@ export default function PopupEditModal(props) {
 
     const handlePutData = async () => {
         setCheckValue(false);
-        if (name !== '' && price !== '') {
+        if (image !== '' ) {
 
             let data =new FormData()
             data.append('file', image[0])
@@ -75,8 +73,8 @@ export default function PopupEditModal(props) {
         }
     }
 
-    // if (loading || updatePopupLoading) return <ModelLoading showCheck={showCheck}/>
-    // if (error || updatePopupError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+    if (updatePopupLoading||imgLoading) return <ModelLoading showCheck={showCheck}/>
+    if (updatePopupError||imgError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (
         <>
