@@ -36,7 +36,7 @@ function MyTable(props) {
                         <tr key={item.id}>
                             <td className="text-center">{index + 1 + numberSet}</td>
                             <td>
-                                <Image src={item.image}  width="100px" height="100px" className='object-fit-cover' />
+                                <Image src={item.image}  width="300px" height="300px" className='object-fit-cover' />
                             </td>
                             <td>
                                 <PopupEditModal value={item} getData={props?.getData} />
