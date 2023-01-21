@@ -18,7 +18,7 @@ import MyPagination from "@/components/Pagination";
 import useAxios from "axios-hooks";
 import PageLoading from "@/components/PageChange/pageLoading";
 import PageError from "@/components/PageChange/pageError";
-import ProductsAddModal from "@/container/products/productsAddModal";
+import ProductsAddModal from "@/container/Products/productsAddModal";
 import ProductsDeleteModal from "@/container/Products/ProductsDeleteModal";
 import ProductsEditModal from "@/container/Products/ProductsEditModal";
 function MyTable(props) {
