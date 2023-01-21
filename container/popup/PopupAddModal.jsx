@@ -11,7 +11,6 @@ import axios from 'axios'
 import { CKEditor } from 'ckeditor4-react'
 
 export default function PopupAddModal(props) {
-    const [{ data: popupData ,loading ,error }, getPopup] = useAxios({ url: '/api/Popup' })
     const [{ data: popupPost, error: errorMessage, loading: popupLoading }, executePopup] = useAxios({ url: '/api/Popup', method: 'POST' }, { manual: true });
     
     const [checkValue, setCheckValue] = useState(true);
@@ -70,8 +69,8 @@ export default function PopupAddModal(props) {
         
     }
 
-    if (loading || popupLoading || imgLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (error || errorMessage ||imgError ) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if ( popupLoading || imgLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if ( errorMessage ||imgError ) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>

@@ -10,8 +10,6 @@ import FormData from 'form-data';
 import { CKEditor } from 'ckeditor4-react'
 
 export default function PopupEditModal(props) {
-    const [{ data: PopupData, loading, error }, getPopup] = useAxios({ url: '/api/popup' })
-
     const [{ loading: updatePopupLoading, error: updatePopupError }, executePopupPut] = useAxios({}, { manual: true })
 
     const [checkValue, setCheckValue] = useState(true);
@@ -75,8 +73,8 @@ export default function PopupEditModal(props) {
         }
     }
 
-    // if (loading || updatePopupLoading) return <ModelLoading showCheck={showCheck}/>
-    // if (error || updatePopupError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+    if (updatePopupLoading||imgLoading) return <ModelLoading showCheck={showCheck}/>
+    if (updatePopupError||imgError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (
         <>

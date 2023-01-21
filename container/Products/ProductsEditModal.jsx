@@ -88,8 +88,8 @@ export default function ProductsEditModal(props) {
     }
   };
 
-  // if (loading || updateProductsLoading) return <ModelLoading showCheck={showCheck}/>
-  // if (error || updateProductsError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+  if (updateProductsLoading || imgLoading) return <ModelLoading showCheck={showCheck}/>
+  if (updateProductsError || imgError ) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
   return (
     <>

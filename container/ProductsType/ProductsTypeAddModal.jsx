@@ -10,7 +10,6 @@ import axios from 'axios'
 
 
 export default function ProductsTypeAddModal(props) {
-    const [{ data: productsTypeData, loading, error }, getProductType] = useAxios({ url: '/api/productType' })
     const [{ data:productTypePost, error: errorMessage, loading: productTypeLoading }, executeProductType] = useAxios({ url: '/api/productType', method: 'POST' }, { manual: true });
     
     const [checkValue, setCheckValue] = useState(true);
@@ -45,8 +44,8 @@ export default function ProductsTypeAddModal(props) {
         
     }
 
-    // if (loading || ProductsLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    // if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (productTypeLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>

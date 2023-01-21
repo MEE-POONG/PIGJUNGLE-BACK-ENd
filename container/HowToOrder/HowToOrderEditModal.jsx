@@ -10,8 +10,6 @@ import FormData from 'form-data';
 import { CKEditor } from 'ckeditor4-react'
 
 export default function HowToOrderEditModal(props) {
-    const [{ data: HowToOrderData, loading, error }, getHowToOrder] = useAxios({ url: '/api/HowToOrder' })
-
     const [{ loading: updateHowToOrderLoading, error: updateHowToOrderError }, executeHowToOrderPut] = useAxios({}, { manual: true })
 
     const [checkValue, setCheckValue] = useState(true);
@@ -91,8 +89,8 @@ export default function HowToOrderEditModal(props) {
         }
     }
 
-    // if (loading || updateHowToOrderLoading) return <ModelLoading showCheck={showCheck}/>
-    // if (error || updateHowToOrderError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+    if (updateHowToOrderLoading || imgLoading) return <ModelLoading showCheck={showCheck}/>
+    if (updateHowToOrderError || imgError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (
         <>
