@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 
 import React from "react";
 import Head from 'next/head';
@@ -25,7 +26,7 @@ export default function AdderssUserPage() {
 
                     <a className='btunav ' type='SignIn' href="/">กลับ</a>
 
-                    <a className='btunav' type='SignIn' href="/sign_up">สมัครสมาชิก</a>
+                    <a className='btunav' type='SignIn' href="/sign_up">เพิ่มผู้ดูแล</a>
 
                 </div>
                 <div className='box-Container-Si'>
@@ -40,7 +41,7 @@ export default function AdderssUserPage() {
 
                     <div className='Container-Si'>
 
-                        <Image src={'images/logo.png'} className='img-Si-Su' />
+                        <Image src={'images/profile.jpg'} className='img-Si-Su' />
 
                         <form>
 
