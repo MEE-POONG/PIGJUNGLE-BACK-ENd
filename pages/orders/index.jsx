@@ -115,7 +115,7 @@ function MyTable(props) {
                     currentItems?.map((item, index) => (
                         
                         <tr key={item.id}>
-                            <td>{index + 1 + numberSet}</td>
+                            <td>{item.orderCode}</td>
                             <td>
                                 {item.firstname}{" "}{item.lastname}
                             </td>
