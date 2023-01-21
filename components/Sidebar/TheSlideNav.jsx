@@ -61,25 +61,25 @@ export default function TheSlideNav() {
                 Home
               </a>
             </Link>
-            <Dropdown.Toggle onClick={() => { setCheckClickPath('/homeFront') }} className={checkClickPath === "/homeFront" ||  checkClickPath === "/homeFront/slid" || checkClickPath === "/homeFront/howToOrder" || checkClickPath === "/Contact" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle onClick={() => { setCheckClickPath('/homeFront') }} className={checkClickPath === "/homeFront" ||  checkClickPath === "/homeFront/slid" || checkClickPath === "/homeFront/howToOrder" || checkClickPath === "/Contact" || checkClickPath === "/homeFront/popup" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
               จัดการหน้าเว็บ
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/homeFront" || checkClickPath === "/homeFront/slides" || checkClickPath === "/homeFront/howToOrder" || checkClickPath === "/Contact"}>
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/homeFront" || checkClickPath === "/homeFront/slides" || checkClickPath === "/homeFront/howToOrder" || checkClickPath === "/Contact" || checkClickPath === "/homeFront/popup"}>
               <Link id="buttons" href="/homeFront">
                 <a className={asPath === "/homeFront" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   หน้าหลัก
                 </a>
               </Link>
               <Link id="buttons" href="//homeFront/slides">
-                <a className={asPath === "//homeFront/slides" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                <a className={asPath === "/homeFront/slides" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   หน้าสไลด์รูปภาพ
                 </a>
               </Link>
               <Link id="buttons" href="//homeFront/howToOrder">
-                <a className={asPath === "//homeFront/howToOrder" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                <a className={asPath === "/homeFront/howToOrder" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   หน้าวิธีการสั่งซื้อ
                 </a>
               </Link>
@@ -89,7 +89,7 @@ export default function TheSlideNav() {
                 </a>
               </Link>
               <Link id="buttons" href="//homeFront/popup">
-                <a className={asPath === "//homeFront/popup" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                <a className={asPath === "/homeFront/popup" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   หน้าโฆษณา
                 </a>
               </Link>
