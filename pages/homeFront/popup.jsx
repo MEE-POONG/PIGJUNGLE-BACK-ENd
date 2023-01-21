@@ -5,9 +5,11 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import PopupAddModal from '@/container/Popup/PopupAddModal'
+import PopupEditModal from '@/container/popup/PopupEditModal'
+import PopupAddModal from '@/container/popup/PopupAddModal'
+
 // import PopupDeleteModal from '@/container/Popup/PopupDeleteModal'
-import PopupEditModal from '@/container/Popup/PopupEditModal'
+
 
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
