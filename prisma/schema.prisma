@@ -46,6 +46,7 @@ model Order {
   total       Int?
   email       String?
   subDistrict String?
+  notes       String?
   OrderDetail OrderDetail[]
 }
 

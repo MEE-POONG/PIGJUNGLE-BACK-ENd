@@ -53,14 +53,22 @@ export default function ContactPage() {
   const [linkmap, setLinkmap] = useState("");
 
   const [showModalEdit, setShowModalEdit] = useState(false);
+  
   const ShowModalEdit = async (id) => {
     await getContactById({ url: "/api/contact/" + id, method: "GET" });
     setShowModalEdit(true);
   };
+const [showModalImageEdit, setShowModalImageEdit] = useState(false);
+
+const ShowModalImageEdit = async (id) => {
+  await getContactById({ url: "/api/contact/" + id, method: "GET" });
+  setShowModalImageEdit(true);
+};
+
 
   useEffect(() => {
     setTitle(contactById?.title);
-    setImage(contactById?.image);
+    setImg(contactById?.image);
     setAddress(contactById?.address);
     setTel(contactById?.tel);
     setEmail(contactById?.email);
@@ -69,11 +77,11 @@ export default function ContactPage() {
     setLine(contactById?.line);
     setLinkmap(contactById?.linkmap);
 
-    // if (image.length < 1) return;
-    // const newImageUrl = [];
-    // image.forEach((image) => newImageUrl.push(URL.createObjectURL(image)));
-    // setImageURL(newImageUrl);
-  }, [contactById]);
+    if (image.length < 1) return
+      const newImageUrl = []
+      image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
+      setImageURL(newImageUrl);
+  }, [contactById,image]);
 
   const onImageLogoChange = (e) => {
     setImage([...e.target.files]);
@@ -81,6 +89,7 @@ export default function ContactPage() {
 
   const CloseModal = () => {
     setShowModalEdit(false);
+    setShowModalImageEdit(false);
   };
   if (loading || updateContactLoading || contactByIdLoading || imgLoading)
     return <PageLoading />;
@@ -104,6 +113,26 @@ export default function ContactPage() {
               <div className="table-responsive w-100 ">
                 <Row>
                   <Col>
+                    <Form.Label>
+                        {" "}
+                        <h4> ภาพร้าน</h4>
+                      </Form.Label>
+                      <Card style={{ width: "500px" }}>
+                        <Card.Img  src={contact.image}  width="500px"height="300px"
+                        />
+                      </Card>
+
+                      <Button
+                        className=" mt-1"
+                        variant="warning"
+                        onClick={() => ShowModalImageEdit(contact.id)}
+                      >
+                        แก้ไขรูปภาพ
+                      </Button>
+
+                      <hr style={{ width: "500px" }} />
+
+
                     <Form.Group className="mb-3 my-3">
                       <Form.Label>
                         {" "}
@@ -117,14 +146,7 @@ export default function ContactPage() {
                     <hr style={{ width: "500px" }} />
 
                     <Form.Group className="mb-3 my-3">
-                      <Form.Label>
-                        {" "}
-                        <h4> ภาพโลโก้ร้าน</h4>
-                      </Form.Label>
-                      <Card style={{ width: "500px" }}>
-                        <Card.Img  src={contact.image}  width="500px"height="300px"
-                        />
-                      </Card>
+
                     </Form.Group>
                     <hr style={{ width: "500px" }} />
 
@@ -140,7 +162,12 @@ export default function ContactPage() {
 
                     <hr style={{ width: "500px" }} />
                     
-                    <Form.Group className="mb-3 my-3">
+      
+
+                  </Col>
+                  <Col>
+
+                  <Form.Group className="mb-3 my-3">
                       <Form.Label>
                         {" "}
                         <h4>อีเมล์</h4>
@@ -151,8 +178,6 @@ export default function ContactPage() {
                     </Form.Group>
                     <hr style={{ width: "500px" }} />
 
-                  </Col>
-                  <Col>
                   <Form.Group className="mb-3 my-3">
                       <Form.Label>
                         {" "}
@@ -227,6 +252,62 @@ export default function ContactPage() {
           </div>
         ))}
       </Container>
+      
+      <Modal
+        show={showModalImageEdit}
+        onHide={CloseModal}
+        centered
+        className="bg-templant"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>แก้ไขรูปภาพ</Modal.Title>
+
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group className="mb-3" controlId="formFile">
+            <Form.Label className='text-center'>เลือกรูปโลโก้</Form.Label>
+            <Form.Label className='d-block'>รูปภาพ</Form.Label>
+            {imageURL?.length === 0 && <Image className="mb-2" style={{ height: 200 }} src={img} alt="logo_img" fluid rounded />}
+            {imageURL?.map((imageSrcContact, index) => <Image key={index} className="mb-2" style={{ height: 200 }} src={imageSrcContact} alt="logo_img" fluid rounded />)}
+            <Form.Control type="file" accept="image/*" onChange={onImageLogoChange} />                   
+        </Form.Group>
+
+         
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={CloseModal}>
+            ยกเลิก
+          </Button>
+          <Button
+            variant="success"
+            onClick={async () => {
+
+              let data =new FormData()
+              data.append('file', image[0])
+              const imageData = await uploadImage({data: data})
+              const id =imageData.data.result.id
+
+              executeContactPut({
+                url: "/api/contact/" + contactById?.id,
+                method: "PUT",
+                data: {
+                  image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
+                },
+              }).then(() => {
+                Promise.all([
+                  setImage(""),
+                  getContact(),
+                ]).then(() => {
+                  CloseModal();
+                });
+              });
+            }}
+          >
+            บันทึก
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
 
       <Modal
         show={showModalEdit}
@@ -246,14 +327,6 @@ export default function ContactPage() {
               onChange={(event) => setTitle(event.target.value)}
             />
           </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formFile">
-            <Form.Label className='text-center'>เลือกรูปโลโก้</Form.Label>
-            <Form.Label className='d-block'>รูปภาพ</Form.Label>
-            {imageURL?.length === 0 && <Image className="mb-2" style={{ height: 200 }} src={img} alt="logo_img" fluid rounded />}
-            {imageURL?.map((imageSrcContact, index) => <Image key={index} className="mb-2" style={{ height: 200 }} src={imageSrcContact} alt="logo_img" fluid rounded />)}
-            <Form.Control type="file" accept="image/*" onChange={onImageLogoChange} />                   
-        </Form.Group>
 
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>ลิงค์แผนที่</Form.Label>
@@ -331,7 +404,6 @@ export default function ContactPage() {
                 method: "PUT",
                 data: {
                   title: title,
-                  image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
                   address: address,
                   tel: tel,
                   email: email,
@@ -343,7 +415,6 @@ export default function ContactPage() {
               }).then(() => {
                 Promise.all([
                   setTitle(""),
-                  setImage(""),
                   setAddress(""),
                   setTel(""),
                   setEmail(""),

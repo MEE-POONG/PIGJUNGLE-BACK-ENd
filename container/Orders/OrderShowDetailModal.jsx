@@ -23,12 +23,13 @@ export default function ProductsDeleteModal(props) {
                     <Row className="mb-3">
                       <Col md='6'>
                       <h4 className="mb-3">รูปสลิป</h4>
-                       <Image src="https://s359.kapook.com/pagebuilder/ba154685-db18-4ac7-b318-a4a2b15b9d4c.jpg"  width="400px" height="400px"  />
+                       <Image src={props?.value?.image}  width="400px" height="400px"  />
                       </Col>  
                       <Col md='6'>
                         <h4 className="mb-3 mt-5">ชื่อผู้สั่งสินค้า :  {props?.value?.firstname}{" "}{props?.value?.lastname}</h4>
                         <h4 className="mb-3">E-mail : {props?.value?.email}</h4>
                         <h4 className="mb-3">เบอร์มือถือ : {props?.value?.tel}</h4>
+                        <h4 className="mb-3">เพิ่มเติม : {props?.value?.notes}</h4>
                       </Col>      
                     </Row>
                     <h4>ที่อยู่ที่ต้องจัดส่ง</h4>
