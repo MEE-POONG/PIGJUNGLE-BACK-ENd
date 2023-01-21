@@ -104,7 +104,7 @@ const ShowModalImageEdit = async (id) => {
       </Head>
 
 
-      <Container fluid className=" pt-4 px-4">
+      <Container fluid className=" pt-4 px-4 element">
         {contactData?.map((contact, index) => (
           <div className="bg-secondary rounded shadow p-4" key={index}>
             <h5 className="mb-0 w-m-max me-2">ข้อมูลหน้าติดต่อ</h5>

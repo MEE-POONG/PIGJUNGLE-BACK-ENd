@@ -9,7 +9,8 @@ export default function Layout({ children }) {
     <>
       {/* <SliderMenu/> */}
       <TheSlideNav />
-      <div className="content ">
+      <div className="content">
+      <div className="background bgsize "></div>
         <IndexNavbar />
         {/* <Container fluid className="position-relative d-flex p-0"> */}
         {children}

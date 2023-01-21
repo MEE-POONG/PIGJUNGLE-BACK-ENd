@@ -20,7 +20,7 @@ function MyTable(props) {
     }, [props]);
 
     return (
-        <Table striped bordered hover>
+        <Table striped bordered hover element>
             <thead>
                 <tr>
                     <th>No.</th>
@@ -87,7 +87,7 @@ export default function HowToOrderPage() {
         return <PageError />;
     }
     return (
-        <Container fluid className="pt-4 px-4">
+        <Container fluid className="pt-4 px-4 element">
             <Card className="bg-secondary text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
