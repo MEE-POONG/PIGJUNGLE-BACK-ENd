@@ -73,7 +73,7 @@ export default function ProductPage() {
         pageSize: '10'
     });
 
-    const [status,setStatus] = useState("กำลังดำเนินการ");
+    const [status,setStatus] = useState("รอการตรวจสอบ");
     
     const [{ data: orderData, loading, error }, getProduct] = useAxios({ url: `/api/order?page=1&pageSize=10&status=${status}`, method: 'GET' });
     useEffect(() => {
@@ -113,11 +113,11 @@ export default function ProductPage() {
 
                     <Col >
                     
-                      <Button variant="success" className=' mx-2 '  onClick={() => {setStatus("กำลังดำเนินการ");}}>
-                       กำลังดำเนินการ
+                      <Button variant="success" className=' mx-2 '  onClick={() => {setStatus("รอการตรวจสอบ");}}>
+                        รอการตรวจสอบ
                     </Button>
-                    <Button variant="warning" className='mx-2' onClick={() => {setStatus("ที่ต้องจัดส่ง");}}>
-                        ที่ต้องจัดส่ง
+                    <Button variant="warning" className='mx-2' onClick={() => {setStatus("กำลังดำเนินการ");}}>
+                        กำลังดำเนินการ
                     </Button>
                     <Button variant="info" className='mx-2' onClick={() => {setStatus("จัดส่งเสร็จสิ้น");}}>
                         จัดส่งเสร็จสิ้น
