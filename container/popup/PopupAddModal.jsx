@@ -11,8 +11,8 @@ import axios from 'axios'
 import { CKEditor } from 'ckeditor4-react'
 
 export default function PopupAddModal(props) {
-    const [{ data: popupData ,loading ,error }, getPopup] = useAxios({ url: '/api/Popup' })
-    const [{ data: popupPost, error: errorMessage, loading: popupLoading }, executePopup] = useAxios({ url: '/api/Popup', method: 'POST' }, { manual: true });
+    const [{ data: popupData ,loading ,error }, getPopup] = useAxios({ url: '/api/popup' })
+    const [{ data: popupPost, error: errorMessage, loading: popupLoading }, executePopup] = useAxios({ url: '/api/popup', method: 'POST' }, { manual: true });
     
     const [checkValue, setCheckValue] = useState(true);
 
