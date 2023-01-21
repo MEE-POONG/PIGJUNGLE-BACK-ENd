@@ -18,9 +18,14 @@ export default function ProductPage() {
         pageSize: '10'
     });
 
-    const [status,setStatus] = useState("กำลังดำเนินการ");
+    const [status,setStatus] = useState("รอการตรวจสอบ");
     
     const [{ data: orderData, loading, error }, getProduct] = useAxios({ url: `/api/order?page=1&pageSize=10&status=${status}`, method: 'GET' });
+    
+    useEffect(() => {
+        getProduct()
+    }, [status])
+
     useEffect(() => {
         if (orderData) {
             setParams({
