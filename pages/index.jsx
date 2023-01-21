@@ -23,14 +23,12 @@ export default function HomePage() {
   ]
   return (
     < >
-      <Head>
-        <title>HOME | dxx=</title>
-        <meta
-          name="description"
-          content="I2AROBOT 2"
-        />
-        <link rel="icon" href="/favicon.ico" />
+    <Head>
+        <title>PIG JUNGLE</title>
+        <meta name="description" content="I2AROBOT 2" />
+        <link rel="icon" href="/images/profile.jpg" />
       </Head>
+
       <div className='home-page'>
         {/* {contactData?.map((list) => (
         ))} */}

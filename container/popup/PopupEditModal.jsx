@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Modal, Button, Form, Row, Col,Image } from 'react-bootstrap'
 import { FaEdit } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
-import AutoComplete from '@/components/AutoComplete'
-import CardError from '@/components/CardChange/CardError'
+// import AutoComplete from '@/components/AutoComplete'
+// import CardError from '@/components/CardChange/CardError'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
-import ModelError from '@/components/ModelChange/ModelError'
+// import ModelError from '@/components/ModelChange/ModelError'
 import FormData from 'form-data';
 import { CKEditor } from 'ckeditor4-react'
 
@@ -47,7 +47,7 @@ export default function PopupEditModal(props) {
 
     const handlePutData = async () => {
         setCheckValue(false);
-        if (name !== '' && price !== '') {
+        if (image !== '' ) {
 
             let data =new FormData()
             data.append('file', image[0])

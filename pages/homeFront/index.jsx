@@ -117,12 +117,11 @@ export default function homeFrontPage() {
     return <PageError />;
   return (
     <>
-      <Head>
-        <title>PIG JUNGLE BACKEND</title>
+    <Head>
+        <title>PIG JUNGLE</title>
         <meta name="description" content="I2AROBOT 2" />
-        <link rel="icon" href="/images/logo.png" />
+        <link rel="icon" href="/images/profile.jpg" />
       </Head>
-
       <Container fluid className=" pt-4 px-4">
         <div className="bg-secondary rounded shadow p-4">
           <h5 className="mb-0 w-m-max me-2">ข้อมูลหน้าหลัก</h5>
