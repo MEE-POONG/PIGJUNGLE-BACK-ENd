@@ -31,7 +31,8 @@ export default function ProductsDeleteModal(props) {
                         <h4 className="mb-3">E-mail : {props?.value?.email}</h4>
                         <h4 className="mb-3">เบอร์มือถือ : {props?.value?.tel}</h4>
                         <h4 className="mb-3">เพิ่มเติม : {props?.value?.notes}</h4>
-                        <h4 className="mb-3">เวลาที่สั่งซื้อ : {format(new Date(props?.value?.createdAt), "dd/MM/yyyy HH:mm:ss")}</h4>
+                        <h4 className="mb-3">วันที่สั่งซื้อ : {format(new Date(props?.value?.createdAt), "dd/MM/yyyy")}</h4>
+                        <h4 className="mb-3">เวลาที่สั่งซื้อ : {format(new Date(props?.value?.createdAt), "HH:mm:ss")}{" "}น.</h4>
                       </Col>      
                     </Row>
                     <h4>ที่อยู่ที่ต้องจัดส่ง</h4>

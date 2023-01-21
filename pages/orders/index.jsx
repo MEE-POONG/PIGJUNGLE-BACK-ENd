@@ -73,7 +73,7 @@ export default function ProductPage() {
         pageSize: '10'
     });
 
-    const [status,setStatus] = useState("");
+    const [status,setStatus] = useState("กำลังดำเนินการ");
     
     const [{ data: orderData, loading, error }, getProduct] = useAxios({ url: `/api/order?page=1&pageSize=10&status=${status}`, method: 'GET' });
     useEffect(() => {
@@ -102,23 +102,37 @@ export default function ProductPage() {
     return (
         <Container fluid className="pt-4 px-4">
             <Card className="bg-secondary text-center rounded shadow p-4">
-                <div className="d-flex align-items-center justify-content-between mb-4">
-                    <Card.Title className="mb-0">
-                        รายการสินค้า
-                    </Card.Title>
+                <Row>
+                    <Col >
+                    <div className="d-flex align-items-center mb-4">
+                        <Card.Title className="mb-0">
+                            รายการสินค้า
+                        </Card.Title>
+                    </div>
+                    </Col>
 
-                    <Button variant="success"  onClick={() => {setStatus("กำลังดำเนินการ");}}>
+                    <Col >
+                    
+                      <Button variant="success" className=' mx-2 '  onClick={() => {setStatus("กำลังดำเนินการ");}}>
                        กำลังดำเนินการ
                     </Button>
-                    <Button variant="warning" onClick={() => {setStatus("ที่ต้องจัดส่ง");}}>
+                    <Button variant="warning" className='mx-2' onClick={() => {setStatus("ที่ต้องจัดส่ง");}}>
                         ที่ต้องจัดส่ง
                     </Button>
-                    <Button variant="info" onClick={() => {setStatus("จัดส่งเสร็จสิ้น");}}>
+                    <Button variant="info" className='mx-2' onClick={() => {setStatus("จัดส่งเสร็จสิ้น");}}>
                         จัดส่งเสร็จสิ้น
-                    </Button>
+                    </Button>  
+                    
+                    
+                    </Col>
+                
+
+                </Row>
+                
+                    
 
                     {/* <OrderAddModal getData={getProduct}/> */}
-                </div>
+                
                 <MyTable data={orderData?.data} setNum={(orderData?.page * orderData?.pageSize) - orderData?.pageSize} getData={getProduct} />
                 <MyPagination page={orderData.page} totalPages={orderData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
