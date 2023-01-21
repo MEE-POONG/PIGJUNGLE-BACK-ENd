@@ -35,88 +35,33 @@ export default function ProductsDeleteModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <h2 className="p-2 text-start">รายละเอียดข้อมูล </h2>
+          <div class="col-12">
+            <div className="row">
+              {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.firstname + " " + props?.value?.lastname)}
+              {newFunction("E-mail", props?.value?.email)}
+              {newFunction("เบอร์มือถือ", props?.value?.tel)}
+            </div>
+          </div>
           <Row className="mb-3 ">
             <Col md="6">
-              <Table table-borderless>
-                <thead>
-                  <th className="p-2 text-start">รายละเอียดข้อมูล </th>
-                </thead>
+              {newFunction2("วันที่สั่งซื้อ", format(new Date(props?.value?.createdAt), "dd/MM/yyyy"))}
+              {newFunction2("เวลาที่สั่งซื้อ", format(new Date(props?.value?.createdAt), "HH:mm:ss"))}
+              <div class="mb-3">
+                <label for="exampleInputEmail1">เพิ่มเติม</label>
+                <textarea className="form-control" rows="5" readOnly defaultValue={props?.value?.notes ?? '-'} />
+              </div>
 
-                <td className="p-2 text-start">
-                  ชื่อผู้สั่งสินค้า : {props?.value?.firstname}{" "}
-                  {props?.value?.lastname}
-                </td>
-                {/* <FormControl type='text'> {props?.value?.firstname}  </FormControl> */}
-                <tr>
-                  <td className="p-2 text-start">
-                    E-mail : {props?.value?.email}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-2 text-start">
-                    เบอร์มือถือ : {props?.value?.tel}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-2 text-start">
-                    เพิ่มเติม : {props?.value?.notes}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-2 text-start">
-                    วันที่สั่งซื้อ :{" "}
-                    {format(new Date(props?.value?.createdAt), "dd/MM/yyyy")}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-2 text-start">
-                    เวลาที่สั่งซื้อ :{" "}
-                    {format(new Date(props?.value?.createdAt), "HH:mm:ss")} น.
-                  </td>
-                </tr>
-                <tr></tr>
-              </Table>
+              <h2 className="p-2 text-start">ที่อยู่ที่ต้องจัดส่ง</h2>
+              <div class="mb-3">
+                <textarea className="form-control" rows="9" readOnly defaultValue={`เลขที่ ${props?.value?.address} ตำบล${props?.value?.subDistrict} อำเภอ${props?.value?.district} จังหวัด${props?.value?.province} ${props?.value?.postalCode}`} />
+              </div>
             </Col>
-
             <Col md="6">
-              <Table table-borderless>
-                <thead>
-                  <th className="p-2 text-start">ที่อยู่ที่ต้องจัดส่ง</th>
-                </thead>
-                <tr>
-                  <td className="p-2 text-start">
-                    บ้านเลขที่ : {props?.value?.address}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-2 text-start">
-                    ตำบล : {props?.value?.subDistrict}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-2 text-start">
-                    อำเภอ : {props?.value?.district}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-2 text-start">
-                    จังหวัด : {props?.value?.province}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-2 text-start">
-                    ไปรษณีย์ : {props?.value?.postalCode}
-                  </td>
-                </tr>
-
-                <tr></tr>
-              </Table>
-            </Col>
-            <Col md="4">
               <h4 className="mb-3 text-start">รูปสลิป</h4>
-              <Image src={props?.value?.image} width="350px" height="300px" />
+              <Image src={props?.value?.image} width="365px" />
             </Col>
-            <Col md="8">
+            <Col md="12">
               <h4>สินค้าที่ต้องจัดส่ง</h4>
               <Table striped bordered hover>
                 <thead>
@@ -143,10 +88,23 @@ export default function ProductsDeleteModal(props) {
                 <span className="text-danger"> {props?.value?.total} บาท</span>
               </Modal.Title>
             </Col>
-          </Row>
-        </Modal.Body>
+          </Row >
+        </Modal.Body >
         <Modal.Footer></Modal.Footer>
-      </Modal>
+      </Modal >
     </>
   );
+
+  function newFunction(label, value) {
+    return <div class="col-md-4 mb-3">
+      <label for="exampleInputEmail1">{label}</label>
+      <input class="form-control" value={value} readonly />
+    </div>;
+  }
+  function newFunction2(label, value) {
+    return <div class="mb-3">
+      <label for="exampleInputEmail1">{label}</label>
+      <input class="form-control" value={value} readonly />
+    </div>;
+  }
 }
