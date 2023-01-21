@@ -6,11 +6,9 @@ import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
 // import OrderAddModal from '@/container/Orders/OrderAddModal'
-import OrderDeleteModal from '@/container/Orders/OrderDeleteModal'
+// import OrderDeleteModal from '@/container/Orders/OrderDeleteModal'
 import OrderShowDetailModal  from '@/container/Orders/OrderShowDetailModal'
 // import OrderEditModal from '@/container/Orders/OrderEditModal'
-import  {format}  from "date-fns";
-
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
@@ -26,7 +24,6 @@ function MyTable(props) {
                     <th>No.</th>
                     <th>ชื่อผู้สั่งสินค้า</th>
                     <th>รายละเอียดที่ต้องจัดส่ง</th>
-                    <th>เวลาที่สั่งซื้อ</th>
                     <th>สถานะ</th>
                     <th>ราคารวม</th>
                     <th>จัดการ</th>
@@ -45,9 +42,6 @@ function MyTable(props) {
                                  <OrderShowDetailModal value={item} getData={props?.getData} />
                             </td>
                             <td>
-                            {format(new Date(item.createdAt), "dd/MM/yyyy")}
-                            </td>
-                            <td>
                                 <Badge bg="primary">
                                     {item.status}
                                 </Badge>
@@ -56,8 +50,8 @@ function MyTable(props) {
                                 {item.total}{' '}บาท
                             </td>
                             <td>
-                                {/* <OrderConfirmModal value={item} getData={props?.getData} /> */}
-                                <OrderDeleteModal value={item} getData={props?.getData} />
+                                {/* <OrderConfirmModal value={item} getData={props?.getData} />
+                                <OrderDeleteModal value={item} getData={props?.getData} /> */}
                             </td>
                         </tr>
                     )))
@@ -73,9 +67,7 @@ export default function ProductPage() {
         pageSize: '10'
     });
 
-    const [status,setStatus] = useState("");
-    
-    const [{ data: orderData, loading, error }, getProduct] = useAxios({ url: `/api/order?page=1&pageSize=10&status=${status}`, method: 'GET' });
+    const [{ data: orderData, loading, error }, getProduct] = useAxios({ url: `/api/order?page=1&pageSize=10&status=จัดส่งเสร็จสิ้น`, method: 'GET' });
     useEffect(() => {
         if (orderData) {
             setParams({
@@ -106,17 +98,6 @@ export default function ProductPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-
-                    <Button variant="success"  onClick={() => {setStatus("กำลังดำเนินการ");}}>
-                       กำลังดำเนินการ
-                    </Button>
-                    <Button variant="warning" onClick={() => {setStatus("ที่ต้องจัดส่ง");}}>
-                        ที่ต้องจัดส่ง
-                    </Button>
-                    <Button variant="info" onClick={() => {setStatus("จัดส่งเสร็จสิ้น");}}>
-                        จัดส่งเสร็จสิ้น
-                    </Button>
-
                     {/* <OrderAddModal getData={getProduct}/> */}
                 </div>
                 <MyTable data={orderData?.data} setNum={(orderData?.page * orderData?.pageSize) - orderData?.pageSize} getData={getProduct} />

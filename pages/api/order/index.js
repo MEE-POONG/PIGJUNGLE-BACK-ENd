@@ -8,9 +8,13 @@ export default async function handler(req, res) {
       try {
         let page = +req.query.page || 1;
         let pageSize = +req.query.pageSize || 10;
+        let status = req.query.status;
         const data = await prisma.$transaction([
-          prisma.order.count(),
+          prisma.order.count({
+            where :{status:{contains:status}}
+          }),
           prisma.order.findMany({
+            where :{status:{contains:status}},
             include: { 
               OrderDetail:{
                 include:{
@@ -25,7 +29,8 @@ export default async function handler(req, res) {
         const totalPage = Math.ceil(data[0] / pageSize);
         res.status(200).json({ data: data[1], page, pageSize, totalPage });
       } catch (error) {
-        res.status(400).json({ success: false });
+        console.log(error);
+        // res.status(400).json({ success: false });
       }
       break;
     case "POST":
