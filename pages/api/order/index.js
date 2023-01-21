@@ -22,6 +22,9 @@ export default async function handler(req, res) {
                 }
 
             }},
+            orderBy: {
+              id: "desc",
+            },
             skip: (page - 1) * pageSize,
             take: pageSize,
           }),

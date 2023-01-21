@@ -18,7 +18,7 @@ export default function ProductPage() {
         pageSize: '10'
     });
 
-    const [status,setStatus] = useState("รอการตรวจสอบ");
+    const [status,setStatus] = useState("");
     
     const [{ data: orderData, loading, error }, getProduct] = useAxios({ url: `/api/order?page=1&pageSize=10&status=${status}`, method: 'GET' });
     
@@ -104,7 +104,7 @@ function MyTable(props) {
                     <th>No.</th>
                     <th>ชื่อผู้สั่งสินค้า</th>
                     <th>รายละเอียดที่ต้องจัดส่ง</th>
-                    <th>เวลาที่สั่งซื้อ</th>
+                    <th>วัน/เวลาที่สั่งซื้อ</th>
                     <th>สถานะ</th>
                     <th>ราคารวม</th>
                     <th>จัดการ</th>
@@ -123,7 +123,7 @@ function MyTable(props) {
                                  <OrderShowDetailModal value={item} getData={props?.getData} />
                             </td>
                             <td>
-                            {format(new Date(item.createdAt), "dd/MM/yyyy")}
+                            {format(new Date(item.createdAt), "dd/MM/yyyy HH:mm:ss")}
                             </td>
                             <td>
                                 <Badge bg="primary">
