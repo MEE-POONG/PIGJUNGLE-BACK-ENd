@@ -119,3 +119,35 @@ model Popup {
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
 }
+
+model Login {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  fname      String?
+  lname      String?
+  username   String?
+  passwaord  String?
+  image      String?
+  position   String?
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
+}
+
+model Users {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String?
+  type         String?       @db.ObjectId
+  createdAt    DateTime?     @default(now())
+  updatedAt    DateTime?     @updatedAt
+  deleted_at   DateTime?     @map("deleted_at")
+  usersType   UsersType? @relation(fields: [type], references: [id])
+}
+
+model UsersType {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  name       String?
+  createdAt  DateTime?  @default(now())
+  updatedAt  DateTime?  @updatedAt
+  deleted_at DateTime?  @map("deleted_at")
+  users      Users[]
+}
