@@ -24,12 +24,12 @@ export default function Warn(props) {
                     </Card.Header>
                     <Card.Body>
                         {contactList?.map((list, key) => (
-                            <Link key={key} href={"/contact/" + list.id}>
-                                <a className="alert alert_warning">
-                                    <Card.Title>{list.title}</Card.Title>
-                                    <Card.Text>{list.detail}</Card.Text>
-                                </a>
-                            </Link>
+                            (<Link key={key} href={"/contact/" + list.id} className="alert alert_warning">
+
+                                <Card.Title>{list.title}</Card.Title>
+                                <Card.Text>{list.detail}</Card.Text>
+
+                            </Link>)
                         ))}
                     </Card.Body>
                 </Card>
@@ -43,12 +43,15 @@ export default function Warn(props) {
                     </Card.Header>
                     <Card.Body>
                         {warnCheckEditLogList?.map((list, key) => (
-                            <Link key={key} href={"/" + list.tagLink + "/" + list.id}>
-                                <a className="alert alert_warning">
-                                    <Card.Title className="alert--content">{list.title}</Card.Title>
-                                    <Card.Text>{list.detail}</Card.Text>
-                                </a>
-                            </Link>
+                            (<Link
+                                key={key}
+                                href={"/" + list.tagLink + "/" + list.id}
+                                className="alert alert_warning">
+
+                                <Card.Title className="alert--content">{list.title}</Card.Title>
+                                <Card.Text>{list.detail}</Card.Text>
+
+                            </Link>)
                         ))}
                     </Card.Body>
                 </Card>
@@ -62,17 +65,16 @@ export default function Warn(props) {
                     </Card.Header>
                     <Card.Body>
                         {warnAudienceRecordList?.map((list, key) => (
-                            <Link key={key} href={"/" + list.tagLink + "/" + list.id}>
-                                <a className="alert">
-                                    <Card.Title>{list.title}</Card.Title>
-                                    <Card.Text>{list.detail}  คน</Card.Text>
-                                </a>
-                            </Link>
+                            (<Link key={key} href={"/" + list.tagLink + "/" + list.id} className="alert">
+
+                                <Card.Title>{list.title}</Card.Title>
+                                <Card.Text>{list.detail}  คน</Card.Text>
+
+                            </Link>)
                         ))}
                     </Card.Body>
                 </Card>
             </Col>
         </Row>
-
     );
 }
