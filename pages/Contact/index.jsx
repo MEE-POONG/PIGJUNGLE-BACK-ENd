@@ -44,6 +44,7 @@ export default function ContactPage() {
   const [imageURL, setImageURL] = useState([]);
 
   const [title, setTitle] = useState("");
+  const [linkQrLine, setLinkQrLine] = useState("");
   const [address, setAddress] = useState("");
   const [tel, setTel] = useState("");
   const [email, setEmail] = useState("");
@@ -53,22 +54,29 @@ export default function ContactPage() {
   const [linkmap, setLinkmap] = useState("");
 
   const [showModalEdit, setShowModalEdit] = useState(false);
-  
+
   const ShowModalEdit = async (id) => {
     await getContactById({ url: "/api/contact/" + id, method: "GET" });
     setShowModalEdit(true);
   };
-const [showModalImageEdit, setShowModalImageEdit] = useState(false);
+  const [showModalImageEdit, setShowModalImageEdit] = useState(false);
 
-const ShowModalImageEdit = async (id) => {
-  await getContactById({ url: "/api/contact/" + id, method: "GET" });
-  setShowModalImageEdit(true);
-};
+  const ShowModalImageEdit = async (id) => {
+    await getContactById({ url: "/api/contact/" + id, method: "GET" });
+    setShowModalImageEdit(true);
+  };
 
+  const [showModalEditLinkQrLineEdit, setShowModalEditLinkQrLineEdit] = useState(false);
+
+  const ShowModalEditLinkQrLineEdit = async (id) => {
+    await getContactById({ url: "/api/contact/" + id, method: "GET" });
+    setShowModalEditLinkQrLineEdit(true);
+  };
 
   useEffect(() => {
     setTitle(contactById?.title);
     setImg(contactById?.image);
+    setLinkQrLine(contactById?.linkQrLine);
     setAddress(contactById?.address);
     setTel(contactById?.tel);
     setEmail(contactById?.email);
@@ -77,11 +85,11 @@ const ShowModalImageEdit = async (id) => {
     setLine(contactById?.line);
     setLinkmap(contactById?.linkmap);
 
-    if (image.length < 1) return
-      const newImageUrl = []
-      image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
-      setImageURL(newImageUrl);
-  }, [contactById,image]);
+    if (image.length < 1) return;
+    const newImageUrl = [];
+    image.forEach((image) => newImageUrl.push(URL.createObjectURL(image)));
+    setImageURL(newImageUrl);
+  }, [contactById, image]);
 
   const onImageLogoChange = (e) => {
     setImage([...e.target.files]);
@@ -90,6 +98,7 @@ const ShowModalImageEdit = async (id) => {
   const CloseModal = () => {
     setShowModalEdit(false);
     setShowModalImageEdit(false);
+    setShowModalEditLinkQrLineEdit(false);
   };
   if (loading || updateContactLoading || contactByIdLoading || imgLoading)
     return <PageLoading />;
@@ -97,12 +106,11 @@ const ShowModalImageEdit = async (id) => {
     return <PageError />;
   return (
     <>
-        <Head>
+      <Head>
         <title>PIG JUNGLE</title>
         <meta name="description" content="I2AROBOT 2" />
         <link rel="icon" href="/images/profile.jpg" />
       </Head>
-
 
       <Container fluid className=" pt-4 px-4 element">
         {contactData?.map((contact, index) => (
@@ -115,25 +123,51 @@ const ShowModalImageEdit = async (id) => {
                 <Row>
                   <Col>
                     <Form.Label>
-                        {" "}
-                        <h4> ภาพร้าน</h4>
-                      </Form.Label>
-                      <Card style={{ width: "500px" }}>
-                        <Card.Img  src={contact.image}  width="500px"height="300px"
-                        />
-                      </Card>
+                      {" "}
+                      <h4> ภาพร้าน</h4>
+                    </Form.Label>
+                    <Card style={{ width: "500px" }}>
+                      <Card.Img
+                        src={contact.image}
+                        width="450px"
+                        height="450px"
+                      />
+                    </Card>
 
-                      <Button
-                        className=" mt-1"
-                        variant="warning"
-                        onClick={() => ShowModalImageEdit(contact.id)}
-                      >
-                        แก้ไขรูปภาพ
-                      </Button>
+                    <Button
+                      className=" mt-1"
+                      variant="warning"
+                      onClick={() => ShowModalImageEdit(contact.id)}
+                    >
+                      แก้ไขรูปภาพ
+                    </Button>
 
-                      <hr style={{ width: "500px" }} />
+                    <hr style={{ width: "500px" }} />
 
+                    <Form.Label>
+                      {" "}
+                      <h4> ภาพร้าน</h4>
+                    </Form.Label>
+                    <Card style={{ width: "500px" }}>
+                      <Card.Img
+                        src={contact.linkQrLine}
+                        width="350px"
+                        height="350px"
+                      />
+                    </Card>
 
+                    <Button
+                      className=" mt-1"
+                      variant="warning"
+                      onClick={() => ShowModalEditLinkQrLineEdit(contact.id)}
+                    >
+                      แก้ไขลิ้งค์คิวอาร์โค้ดไลน์
+                    </Button>
+
+                    <hr style={{ width: "500px" }} />
+
+                  </Col>
+                  <Col>
                     <Form.Group className="mb-3 my-3">
                       <Form.Label>
                         {" "}
@@ -147,11 +181,6 @@ const ShowModalImageEdit = async (id) => {
                     <hr style={{ width: "500px" }} />
 
                     <Form.Group className="mb-3 my-3">
-
-                    </Form.Group>
-                    <hr style={{ width: "500px" }} />
-
-                    <Form.Group className="mb-3 my-3">
                       <Form.Label>
                         {" "}
                         <h4>ลิงค์แผนที่</h4>
@@ -162,13 +191,8 @@ const ShowModalImageEdit = async (id) => {
                     </Form.Group>
 
                     <hr style={{ width: "500px" }} />
-                    
-      
 
-                  </Col>
-                  <Col>
-
-                  <Form.Group className="mb-3 my-3">
+                    <Form.Group className="mb-3 my-3">
                       <Form.Label>
                         {" "}
                         <h4>อีเมล์</h4>
@@ -179,7 +203,7 @@ const ShowModalImageEdit = async (id) => {
                     </Form.Group>
                     <hr style={{ width: "500px" }} />
 
-                  <Form.Group className="mb-3 my-3">
+                    <Form.Group className="mb-3 my-3">
                       <Form.Label>
                         {" "}
                         <h4>เวลาทำการ</h4>
@@ -189,8 +213,8 @@ const ShowModalImageEdit = async (id) => {
                       </Alert>
                     </Form.Group>
                     <hr style={{ width: "500px" }} />
-                    
-                  <Form.Group className="mb-3 my-3">
+
+                    <Form.Group className="mb-3 my-3">
                       <Form.Label>
                         {" "}
                         <h4>ที่อยู่</h4>
@@ -238,22 +262,20 @@ const ShowModalImageEdit = async (id) => {
 
                     <hr style={{ width: "500px" }} />
 
-                   
+                    <Button
+                      variant="warning"
+                      onClick={() => ShowModalEdit(contact.id)}
+                    >
+                      แก้ไข
+                    </Button>
                   </Col>
                 </Row>
-
-                <Button
-                  variant="warning"
-                  onClick={() => ShowModalEdit(contact.id)}
-                >
-                  แก้ไข
-                </Button>
               </div>
             </div>
           </div>
         ))}
       </Container>
-      
+
       <Modal
         show={showModalImageEdit}
         onHide={CloseModal}
@@ -262,18 +284,38 @@ const ShowModalImageEdit = async (id) => {
       >
         <Modal.Header closeButton>
           <Modal.Title>แก้ไขรูปภาพ</Modal.Title>
-
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3" controlId="formFile">
-            <Form.Label className='text-center'>เลือกรูปโลโก้</Form.Label>
-            <Form.Label className='d-block'>รูปภาพ</Form.Label>
-            {imageURL?.length === 0 && <Image className="mb-2" style={{ height: 200 }} src={img} alt="logo_img" fluid rounded />}
-            {imageURL?.map((imageSrcContact, index) => <Image key={index} className="mb-2" style={{ height: 200 }} src={imageSrcContact} alt="logo_img" fluid rounded />)}
-            <Form.Control type="file" accept="image/*" onChange={onImageLogoChange} />                   
-        </Form.Group>
-
-         
+            <Form.Label className="text-center">เลือกรูปโลโก้</Form.Label>
+            <Form.Label className="d-block">รูปภาพ</Form.Label>
+            {imageURL?.length === 0 && (
+              <Image
+                className="mb-2"
+                style={{ height: 200 }}
+                src={img}
+                alt="logo_img"
+                fluid
+                rounded
+              />
+            )}
+            {imageURL?.map((imageSrcContact, index) => (
+              <Image
+                key={index}
+                className="mb-2"
+                style={{ height: 200 }}
+                src={imageSrcContact}
+                alt="logo_img"
+                fluid
+                rounded
+              />
+            ))}
+            <Form.Control
+              type="file"
+              accept="image/*"
+              onChange={onImageLogoChange}
+            />
+          </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={CloseModal}>
@@ -282,11 +324,10 @@ const ShowModalImageEdit = async (id) => {
           <Button
             variant="success"
             onClick={async () => {
-
-              let data =new FormData()
-              data.append('file', image[0])
-              const imageData = await uploadImage({data: data})
-              const id =imageData.data.result.id
+              let data = new FormData();
+              data.append("file", image[0]);
+              const imageData = await uploadImage({ data: data });
+              const id = imageData.data.result.id;
 
               executeContactPut({
                 url: "/api/contact/" + contactById?.id,
@@ -295,10 +336,7 @@ const ShowModalImageEdit = async (id) => {
                   image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
                 },
               }).then(() => {
-                Promise.all([
-                  setImage(""),
-                  getContact(),
-                ]).then(() => {
+                Promise.all([setImage(""), getContact()]).then(() => {
                   CloseModal();
                 });
               });
@@ -309,6 +347,49 @@ const ShowModalImageEdit = async (id) => {
         </Modal.Footer>
       </Modal>
 
+      <Modal
+        show={showModalEditLinkQrLineEdit}
+        onHide={CloseModal}
+        centered
+        className="bg-templant"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>แก้ไขข้อมูล</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label>ลิ้งค์คิวอาร์โค้ดไลน์</Form.Label>
+            <Form.Control
+              type="text"
+              value={linkQrLine}
+              onChange={(event) => setLinkQrLine(event.target.value)}
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={CloseModal}>
+            ยกเลิก
+          </Button>
+          <Button
+            variant="success"
+            onClick={() => {
+              executeContactPut({
+                url: "/api/contact/" + contactById?.id,
+                method: "PUT",
+                data: {
+                  linkQrLine: linkQrLine,
+                },
+              }).then(() => {
+                Promise.all([setLinkQrLine("")]).then(() => {
+                  CloseModal();
+                });
+              });
+            }}
+          >
+            บันทึก
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       <Modal
         show={showModalEdit}
@@ -346,7 +427,7 @@ const ShowModalImageEdit = async (id) => {
               onChange={(event) => setAddress(event.target.value)}
             />
           </Form.Group>
-       
+
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>เบอร์โทรศัพท์</Form.Label>
             <Form.Control
@@ -364,7 +445,7 @@ const ShowModalImageEdit = async (id) => {
               onChange={(event) => setEmail(event.target.value)}
             />
           </Form.Group>
-             
+
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>เวลาทำการ</Form.Label>
             <Form.Control
@@ -391,7 +472,6 @@ const ShowModalImageEdit = async (id) => {
               onChange={(event) => setLine(event.target.value)}
             />
           </Form.Group>
-
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={CloseModal}>

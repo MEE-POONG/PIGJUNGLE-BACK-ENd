@@ -62,26 +62,27 @@ model OrderDetail {
 }
 
 model Contact {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  image       String?
-  qrLineImage String?
-  title       String?
-  address     String?
-  tel         String?
-  email       String?
-  opentime    String?
-  facebook    String?
-  line        String?
-  createdAt   DateTime? @default(now())
-  updatedAt   DateTime? @updatedAt
-  deleted_at  DateTime? @map("deleted_at")
-  linkmap     String?
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  image      String?
+  linkQrLine String?
+  title      String?
+  address    String?
+  tel        String?
+  email      String?
+  opentime   String?
+  facebook   String?
+  line       String?
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
+  linkmap    String?
 }
 
 model HomeFront {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   image      String?
   name       String?
+  subname     String?
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
