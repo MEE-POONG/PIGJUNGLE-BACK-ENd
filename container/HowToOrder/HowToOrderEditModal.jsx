@@ -22,6 +22,7 @@ export default function HowToOrderEditModal(props) {
     { manual: true }
   );
 
+
   const [img, setImg] = useState([]);
   const [image, setImage] = useState([]);
   const [imageURL, setImageURL] = useState([]);
@@ -101,10 +102,10 @@ export default function HowToOrderEditModal(props) {
   };
 
   if (updateHowToOrderLoading || imgLoading)
-    return <ModelLoading showCheck={showCheck} />;
+    return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
   if (updateHowToOrderError || imgError)
     return (
-      <ModelError show={showCheck} fnShow={handleClose} centered size="lg" />
+      <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
     );
 
   return (

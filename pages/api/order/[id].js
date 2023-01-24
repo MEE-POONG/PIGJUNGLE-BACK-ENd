@@ -25,10 +25,7 @@ export default async function handler(req, res) {
                         id: req.query.id
                     },
                     data: {
-                        image: req.body.image,
-                        name: req.body.name,
-                        type: req.body.type,
-                        price: parseInt(req.body.price),
+                        status:req.body.status,
                     }
                 })
                 prisma.$disconnect();

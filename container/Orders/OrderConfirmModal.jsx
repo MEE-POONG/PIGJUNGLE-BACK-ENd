@@ -1,74 +1,56 @@
 import React, { useState } from 'react'
-import { Modal, Button, Form, Row, Col, Image  } from 'react-bootstrap'
-import { FaTrash ,FaPlus } from 'react-icons/fa'
+import { Modal, Button ,Image } from 'react-bootstrap'
+import { FaCheck } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function ProductsDeleteModal(props) {
+import  {format}  from "date-fns";
+export default function OrdersDeleteModal(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
     const handleClose = () => setShowCheck(false);
-    console.log(props.value)
+    const [{ loading: deleteOrdersLoading, error: deleteOrdersError }, executeOrdersDelete] = useAxios({}, { manual: true })
+    const handleDeleteData = () => {
+        executeOrdersDelete({
+            url: '/api/order/' + props?.value?.id,
+            method: 'DELETE',
+        }).then(() => {
+            Promise.all([
+                props.getData(),
+            ]).then(() => {
+                if (deleteOrdersLoading?.success) {
+                    handleClose()
+                }
+            })
+        })
+    }
+
+    if (deleteOrdersLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (deleteOrdersError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+
     return (
         <>
-            <Button bsPrefix="create" className={showCheck ? 'icon active' : 'icon '} onClick={handleShow}>
-                ดูรายละเอียด
+            <Button bsPrefix='success' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
+                <FaCheck />
             </Button>
-            <Modal show={showCheck} onHide={handleClose} centered size='xl'>
+            <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>ดูรายการสินค้า</Modal.Title>
+                    <Modal.Title className='text-center'>ลบรายการสินค้า</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
-                    <Row className="mb-3">
-                      <Col md='6'>
-                      <h4 className="mb-3">รูปสลิป</h4>
-                       <Image src="https://s359.kapook.com/pagebuilder/ba154685-db18-4ac7-b318-a4a2b15b9d4c.jpg"  width="400px" height="400px"  />
-                      </Col>  
-                      <Col md='6'>
-                        <h4 className="mb-3 mt-5">ชื่อผู้สั่งสินค้า :  {props?.value?.firstname}{" "}{props?.value?.lastname}</h4>
-                        <h4 className="mb-3">E-mail : {props?.value?.email}</h4>
-                        <h4 className="mb-3">เบอร์มือถือ : {props?.value?.tel}</h4>
-                      </Col>      
-                    </Row>
-                    <h4>ที่อยู่ที่ต้องจัดส่ง</h4>
-                    <Row className="mb-3">
-                        <Col md='6'>
-                            <h4 className="mb-3 mt-3">บ้านเลขที่ : {props?.value?.address}</h4>
-                            <h4 className="mb-3">ตำบล : {props?.value?.subDistrict}</h4>
-                            <h4 className="mb-3">อำเภอ : {props?.value?.district}</h4>
-                        </Col> 
-                        <Col md='6'>
-                            <h4 className="mb-3">จังหวัด : {props?.value?.province}</h4>
-                            <h4 className="mb-3">ไปรษณีย์ : {props?.value?.postalCod}</h4>
-                        </Col>  
-                   
-                    
-                    </Row>
-                    
-                    <h4>สินค้าที่ต้องจัดส่ง</h4>
-                     {props?.value?.OrderDetail?.map((product , index) => (
-                    <Row className="mb-3 "key={index}>
-                    <Col md='6'>
-                        <h4 className="mb-3 mt-3">รูปสินค้า</h4>
-                       <Image src={product.products.image}  width="400px" height="200px"  />
-                    </Col>  
-                    <Col md='6'>
-                                <h4 className="mb-3 mt-5">
-                                ชื่อสินค้า :{product.products.name}
-                                </h4> 
-                                <h4 className="mb-3">
-                                จำนวนสินค้า :{product.products.name}
-                                </h4> 
-                                <h4 className="mb-3">
-                                ราคารวม :{product.products.name}
-                                </h4> 
-                    </Col> 
-                    </Row>
-                       ))}    
-                    <Modal.Title className="mb-3">ราคารวมทั้งหมด : <span className='text-danger'> {props?.value?.total}{" "}บาท</span></Modal.Title>
+                    <Image src={props?.value?.image}  width="150px" height="150px" className='object-fit-cover' />
+                    <h4 className="mb-3">ชื่อผู้สั่งสินค้า : {props?.value?.firstname}{" "}{props?.value?.lastname}</h4>
+                    <h4 className="mb-3">วันที่สั่งซื้อ : {format(new Date(props?.value?.createdAt), "dd/MM/yyyy")}</h4>
+                    <h4 className="mb-3">เวลาที่สั่งซื้อ : {format(new Date(props?.value?.createdAt), "HH:mm:ss")}{" "}น.</h4>
+    
                 </Modal.Body>
                 <Modal.Footer>
+                    <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
+                        ยกเลิก
+                    </Button>
+                    <Button bsPrefix="succeed" className='my-0' onClick={handleDeleteData}>
+                        ยืนยันการลบ
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </>
