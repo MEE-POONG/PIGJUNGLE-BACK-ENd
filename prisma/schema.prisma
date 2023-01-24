@@ -62,19 +62,20 @@ model OrderDetail {
 }
 
 model Contact {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  image      String?
-  title      String?
-  address    String?
-  tel        String?
-  email      String?
-  opentime   String?
-  facebook   String?
-  line       String?
-  createdAt  DateTime? @default(now())
-  updatedAt  DateTime? @updatedAt
-  deleted_at DateTime? @map("deleted_at")
-  linkmap    String?
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  image       String?
+  qrLineImage String?
+  title       String?
+  address     String?
+  tel         String?
+  email       String?
+  opentime    String?
+  facebook    String?
+  line        String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  deleted_at  DateTime? @map("deleted_at")
+  linkmap     String?
 }
 
 model HomeFront {
@@ -120,34 +121,25 @@ model Popup {
   deleted_at DateTime? @map("deleted_at")
 }
 
-model Login {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  fname      String?
-  lname      String?
-  username   String?
-  passwaord  String?
-  image      String?
-  position   String?
-  createdAt  DateTime? @default(now())
-  updatedAt  DateTime? @updatedAt
-  deleted_at DateTime? @map("deleted_at")
-}
-
 model Users {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
-  name         String?
-  type         String?       @db.ObjectId
-  createdAt    DateTime?     @default(now())
-  updatedAt    DateTime?     @updatedAt
-  deleted_at   DateTime?     @map("deleted_at")
-  usersType   UsersType? @relation(fields: [type], references: [id])
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  image       String?
+  fname       String?
+  lname       String?
+  username    String?
+  passwaord   String?
+  usersTypeId String?    @db.ObjectId
+  createdAt   DateTime?  @default(now())
+  updatedAt   DateTime?  @updatedAt
+  deleted_at  DateTime?  @map("deleted_at")
+  UsersType   UsersType? @relation(fields: [usersTypeId], references: [id])
 }
 
 model UsersType {
-  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
   name       String?
-  createdAt  DateTime?  @default(now())
-  updatedAt  DateTime?  @updatedAt
-  deleted_at DateTime?  @map("deleted_at")
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
   users      Users[]
 }
