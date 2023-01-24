@@ -31,6 +31,7 @@ model Products {
 
 model Order {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  orderCode   String?
   image       String?
   address     String?
   createdAt   DateTime?     @default(now())
@@ -111,7 +112,7 @@ model LinkVideo {
   deleted_at DateTime? @map("deleted_at")
 }
 
-model Popup{
+model Popup {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   image      String?
   createdAt  DateTime? @default(now())

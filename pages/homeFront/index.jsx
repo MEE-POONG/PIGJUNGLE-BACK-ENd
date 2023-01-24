@@ -3,73 +3,40 @@ import { useState, useEffect } from "react";
 import IndexPage from "components/layouts/IndexPage";
 import PageLoading from "@/components/PageChange/pageLoading";
 import PageError from "@/components/PageChange/pageError";
-// import { useRouter } from 'next/router';
 import {
   Container,
   Image,
   Button,
   Form,
-  OverlayTrigger,
-  Badge,
   Modal,
   Row,
   Col,
   Alert,
   Card,
 } from "react-bootstrap";
-// import Editor from '@/components/Ckeditor/Editor';
 import useAxios from "axios-hooks";
 import FormData from "form-data";
-import { FaReply, FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 
-export default function homeFrontPage() {
-  const [{ data: homeFrontData, loading, error }, getHomeFront] = useAxios({
-    url: "/api/homeFront",
-  });
-  const [
-    {
-      data: homeFrontById,
-      loading: homeFrontByIdLoading,
-      error: homeFrontByIdError,
-    },
-    getHomeFrontById,
-  ] = useAxios({}, { manual: true });
-  const [
-    { loading: updateHomeFrontLoading, error: updateHomeFrontError },
-    executeHomeFrontPut,
-  ] = useAxios({}, { manual: true });
-
-  const [
-    { data: linkVideoData, loading: linkVideoLoading, error: linkVideoError },
-    getLinkVideoFront,
-  ] = useAxios({
-    url: "/api/linkVideo",
-  });
-  const [
-    {
-      data: linkVideoById,
-      loading: linkVideoByIdLoading,
-      error: linkVideoByIdError,
-    },
-    getLinkVideoById,
-  ] = useAxios({}, { manual: true });
-  const [
-    { loading: updateLinkVideoLoading, error: updateLinkVideoError },
-    executeLinkVideoPut,
-  ] = useAxios({}, { manual: true });
-
-  const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios(
-    { url: "/api/upload", method: "POST" },
-    { manual: true }
-  );
-
+export default function HomeFrontPage() {
   const [img, setImg] = useState([]);
   const [image, setImage] = useState([]);
   const [imageURL, setImageURL] = useState([]);
-
   const [link, setLink] = useState([]);
-
   const [name, setName] = useState("");
+  const [showModalEdit, setShowModalEdit] = useState(false);
+  const [showModalImageEdit, setShowModalImageEdit] = useState(false);
+  const [showModalEditLinkVideo, setShowModalEditLinkVideo] = useState(false);
+
+
+  const [{ data: homeFrontData, loading, error }] = useAxios({ url: "/api/homeFront" });
+  const [{ data: homeFrontById, loading: homeFrontByIdLoading, error: homeFrontByIdError, }, getHomeFrontById,] = useAxios({}, { manual: true });
+  const [{ loading: updateHomeFrontLoading, error: updateHomeFrontError }, executeHomeFrontPut,] = useAxios({}, { manual: true });
+
+  const [{ data: linkVideoData }] = useAxios({ url: "/api/linkVideo" });
+  const [{ data: linkVideoById }, getLinkVideoById] = useAxios({}, { manual: true });
+  const [{ }, executeLinkVideoPut] = useAxios({}, { manual: true });
+
+  const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios({ url: "/api/upload", method: "POST" }, { manual: true });
 
   useEffect(() => {
     setName(homeFrontById?.name);
@@ -87,20 +54,17 @@ export default function homeFrontPage() {
     setImage([...e.target.files]);
   };
 
-  const [showModalEdit, setShowModalEdit] = useState(false);
   const ShowModalEdit = async (id) => {
     await getHomeFrontById({ url: "/api/homeFront/" + id, method: "GET" });
     setShowModalEdit(true);
   };
 
-  const [showModalImageEdit, setShowModalImageEdit] = useState(false);
 
   const ShowModalImageEdit = async (id) => {
     await getHomeFrontById({ url: "/api/homeFront/" + id, method: "GET" });
     setShowModalImageEdit(true);
   };
 
-  const [showModalEditLinkVideo, setShowModalEditLinkVideo] = useState(false);
   const ShowModalEditLinkVideo = async (id) => {
     await getLinkVideoById({ url: "/api/linkVideo/" + id, method: "GET" });
     setShowModalEditLinkVideo(true);
@@ -111,13 +75,14 @@ export default function homeFrontPage() {
     setShowModalEditLinkVideo(false);
     setShowModalImageEdit(false);
   };
+
   if (loading || updateHomeFrontLoading || homeFrontByIdLoading || imgLoading)
     return <PageLoading />;
   if (error || updateHomeFrontError || homeFrontByIdError || imgError)
     return <PageError />;
   return (
     <>
-    <Head>
+      <Head>
         <title>PIG JUNGLE</title>
         <meta name="description" content="I2AROBOT 2" />
         <link rel="icon" href="/images/profile.jpg" />
@@ -157,7 +122,7 @@ export default function homeFrontPage() {
                       </Alert>
                     </Form.Group>
 
-                    <hr style={{ width: "500px" }} /> 
+                    <hr style={{ width: "500px" }} />
 
                     <Button
                       className="mx-2"
@@ -174,7 +139,7 @@ export default function homeFrontPage() {
                       แก้ไขชื่อร้าน
                     </Button>
 
-                   
+
                   </Col>
                 ))}
                 {linkVideoData?.map((linkVideo, index) => (
@@ -386,4 +351,4 @@ export default function homeFrontPage() {
     </>
   );
 }
-homeFrontPage.layout = IndexPage;
+HomeFrontPage.layout = IndexPage;
