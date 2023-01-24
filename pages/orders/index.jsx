@@ -25,7 +25,7 @@ import OrderConfirmModal from "@/container/Orders/OrderConfirmModal";
 // import OrderEditModal from '@/container/Orders/OrderEditModal'
 import { format } from "date-fns";
 
-export default function ProductPage() {
+export default function OrderPage() {
   const [params, setParams] = useState({
     page: "1",
     pageSize: "10",
@@ -33,7 +33,7 @@ export default function ProductPage() {
 
   const [status, setStatus] = useState("");
 
-  const [{ data: orderData, loading, error }, getProduct] = useAxios({
+  const [{ data: orderData, loading, error }, getOrder] = useAxios({
     url: `/api/order?page=1&pageSize=10&status=${status}`,
     method: "GET",
   });
@@ -41,10 +41,10 @@ export default function ProductPage() {
   useEffect(() => {
 
     if (loading === false) {
-        const getProductList = async () => {
-          await getProduct();
+        const getOrderList = async () => {
+          await getOrder();
         };
-        getProductList();
+        getOrderList();
     }
   }, [status]);
 
@@ -61,12 +61,12 @@ export default function ProductPage() {
   }, [orderData]);
 
   const handleSelectPage = (pageValue) => {
-    getProduct({
+    getOrder({
       url: `/api/order?page=${pageValue}&pageSize=${params.pageSize}`,
     });
   };
   const handleSelectPageSize = (sizeValue) => {
-    getProduct({ url: `/api/order?page=1&pageSize=${sizeValue}` });
+    getOrder({ url: `/api/order?page=1&pageSize=${sizeValue}` });
   };
 
   if (loading) {
@@ -116,12 +116,12 @@ export default function ProductPage() {
           </Col>
         </Row>
 
-        {/* <OrderAddModal getData={getProduct}/> */}
+        {/* <OrderAddModal getData={getOrder}/> */}
 
         <MyTable
           data={orderData?.data}
           setNum={orderData?.page * orderData?.pageSize - orderData?.pageSize}
-          getData={getProduct}
+          getData={getOrder}
         />
         <MyPagination
           page={orderData.page}
@@ -195,4 +195,4 @@ function MyTable(props) {
     </Table>
   );
 }
-ProductPage.layout = IndexPage;
+OrderPage.layout = IndexPage;
