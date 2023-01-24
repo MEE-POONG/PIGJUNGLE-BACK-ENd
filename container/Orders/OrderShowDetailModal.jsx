@@ -52,16 +52,52 @@ export default function ProductsDeleteModal(props) {
                 <textarea className="form-control" rows="5" readOnly defaultValue={props?.value?.notes ?? '-'} />
               </div>
 
-              <h2 className="p-2 text-start">ที่อยู่ที่ต้องจัดส่ง</h2>
+              <h4 className="p-2 text-start">ที่อยู่ที่ต้องจัดส่ง</h4>
               <div class="mb-3">
                 <textarea className="form-control" rows="9" readOnly defaultValue={`เลขที่ ${props?.value?.address} ตำบล${props?.value?.subDistrict} อำเภอ${props?.value?.district} จังหวัด${props?.value?.province} ${props?.value?.postalCode}`} />
               </div>
             </Col>
-            <Col md="6">
-              <h4 className="mb-3 text-start">รูปสลิป</h4>
-              <Image src={props?.value?.image} width="365px" />
+            {/* <Col md="6">
+              <Table table-borderless>
+                <thead>
+                  <h4 className="p-2 text-start">ที่อยู่ที่ต้องจัดส่ง</h4>
+                </thead>
+                <tr>
+                  <td className="p-2 text-start">
+                    บ้านเลขที่ : {props?.value?.address}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-2 text-start">
+                    ตำบล : {props?.value?.subDistrict}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-2 text-start">
+                    อำเภอ : {props?.value?.district}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-2 text-start">
+                    จังหวัด : {props?.value?.province}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-2 text-start">
+                    ไปรษณีย์ : {props?.value?.postalCode}
+                  </td>
+                </tr>
+
+                <tr></tr>
+              </Table>
+            </Col> */}
+            <Col md="4">
+            <h4 className="mb-3 text-start">รูปสลิป</h4>
+              <div className="zoom ">
+              <Image src={props?.value?.image} width="400px" height="450px" />
+              </div>
             </Col>
-            <Col md="12">
+            <Col md="12 mt-2">
               <h4>สินค้าที่ต้องจัดส่ง</h4>
               <Table striped bordered hover>
                 <thead>
@@ -83,9 +119,9 @@ export default function ProductsDeleteModal(props) {
                   ))}
                 </tbody>
               </Table>
-              <Modal.Title className="mb-3">
+              <Modal.Title className="mb-3 ">
                 ราคารวมทั้งหมด :{" "}
-                <span className="text-danger"> {props?.value?.total} บาท</span>
+                <span className="text-danger "> {props?.value?.total} บาท</span>
               </Modal.Title>
             </Col>
           </Row >

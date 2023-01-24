@@ -199,3 +199,14 @@ button {
 .object-fit-contain {
     object-fit: contain;
 }
+.zoom {
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  .zoom img{
+    width: 100%;
+    transition: 0.5s all ease-in-out;
+  }
+  .zoom:hover {
+    transform: scale(1.5);
+  }
