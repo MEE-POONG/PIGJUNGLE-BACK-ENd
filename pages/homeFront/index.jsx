@@ -87,7 +87,7 @@ export default function HomeFrontPage() {
         <meta name="description" content="I2AROBOT 2" />
         <link rel="icon" href="/images/profile.jpg" />
       </Head>
-      <Container fluid className=" pt-4 px-4">
+      <Container fluid className=" pt-4 px-4 element">
         <div className="bg-secondary rounded shadow p-4">
           <h5 className="mb-0 w-m-max me-2">ข้อมูลหน้าหลัก</h5>
           {/* <div className="d-flex align-items-center justify-content-between mb-4"></div> */}

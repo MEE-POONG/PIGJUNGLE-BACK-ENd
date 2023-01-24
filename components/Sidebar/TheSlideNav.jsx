@@ -128,6 +128,20 @@ export default function TheSlideNav() {
               </Link>
             </Dropdown.Menu>
 
+            <Dropdown.Toggle onClick={() => { setCheckClickPath('/users') }} className={checkClickPath === "/users" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+              <i className="me-2">
+                <BsFillBagFill />
+              </i>
+              จัดการผู้ดูแล
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/users" }>
+              <Link id="buttons" href="/users">
+                <a className={asPath === "/users" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                รายชื่อผู้ดูแล
+                </a>
+              </Link>
+            </Dropdown.Menu>
+
 
 
 
