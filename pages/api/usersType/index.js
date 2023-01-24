@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         // case 'GET':
         //     try {
-        //         const data = await prisma.users.findMany({});
+        //         const data = await prisma.usersType.findMany({});
         //         res.status(200).json(data)
         //     } catch (error) {
         //         res.status(400).json({ success: false })
@@ -17,12 +17,8 @@ export default async function handler(req, res) {
                 let page = +req.query.page || 1;
                 let pageSize = +req.query.pageSize || 10;
                 const data = await prisma.$transaction([
-                    prisma.users.count({
-                        
-                    }),
-                    prisma.users.findMany({
-                        
-                        include: { UsersType: true },
+                    prisma.usersType.count(),
+                    prisma.usersType.findMany({
                         skip: (page - 1) * pageSize,
                         take: pageSize,
                     })
@@ -35,17 +31,11 @@ export default async function handler(req, res) {
             break
         case 'POST':
             try {
-                await prisma.users.create({
+                await prisma.usersType.create({
                     data: {
-                        image: req.body.image,
-                        username: req.body.username,
-                        fname: req.body.fname,
-                        lname: req.body.lname,
-                        passwaord: req.body.passwaord,
-                        usersTypeId: req.body.usersType,
+                        name: req.body.name,
                     }
                 })
-                
                 res.status(201).json({ success: true })
             } catch (error) {
                 res.status(400).json({ success: false })

@@ -18,11 +18,11 @@ import MyPagination from "@/components/Pagination";
 import useAxios from "axios-hooks";
 import PageLoading from "@/components/PageChange/pageLoading";
 import PageError from "@/components/PageChange/pageError";
-// import OrderAddModal from '@/container/Orders/OrderAddModal'
-import OrderDeleteModal from "@/container/Orders/OrderDeleteModal";
-import OrderShowDetailModal from "@/container/Orders/OrderShowDetailModal";
-import OrderConfirmModal from "@/container/Orders/OrderConfirmModal";
-// import OrderEditModal from '@/container/Orders/OrderEditModal'
+// // import UsersAddModal from '@/container/Userss/UsersAddModal'
+// import UsersDeleteModal from "@/container/Userss/UsersDeleteModal";
+// import UsersShowDetailModal from "@/container/Userss/UsersShowDetailModal";
+// import UsersConfirmModal from "@/container/Userss/UsersConfirmModal";
+// // import UsersEditModal from '@/container/Userss/UsersEditModal'
 import { format } from "date-fns";
 
 export default function UsersPage() {
@@ -34,17 +34,17 @@ export default function UsersPage() {
   const [status, setStatus] = useState("");
 
   const [{ data: usersData, loading, error }, getUsers] = useAxios({
-    url: `/api/users?page=1&pageSize=10&status=${status}`,
+    url: `/api/users?page=1&pageSize=10`,
     method: "GET",
   });
 
   useEffect(() => {
 
     if (loading === false) {
-        const getUsers = async () => {
+        const getUsersList = async () => {
           await getUsers();
         };
-        getUsers();
+        getUsersList();
     }
   }, [status]);
 
@@ -61,12 +61,12 @@ export default function UsersPage() {
   }, [usersData]);
 
   const handleSelectPage = (pageValue) => {
-    getProduct({
+    getUsers({
       url: `/api/users?page=${pageValue}&pageSize=${params.pageSize}`,
     });
   };
   const handleSelectPageSize = (sizeValue) => {
-    getProduct({ url: `/api/users?page=1&pageSize=${sizeValue}` });
+    getUsers({ url: `/api/users?page=1&pageSize=${sizeValue}` });
   };
 
   if (loading) {
@@ -90,33 +90,42 @@ export default function UsersPage() {
               variant="danger"
               className=" mx-2 "
               onClick={() => {
-                setStatus("แอดมิน");
+                setStatus("รอการตรวจสอบ");
               }}
             >
-              แอดมิน
+              รอการตรวจสอบ
             </Button>
             <Button
               variant="warning"
               className="mx-2"
               onClick={() => {
-                setStatus("พนักงานร้าน");
+                setStatus("กำลังดำเนินการ");
               }}
             >
-              พนักงานร้าน
+              กำลังดำเนินการ
+            </Button>
+            <Button
+              variant="success"
+              className="mx-2"
+              onClick={() => {
+                setStatus("จัดส่งเสร็จสิ้น");
+              }}
+            >
+              จัดส่งเสร็จสิ้น
             </Button>
           </Col>
         </Row>
 
-        {/* <OrderAddModal getData={getProduct}/> */}
+        {/* <UsersAddModal getData={getUsers}/> */}
 
         <MyTable
-          data={orderData?.data}
-          setNum={orderData?.page * orderData?.pageSize - orderData?.pageSize}
-          getData={getProduct}
+          data={usersData?.data}
+          setNum={usersData?.page * usersData?.pageSize - usersData?.pageSize}
+          getData={getUsers}
         />
         <MyPagination
-          page={orderData.page}
-          totalPages={orderData.totalPage}
+          page={usersData.page}
+          totalPages={usersData.totalPage}
           onChangePage={handleSelectPage}
           pageSize={params.pageSize}
           onChangePageSize={handleSelectPageSize}
@@ -134,14 +143,15 @@ function MyTable(props) {
   }, [props]);
 
   return (
-    <Table striped bordered hover>
+    <Table striped bUsersed hover>
       <thead>
         <tr>
           <th>No.</th>
+          <th>รูปผู้ใช้</th>
           <th>ชื่อผู้ใช้</th>
-          <th>ชื่อผู้ใช้ในระบบ</th>
+          <th>ชื่อ-สกุล</th>
+          <th>ตำแหน่ง</th>
           <th>รหัสผ่าน</th>
-          <th>สถานะ</th>
           <th>จัดการ</th>
         </tr>
       </thead>
@@ -149,16 +159,14 @@ function MyTable(props) {
         {currentItems.length
           ? currentItems?.map((item, index) => (
               <tr key={item.id}>
+                <td>{index + 1 + numberSet}</td>
+                <td>
+                  {item.username}
+                </td>
                 <td>
                   {item.firstname} {item.lastname}
                 </td>
-                <td>
-                  <OrderShowDetailModal value={item} getData={props?.getData} />
-                </td>
-                <td>
-                  {format(new Date(item.createdAt), "dd/MM/yyyy HH:mm:ss")}
-                </td>
-                {item.status === "รอการตรวจสอบ" ? (
+                {/* {item.status === "รอการตรวจสอบ" ? (
                   <td>
                     <Badge bg="danger">{item.status}</Badge>
                   </td>
@@ -170,11 +178,13 @@ function MyTable(props) {
                   <td>
                     <Badge bg="success">{item.status}</Badge>
                   </td>
-                )}
-
+                )} */}
                 <td>
-                  <OrderConfirmModal value={item} getData={props?.getData} />
-                  <OrderDeleteModal value={item} getData={props?.getData} />
+                  {item.password}
+                </td>
+                <td>
+                  <UsersConfirmModal value={item} getData={props?.getData} />
+                  <UsersDeleteModal value={item} getData={props?.getData} />
                 </td>
               </tr>
             ))

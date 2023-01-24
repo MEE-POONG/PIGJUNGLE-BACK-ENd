@@ -5,9 +5,9 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import ProductsTypeEditModal from '@/container/ProductsType/ProductsTypeEditModal'
-import ProductsTypeDeleteModal from '@/container/ProductsType/ProductsTypeDeleteModal'
-import ProductsTypeAddModal from '@/container/ProductsType/ProductsTypeAddModal'
+import UsersTypeEditModal from '@/container/UsersType/UsersTypeEditModal'
+import UsersTypeDeleteModal from '@/container/UsersType/UsersTypeDeleteModal'
+import UsersTypeAddModal from '@/container/UsersType/UsersTypeAddModal'
 
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
@@ -35,8 +35,8 @@ function MyTable(props) {
                                 {item.name}
                             </td>
                             <td>
-                                <ProductsTypeEditModal value={item} getData={props?.getData} />
-                                <ProductsTypeDeleteModal value={item} getData={props?.getData} />
+                                <UsersTypeEditModal value={item} getData={props?.getData} />
+                                <UsersTypeDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))
@@ -46,28 +46,28 @@ function MyTable(props) {
     );
 }
 
-export default function ProductPage() {
+export default function UsersType() {
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
     });
 
-    const [{ data: productTypeData, loading, error }, getProductType] = useAxios({ url: `/api/productType?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: usersTypeData, loading, error }, getUsersType] = useAxios({ url: `/api/usersType?page=1&pageSize=10`, method: 'GET' });
     useEffect(() => {
-        if (productTypeData) {
+        if (usersTypeData) {
             setParams({
                 ...params,
-                page: productTypeData.page,
-                pageSize: productTypeData.pageSize
+                page: usersTypeData.page,
+                pageSize: usersTypeData.pageSize
             });
         }
-    }, [productTypeData]);
+    }, [usersTypeData]);
 
     const handleSelectPage = (pageValue) => {
-        getProductType({ url: `/api/productType?page=${pageValue}&pageSize=${params.pageSize}` })
+        getUsersType({ url: `/api/usersType?page=${pageValue}&pageSize=${params.pageSize}` })
     };
     const handleSelectPageSize = (sizeValue) => {
-        getProductType({ url: `/api/productType?page=1&pageSize=${sizeValue}` })
+        getUsersType({ url: `/api/usersType?page=1&pageSize=${sizeValue}` })
     };
 
     if (loading) {
@@ -81,14 +81,14 @@ export default function ProductPage() {
             <Card className="bg-secondary text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
-                        รายการสินค้า
+                        รายการผู้ดูแล
                     </Card.Title>
-                    <ProductsTypeAddModal getData={getProductType}/>
+                    <UsersTypeAddModal getData={getUsersType}/>
                 </div>
-                <MyTable data={productTypeData?.data} setNum={(productTypeData?.page * productTypeData?.pageSize) - productTypeData?.pageSize} getData={getProductType} />
-                <MyPagination page={productTypeData.page} totalPages={productTypeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
+                <MyTable data={usersTypeData?.data} setNum={(usersTypeData?.page * usersTypeData?.pageSize) - usersTypeData?.pageSize} getData={getUsersType} />
+                <MyPagination page={usersTypeData.page} totalPages={usersTypeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
     );
 }
-ProductPage.layout = IndexPage
+UsersType.layout = IndexPage

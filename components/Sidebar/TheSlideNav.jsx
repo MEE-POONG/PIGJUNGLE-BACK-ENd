@@ -151,19 +151,27 @@ export default function TheSlideNav() {
             </Link>
           </Dropdown.Menu>
 
-          <Dropdown.Toggle onClick={() => { setCheckClickPath('/users') }} className={checkClickPath === "/users" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+          <Dropdown.Toggle onClick={() => { setCheckClickPath('/users') }} className={checkClickPath === "/users" || checkClickPath === "/users/userType"  ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
             <i className="me-2">
               <BsFillBagFill />
             </i>
             จัดการผู้ดูแล
           </Dropdown.Toggle>
-          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/users" }>
+          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/users" || checkClickPath === "/users/userType"  }>
             <Link
               id="buttons"
               href="/users"
               className={asPath === "/users" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
               
               รายชื่อผู้ดูแล
+              
+            </Link>
+            <Link
+              id="buttons"
+              href="/users/userType"
+              className={asPath === "/users/userType" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              
+              ปะรเภทผู้ดูแล
               
             </Link>
           </Dropdown.Menu>
