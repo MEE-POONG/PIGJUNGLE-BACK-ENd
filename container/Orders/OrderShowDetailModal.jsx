@@ -113,8 +113,10 @@ export default function ProductsDeleteModal(props) {
               </Table>
             </Col>
             <Col md="4">
-              <h4 className="mb-3 text-start">รูปสลิป</h4>
-              <Image src={props?.value?.image} width="350px" height="300px" />
+            <h4 className="mb-3 text-start">รูปสลิป</h4>
+              <div className="zoom">
+              <Image src={props?.value?.image} width="400px" height="450px" />
+              </div>
             </Col>
             <Col md="8">
               <h4>สินค้าที่ต้องจัดส่ง</h4>
