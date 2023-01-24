@@ -146,13 +146,13 @@ export default function ContactPage() {
 
                     <Form.Label>
                       {" "}
-                      <h4> ภาพร้าน</h4>
+                      <h4> ภาพคิวอาร์โค้ดไลน์</h4>
                     </Form.Label>
                     <Card style={{ width: "500px" }}>
                       <Card.Img
                         src={contact.linkQrLine}
                         width="350px"
-                        height="350px"
+                        
                       />
                     </Card>
 
