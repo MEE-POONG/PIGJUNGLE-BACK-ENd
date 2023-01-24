@@ -20,12 +20,12 @@ export default function IndexNavbar() {
             id="nav-dropdown-dark-example"
             title={<>
               <Image className="rounded-circle me-lg-2" src={'./images/profile.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
-              <span className="d-none d-lg-inline-flex">มอง มอง</span>
+              <span className="d-none d-lg-inline-flex">Admin PigJungle</span>
             </>}
             menuVariant="dark"
           >
             {/* <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item> */}
-            <NavDropdown.Item href="#action/3.4">Log Out</NavDropdown.Item>
+            <NavDropdown.Item href="sign_in">Log Out</NavDropdown.Item>
           </NavDropdown>
         </div>
       </Navbar>
