@@ -19,10 +19,10 @@ export default async function handler(req, res) {
                 let usersTypeId = req.query.usersTypeId;
                 const data = await prisma.$transaction([
                     prisma.users.count({
-                        where :{usersTypeId:{contains:usersTypeId}}
+                        where :{usersTypeId:usersTypeId}
                     }),
                     prisma.users.findMany({
-                        where :{usersTypeId:{contains:usersTypeId}},
+                        where :{usersTypeId:usersTypeId},
                         include: { UsersType: true },
                         skip: (page - 1) * pageSize,
                         take: pageSize,

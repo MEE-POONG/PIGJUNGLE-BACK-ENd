@@ -34,7 +34,7 @@ export default function UsersPage() {
   console.log(usersType);
 
   const [{ data: usersData, loading, error }, getUsers] = useAxios({
-    url: `/api/users?page=1&pageSize=10&usersTypeId=${usersType}`,
+    url: `/api/users?page=1&pageSize=10`,
     method: "GET",
   });
  
@@ -133,10 +133,9 @@ function MyTable(props) {
         <tr>
           <th className="text-center">No.</th>
           <th>รูปผู้ใช้</th>
-          <th>ชื่อผู้ใช้</th>
           <th>ชื่อ-สกุล</th>
-          <th>ตำแหน่ง</th>
           <th>รหัสผ่าน</th>
+          <th>ตำแหน่ง</th>
           <th>จัดการ</th>
         </tr>
       </thead>
@@ -154,20 +153,18 @@ function MyTable(props) {
                   />
                 </td>
                 <td>
-                  {item.username}
-                </td>
-                <td>
                   {item.fname} {item.lname}
                 </td>
                 <td>
-                    <Badge bg="danger">{item.UsersType?.name}</Badge>
+                  {item.username}
                 </td>
                 <td>
                   {item.password}
                 </td>
                 <td>
-                  {/* <UsersConfirmModal value={item} getUsersData={props?.getUsersData} />
-                  <UsersDeleteModal value={item} getUsersData={props?.getUsersData} /> */}
+                    <Badge bg="danger">{item.UsersType?.name}</Badge>
+                </td>
+                <td>
                   <UsersEditModal
                     value={item}
                     getData={props?.getData}
