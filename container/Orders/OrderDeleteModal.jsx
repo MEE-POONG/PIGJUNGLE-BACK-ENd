@@ -45,7 +45,7 @@ export default function OrdersDeleteModal(props) {
     
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bg="cancel" className='my-0' onClick={handleClose}>
+                    <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
                         ยกเลิก
                     </Button>
                     <Button bg="succeed" className='my-0' onClick={handleDeleteData}>
