@@ -3,18 +3,16 @@ import { Modal, Button, Form, Row, Col, Image } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import useAxios from "axios-hooks";
 import AutoComplete from "@/components/AutoComplete";
-import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from "@/components/CardChange/CardError";
 import ModelLoading from "@/components/ModelChange/ModelLoading";
 import ModelError from "@/components/ModelChange/ModelError";
-
 import FormData from "form-data";
 import { CKEditor } from "ckeditor4-react";
 
-export default function HowToOrderEditModal(props) {
+export default function ProductsEditModal(props) {
   const [
-    { loading: updateHowToOrderLoading, error: updateHowToOrderError },
-    executeHowToOrderPut,
+    { loading: updateProductsLoading, error: updateProductsError },
+    executeProductsPut,
   ] = useAxios({}, { manual: true });
 
   const [checkValue, setCheckValue] = useState(true);
@@ -24,13 +22,13 @@ export default function HowToOrderEditModal(props) {
     { manual: true }
   );
 
-
   const [img, setImg] = useState([]);
   const [image, setImage] = useState([]);
   const [imageURL, setImageURL] = useState([]);
 
-  const [title, setTitle] = useState("");
-  const [detail, setDetail] = useState("");
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [type, setType] = useState("");
 
   const [showCheck, setShowCheck] = useState(false);
   const handleClose = () => {
@@ -38,13 +36,12 @@ export default function HowToOrderEditModal(props) {
   };
   const handleShow = () => setShowCheck(true);
 
-  console.log(image);
-
   useEffect(() => {
     if (props) {
-      setTitle(props?.value?.title);
-      setDetail(props?.value?.detail);
+      setName(props?.value?.name);
+      setPrice(props?.value?.price);
       setImg(props?.value?.image);
+      setType(props?.value?.type);
     }
 
     if (image.length < 1) return;
@@ -59,43 +56,31 @@ export default function HowToOrderEditModal(props) {
 
   const handlePutData = async () => {
     setCheckValue(false);
-    if (image[0] === undefined) {
-      await executeHowToOrderPut({
-        url: "/api/howToOrder/" + props?.value?.id,
-        method: "PUT",
-        data: {
-          title: title,
-          detail: detail,
-        },
-      }).then(() => {
-        Promise.all([setTitle(""), setDetail(""), props.getData()]).then(() => {
-          if (updateHowToOrderLoading?.success) {
-            handleClose();
-          }
-        });
-      });
-    } else {
+    if (name !== "" && price !== "") {
       let data = new FormData();
       data.append("file", image[0]);
       const imageData = await uploadImage({ data: data });
       const id = imageData.data.result.id;
 
-      await executeHowToOrderPut({
-        url: "/api/howToOrder/" + props?.value?.id,
+      await executeProductsPut({
+        url: "/api/products/" + props?.value?.id,
         method: "PUT",
         data: {
-          title: title,
-          detail: detail,
+          name: name,
+          price: price,
+          type: type,
           image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
         },
       }).then(() => {
         Promise.all([
-          setTitle(""),
-          setDetail(""),
-          setImage([]),
+          setName(""),
+          setPrice(""),
+          setType(""),
+          setImage(""),
+
           props.getData(),
         ]).then(() => {
-          if (updateHowToOrderLoading?.success) {
+          if (updateProductsLoading?.success) {
             handleClose();
           }
         });
@@ -103,12 +88,8 @@ export default function HowToOrderEditModal(props) {
     }
   };
 
-  if (updateHowToOrderLoading || imgLoading)
-    return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-  if (updateHowToOrderError || imgError)
-    return (
-      <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
-    );
+  if (updateProductsLoading || imgLoading) return <ModelLoading showCheck={showCheck}/>
+  if (updateProductsError || imgError ) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
   return (
     <>
@@ -162,46 +143,73 @@ export default function HowToOrderEditModal(props) {
             <Col md="6">
               <Row>
                 <Col md="12">
-                  <Form.Group className="mb-3" controlId="title">
-                    <Form.Label>หัวข้อ</Form.Label>
+                  <Form.Group className="mb-3" controlId="name">
+                    <Form.Label>ชื่อสินค้า</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="เพิ่มหัวข้อ"
+                      placeholder="เพิ่มชื่อสินค่า"
                       onChange={(e) => {
-                        setTitle(e.target.value);
+                        setName(e.target.value);
                       }}
-                      value={title}
+                      value={name}
                       autoComplete="off"
                       isValid={
-                        checkValue === false && title !== "" ? title : false
+                        checkValue === false && name !== "" ? true : false
                       }
                       isInvalid={
-                        checkValue === false && title === "" ? title : false
+                        checkValue === false && name === "" ? true : false
                       }
                     />
                   </Form.Group>
                 </Col>
+                <Col md="12">
+                  <Form.Group className="mb-3" controlId="price">
+                    <Form.Label>ราคาสินค้า</Form.Label>
+                    <Form.Control
+                      type="number"
+                      placeholder="เพิ่ม ราคาของสินค้า"
+                      onChange={(e) => {
+                        setPrice(e.target.value);
+                      }}
+                      value={price}
+                      autoComplete="off"
+                      isValid={
+                        checkValue === false && price !== "" ? true : false
+                      }
+                      isInvalid={
+                        checkValue === false && price === "" ? true : false
+                      }
+                    />
+                  </Form.Group>
+                </Col>
+
+                <Col md="12">
+                  <Form.Group className="mb-3" controlId="price">
+                    <Form.Label>ประเภทสินค้า</Form.Label>
+                    <Form.Select
+                      onChange={(e) => {
+                        setType(e.target.value);
+                      }}
+                      value={type}
+                      autoComplete="off"
+                      isValid={
+                        checkValue === false && type !== "" ? true : false
+                      }
+                      isInvalid={
+                        checkValue === false && type === "" ? true : false
+                      }
+                    >
+                      <option value="">ประเภทสินค้า</option>
+                      {props.productTypeData?.map((productType, index) => (
+                        <option key={index} value={productType.id}>
+                          {productType.name}
+                        </option>
+                      ))}
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
               </Row>
             </Col>
-            <Form.Group className="mb-3" controlId="Detail">
-              <Form.Label>เนื้อหา</Form.Label>
-              <CKEditor
-                initData={detail}
-                onChange={(event) => setDetail(event.editor.getData())}
-                config={{
-                  uiColor: "#ddc173 ",
-                  language: "th",
-                  // extraPlugins: "uploadimage",
-                  // filebrowserUploadMethod: "form",
-                  // filebrowserUploadUrl: ("/uploader/upload"),
-                  // filebrowserBrowseUrl: '/addgallery',
-                  // toolbar: [
-                  // ],
-                  extraPlugins: "easyimage,autogrow,emoji",
-                  // removePlugins: 'image',
-                }}
-              />
-            </Form.Group>
           </Row>
         </Modal.Body>
         <Modal.Footer>

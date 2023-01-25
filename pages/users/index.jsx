@@ -18,11 +18,9 @@ import MyPagination from "@/components/Pagination";
 import useAxios from "axios-hooks";
 import PageLoading from "@/components/PageChange/pageLoading";
 import PageError from "@/components/PageChange/pageError";
-// // import UsersAddModal from '@/container/Userss/UsersAddModal'
-// import UsersDeleteModal from "@/container/Userss/UsersDeleteModal";
-// import UsersShowDetailModal from "@/container/Userss/UsersShowDetailModal";
-// import UsersConfirmModal from "@/container/Userss/UsersConfirmModal";
-// // import UsersEditModal from '@/container/Userss/UsersEditModal'
+import UsersAddModal from '@/container/Users/UsersAddModal'
+import UsersDeleteModal from "@/container/Users/UsersDeleteModal";
+import UsersEditModal from '@/container/Users/UsersEditModal'
 import { format } from "date-fns";
 
 export default function UsersPage() {
@@ -48,6 +46,9 @@ export default function UsersPage() {
     }
   }, [status]);
 
+  const [{ data: usersTypeData }, getUsersType] = useAxios({
+    url: "../api/usersType",
+  });
 
 
   useEffect(() => {
@@ -78,20 +79,30 @@ export default function UsersPage() {
   return (
     <Container fluid className="pt-4 px-4">
       <Card className="bg-secondary text-center rounded shadow p-4">
-        <Row>
-          <Col>
-            <div className="d-flex align-items-center mb-4">
-              <Card.Title className="mb-0">รายชื่อผู้ดูแล</Card.Title>
-            </div>
-          </Col>
-        </Row>
+    
+      <div className="d-flex align-items-center justify-content-between mb-4">
+      <Card.Title className="mb-0">รายชื่อผู้ดูแล</Card.Title>
+           
+        <Form.Group className="mb-3" controlId="price">
+            <Form.Label>ตำแหน่ง</Form.Label>
+            <Form.Select>
+              <option value="">ตำแหน่ง</option>
+              {usersTypeData?.data?.map((usersType, index) => (
+                <option key={index} value={usersType.id}>
+                  {usersType.name}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
 
-        {/* <UsersAddModal getData={getUsers}/> */}
-
+        <UsersAddModal getData={getUsers} usersTypeData={usersTypeData?.data} />
+        
+          </div>
         <MyTable
           data={usersData?.data}
           setNum={usersData?.page * usersData?.pageSize - usersData?.pageSize}
           getData={getUsers}
+          usersTypeData={usersTypeData?.data}
         />
         <MyPagination
           page={usersData.page}
@@ -109,7 +120,6 @@ function MyTable(props) {
   const [numberSet, setNumberSet] = useState(props?.setNum);
   useEffect(() => {
     setCurrentItems(currentItems);
-    console.log(props);
   }, [props]);
 
   return (

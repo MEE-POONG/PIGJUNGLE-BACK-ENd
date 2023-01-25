@@ -10,8 +10,9 @@ import FormData from 'form-data';
 import axios from 'axios'
 import { CKEditor } from 'ckeditor4-react'
 
-export default function ProductsAddModal(props) {
+export default function ProductsAddModal(propsData) {
     
+    console.log(propsData.usersTypeData);
     
     const [{ data:productsPost, error: errorMessage, loading: ProductsLoading }, executeProducts] = useAxios({ url: '/api/products', method: 'POST' }, { manual: true });
     
@@ -139,10 +140,10 @@ export default function ProductsAddModal(props) {
                                          value={type} autoComplete="off"
                                          isValid={checkValue === false && type !== '' ? true : false}
                                          isInvalid={checkValue === false && type === '' ? true : false}>
-                                            {/* <option value="">ประเภทสินค้า</option>
-                                            {productTypeData.data?.map((productType, index) => (
-                                                <option key={index} value={productType.id}>{productType.name}</option>
-                                            ))} */}
+                                            <option value="">ประเภทสินค้า</option>
+                                            {propsData.usersTypeData.data?.map((usersType, index) => (
+                                                <option key={index} value={usersType.id}>{usersType.name}</option>
+                                            ))}
 
                                         </Form.Select>
                                     </Form.Group>
