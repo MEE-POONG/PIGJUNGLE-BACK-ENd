@@ -35,7 +35,7 @@ function MyTable(props) {
         <tr>
           <th>No.</th>
           <th>ภาพ</th>
-          <th>ชื่อสินค่า</th>
+          <th>ชื่อสินค้า</th>
           <th>ประเภทสินค้า</th>
           <th>ราคา</th>
           <th>จัดการ</th>
@@ -136,7 +136,7 @@ export default function ProductPage() {
         <div className="d-flex align-items-center justify-content-between mb-4">
           <Card.Title className="mb-0">รายการสินค้า</Card.Title>
           <Form.Group className="mb-3" controlId="price">
-            <Form.Label>ค้นหาสินค้ส</Form.Label>
+            <Form.Label>ค้นหาสินค้า</Form.Label>
             <form className="d-none d-md-flex ms-4">
               <input
                 className="form-control bg-dark border-0"

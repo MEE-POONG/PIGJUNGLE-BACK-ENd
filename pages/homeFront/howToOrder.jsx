@@ -5,8 +5,6 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import HowToOrderAddModal from '@/container/HowToOrder/HowToOrderAddModal'
-import HowToOrderDeleteModal from '@/container/HowToOrder/HowToOrderDeleteModal'
 import HowToOrderEditModal from '@/container/HowToOrder/HowToOrderEditModal'
 
 function MyTable(props) {
@@ -46,7 +44,6 @@ function MyTable(props) {
                             </th>
                             <td>
                                 <HowToOrderEditModal value={item} getData={props?.getData} />
-                                <HowToOrderDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))
@@ -93,10 +90,10 @@ export default function HowToOrderPage() {
                     <Card.Title className="mb-0">
                         จัดการวิธีการใช้
                     </Card.Title>   
-                    <HowToOrderAddModal getData={getHowToOrder}/>
+                    {/* <HowToOrderAddModal getData={getHowToOrder}/> */}
                 </div>
                 <MyTable data={howToOrderData?.data} setNum={(howToOrderData?.page * howToOrderData?.pageSize) - howToOrderData?.pageSize} getData={getHowToOrder} />
-                <MyPagination page={howToOrderData.page} totalPages={howToOrderData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
+                {/* <MyPagination page={howToOrderData.page} totalPages={howToOrderData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} /> */}
             </Card >
         </Container >
     );
