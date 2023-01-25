@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Button, Form, Row, Col, Image } from "react-bootstrap";
+import { Modal, Button, Form, Row, Col, Image ,Table } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import useAxios from "axios-hooks";
 import AutoComplete from "@/components/AutoComplete";
@@ -20,13 +20,10 @@ export default function OrderEditModal(props) {
   const [status, setStatus] = useState("");
 
   const [showCheck, setShowCheck] = useState(false);
-  const handleClose = () => {
-    setShowCheck(false), setCheckValue(true);
-  };
+  const handleClose = () => { setShowCheck(false), setCheckValue(true); };
   const handleShow = () => setShowCheck(true);
-
-  const handlePutData = () => {
-    setCheckValue(false);
+  const handlePutData = () => { setCheckValue(false);
+  console.log(props.value);
 
     if (props?.value?.status == "รอการตรวจสอบ") {
       executeOrderPut({
@@ -75,48 +72,59 @@ export default function OrderEditModal(props) {
       </Button>
           ) }
 
-
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
-          <Modal.Title className="text-center">ยืนยันรายการสินค้า</Modal.Title>
+          <Modal.Title className="text-center ">ยืนยันรายการสินค้า :
+          <span className="text-danger "> {props?.value?.orderCode}</span> </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Row className="mb-3 ">
-            <Col md="6">
-          <Image
-            src={props?.value?.image}
-            width="150px"
-            height="150px"
-            className="object-fit-cover"
-          />
+        <Row >
+            <Col md="12">
+            <div className="row">
+             <h4 className="p-2 text-start">รายละเอียดข้อมูล </h4>
+            {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.firstname + " " + props?.value?.lastname)}
+            {newFunction("สถานะ", props?.value?.status )}
+         </div>
           </Col>
-           <Col md="6">
-          <h4 className="mb-3">
-            ชื่อผู้สั่งสินค้า : {props?.value?.firstname}{" "}
-            {props?.value?.lastname}
-          </h4>
-          <h4 className="mb-3">
-            วันที่สั่งซื้อ :{" "}
-            {format(new Date(props?.value?.createdAt), "dd/MM/yyyy")}
-          </h4>
-          <h4 className="mb-3">
-            เวลาที่สั่งซื้อ :{" "}
-            {format(new Date(props?.value?.createdAt), "HH:mm:ss")} น.
-          </h4>
-          <h4 className="mb-3">สถานะ : {props?.value?.status}</h4>
-          </Col>
+          <Col md="12 mt-2">
+              <h4>สินค้าที่ต้องจัดส่ง</h4>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>ชื่อสินค้า</th>
+                    <th>จำนวนสินค้า</th>
+                    <th>ราคารวม</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {props?.value?.OrderDetail?.map((product, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{product.products?.name}</td>
+                      <td>{product.sumQty}</td>
+                      <td>{product.sumPrice} บาท</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Modal.Title className="mb-3 ">
+                ราคารวมทั้งหมด :{" "}
+                <span className="text-danger "> {props?.value?.total} บาท</span>
+              </Modal.Title>
+            </Col>
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button bsPrefix="cancel" className="my-0" onClick={handleClose}>
+          <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
             ยกเลิก
           </Button>
           {props?.value?.status === "รอการตรวจสอบ" ? (
-            <Button bsPrefix="succeed" className="my-0" onClick={handlePutData}>
+            <Button bg="succeed" className="my-0" onClick={handlePutData}>
               ยืนยันรายการสินค้า
             </Button>
           ) : props?.value?.status === "กำลังดำเนินการ" ?  (
-            <Button bsPrefix="succeed" className="my-0" onClick={handlePutData}>
+            <Button bg="succeed" className="my-0" onClick={handlePutData}>
               ยืนยันการจัดส่ง
             </Button>
           ) : (
@@ -127,4 +135,10 @@ export default function OrderEditModal(props) {
       </Modal>
     </>
   );
+  function newFunction(label, value) {
+    return <div class="col-4 mb-3">
+      <label for="exampleInputEmail1">{label}</label>
+      <input class="form-control" value={value} readonly />
+    </div>;
+  }
 }
