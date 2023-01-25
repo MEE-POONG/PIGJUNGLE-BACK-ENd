@@ -7,13 +7,10 @@ import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
 import FormData from 'form-data';
 
-import axios from 'axios'
-import { CKEditor } from 'ckeditor4-react'
-
 export default function ProductsAddModal(props) {
     
     
-    const [{ data:productsPost, error: errorMessage, loading: ProductsLoading }, executeProducts] = useAxios({ url: '/api/products', method: 'POST' }, { manual: true });
+    const [{ error: errorMessage, loading: ProductsLoading }, executeProducts] = useAxios({ url: '/api/products', method: 'POST' }, { manual: true });
     
     const [checkValue, setCheckValue] = useState(true);
 
@@ -139,10 +136,10 @@ export default function ProductsAddModal(props) {
                                          value={type} autoComplete="off"
                                          isValid={checkValue === false && type !== '' ? true : false}
                                          isInvalid={checkValue === false && type === '' ? true : false}>
-                                            {/* <option value="">ประเภทสินค้า</option>
-                                            {productTypeData.data?.map((productType, index) => (
+                                            <option value="">ประเภทสินค้า</option>
+                                            {props?.productTypeData.data?.map((productType, index) => (
                                                 <option key={index} value={productType.id}>{productType.name}</option>
-                                            ))} */}
+                                            ))}
 
                                         </Form.Select>
                                     </Form.Group>

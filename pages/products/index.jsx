@@ -109,7 +109,7 @@ export default function ProductPage() {
   }, []);
 
   const [{ data: productTypeData }, getProductsType] = useAxios({
-    url: "../api/productType?",
+    url: "/api/productType?",
   });
 
   const handleSelectPage = (pageValue) => {
@@ -160,7 +160,7 @@ export default function ProductPage() {
               ))}
             </Form.Select>
           </Form.Group>
-          <ProductsAddModal getData={productsData} />
+          <ProductsAddModal getData={productsData} productTypeData={productTypeData} />
         </div>
         <MyTable
           data={productsData?.data}
