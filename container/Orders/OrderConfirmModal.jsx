@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Form, Row, Col, Image ,Table } from "react-bootstrap";
-import { FaEdit } from "react-icons/fa";
+import { FaCheck}  from "react-icons/fa";
 import useAxios from "axios-hooks";
 import AutoComplete from "@/components/AutoComplete";
 import CardError from "@/components/CardChange/CardError";
@@ -68,7 +68,7 @@ export default function OrderEditModal(props) {
         className={showCheck ? "icon active" : "icon"}
         onClick={handleShow}
       >
-        <FaEdit />
+        <FaCheck />
       </Button>
           ) }
 

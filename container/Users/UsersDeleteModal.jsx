@@ -44,10 +44,10 @@ export default function UsersDeleteModal(props) {
                     
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
+                    <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handleDeleteData}>
+                    <Button bg="succeed" className='my-0' onClick={handleDeleteData}>
                         ยืนยันการลบ
                     </Button>
                 </Modal.Footer>
