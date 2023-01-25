@@ -9,10 +9,10 @@ import ModelError from "@/components/ModelChange/ModelError";
 import FormData from "form-data";
 import { CKEditor } from "ckeditor4-react";
 
-export default function ProductsEditModal(props) {
+export default function UsersEditModal(props) {
   const [
-    { loading: updateProductsLoading, error: updateProductsError },
-    executeProductsPut,
+    { loading: updateUsersLoading, error: updateUsersError },
+    executeUsersPut,
   ] = useAxios({}, { manual: true });
 
   const [checkValue, setCheckValue] = useState(true);
@@ -26,12 +26,11 @@ export default function ProductsEditModal(props) {
   const [image, setImage] = useState([]);
   const [imageURL, setImageURL] = useState([]);
 
-  const [username, setUserName] = useState('');
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [password, setPassword] = useState('');
-  const [usersTypeId, setUsersTypeId] = useState('');
-
+  const [username, setUserName] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [password, setPassword] = useState("");
+  const [usersTypeId, setUsersTypeId] = useState("");
 
   const [showCheck, setShowCheck] = useState(false);
   const handleClose = () => {
@@ -46,6 +45,7 @@ export default function ProductsEditModal(props) {
       setLname(props?.value?.lname);
       setPassword(props?.value?.password);
       setUsersTypeId(props?.value?.usersTypeId);
+      setImg(props?.value?.image);
     }
 
     if (image.length < 1) return;
@@ -54,39 +54,68 @@ export default function ProductsEditModal(props) {
     setImageURL(newImageUrl);
   }, [props, image]);
 
-  const onImageProductChange = (e) => {
+  const onImageUsersChange = (e) => {
     setImage([...e.target.files]);
   };
 
+
+
   const handlePutData = async () => {
     setCheckValue(false);
-    if (name !== "" && price !== "") {
+    if (image[0] === undefined) {
+
+      await executeUsersPut({
+        url: "/api/users/" + props?.value?.id,
+        method: "PUT",
+        data: {
+          username: username,
+          fname: fname,
+          lname: lname,
+          password: password,
+          usersTypeId: usersTypeId,
+        },
+      }).then(() => {
+        Promise.all([
+          setUserName(""),
+          setFname(""),
+          setLname(""),
+          setPassword(""),
+          setUsersTypeId(""),
+          props.getData(),
+        ]).then(() => {
+          if (updateUsersLoading?.success) {
+            handleClose();
+          }
+        });
+      });
+    } else {
       let data = new FormData();
       data.append("file", image[0]);
       const imageData = await uploadImage({ data: data });
       const id = imageData.data.result.id;
 
-      await executeProductsPut({
-        url: "/api/products/" + props?.value?.id,
+      await executeUsersPut({
+        url: "/api/users/" + props?.value?.id,
         method: "PUT",
         data: {
           username: username,
           fname: fname,
-          lname:lname,
-          password:password,
-          usersTypeId:usersTypeId,
+          lname: lname,
+          password: password,
+          usersTypeId: usersTypeId,
           image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
         },
       }).then(() => {
         Promise.all([
-          setUserName(''),
-          setFname(''),
-          setLname(''),
-          setPassword(''),
-          setUsersTypeId(''),
-          props.getUsersData(),
+          setUserName(""),
+          setFname(""),
+          setLname(""),
+          setPassword(""),
+          setUsersTypeId(""),
+          setImage([]),
+          props.getData(),
         ]).then(() => {
-          if (updateProductsLoading?.success) {
+          if (updateUsersLoading?.success) {
             handleClose();
           }
         });
@@ -94,8 +123,12 @@ export default function ProductsEditModal(props) {
     }
   };
 
-  if (updateProductsLoading || imgLoading) return <ModelLoading showCheck={showCheck}/>
-  if (updateProductsError || imgError ) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+  if (updateUsersLoading || imgLoading)
+    return <ModelLoading showCheck={showCheck} />;
+  if (updateUsersError || imgError)
+    return (
+      <ModelError show={showCheck} fnShow={handleClose} centered size="lg" />
+    );
 
   return (
     <>
@@ -112,90 +145,158 @@ export default function ProductsEditModal(props) {
           <Modal.Title className="text-center">แก้ไขสินค้า</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Row>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="formFile">
-                                <Form.Label className='text-center'>เลือกรูปสมาชิก</Form.Label>
+          <Row>
+            <Col md="6">
+            <Form.Group className="mb-3" controlId="formFile">
+                <Form.Label className="text-center">เลือกรูปสินค้า</Form.Label>
 
-                                    <Form.Label className='d-block'>รูปภาพ</Form.Label>
-                                    {imageURL.map((imageSrcProduct, index) => <Image key={index} className="mb-2" style={{ height: 200 }} src={imageSrcProduct} alt="product_img" fluid rounded />)}
-                                    <Form.Control type="file" accept="image/*" onChange={onImageProductChange} />
-                    
-                            </Form.Group>
-                        </Col>
-                        <Col md='6'>
-                            <Row>
+                <Form.Label className="d-block">รูปภาพ</Form.Label>
+                {imageURL?.length === 0 && (
+                  <Image
+                    className="mb-2"
+                    style={{ height: 200 }}
+                    src={img}
+                    alt="Users_img"
+                    fluid
+                    rounded
+                  />
+                )}
+                {imageURL?.map((imageSrcUsers, index) => (
+                  <Image
+                    key={index}
+                    className="mb-2"
+                    style={{ height: 200 }}
+                    src={imageSrcUsers}
+                    alt="Users_img"
+                    fluid
+                    rounded
+                  />
+                ))}
+                <Form.Control
+                  type="file"
+                  accept="image/*"
+                  onChange={onImageUsersChange}
+                />
+              </Form.Group>
+            </Col>
+            <Col md="6">
+              <Row>
+                <Col md="12">
+                  <Form.Group className="mb-3" controlId="name">
+                    <Form.Label>ชื่อ</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="เพิ่มชื่อ"
+                      onChange={(e) => {
+                        setFname(e.target.value);
+                      }}
+                      value={fname}
+                      autoComplete="off"
+                      isValid={
+                        checkValue === false && fname !== "" ? true : false
+                      }
+                      isInvalid={
+                        checkValue === false && fname === "" ? true : false
+                      }
+                    />
+                  </Form.Group>
+                </Col>
 
+                <Col md="12">
+                  <Form.Group className="mb-3" controlId="name">
+                    <Form.Label>นามสกุล</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="เพิ่มนามสกุล"
+                      onChange={(e) => {
+                        setLname(e.target.value);
+                      }}
+                      value={lname}
+                      autoComplete="off"
+                      isValid={
+                        checkValue === false && lname !== "" ? true : false
+                      }
+                      isInvalid={
+                        checkValue === false && lname === "" ? true : false
+                      }
+                    />
+                  </Form.Group>
+                </Col>
 
-                                <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="name">
-                                        <Form.Label>ชื่อ</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่มชื่อ"
-                                         onChange={(e) => { setFname(e.target.value) }}
-                                         value={fname} autoComplete="off"
-                                         isValid={checkValue === false && fname !== '' ? true : false}
-                                         isInvalid={checkValue === false && fname === '' ? true : false}
-                                        />
-                                    </Form.Group>
-                                </Col>
-                         
-                                <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="name">
-                                        <Form.Label>นามสกุล</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่มนามสกุล"
-                                         onChange={(e) => { setLname(e.target.value) }}
-                                         value={lname} autoComplete="off"
-                                         isValid={checkValue === false && lname !== '' ? true : false}
-                                         isInvalid={checkValue === false && lname === '' ? true : false}
-                                        />
-                                    </Form.Group>
-                                </Col>
+                <Col md="12">
+                  <Form.Group className="mb-3" controlId="name">
+                    <Form.Label>username</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="เพิ่ม UserName"
+                      onChange={(e) => {
+                        setUserName(e.target.value);
+                      }}
+                      value={username}
+                      autoComplete="off"
+                      isValid={
+                        checkValue === false && username !== "" ? true : false
+                      }
+                      isInvalid={
+                        checkValue === false && username === "" ? true : false
+                      }
+                    />
+                  </Form.Group>
+                </Col>
 
-                                <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="name">
-                                        <Form.Label>username</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่ม UserName"
-                                         onChange={(e) => { setUserName(e.target.value) }}
-                                         value={username} autoComplete="off"
-                                         isValid={checkValue === false && username !== '' ? true : false}
-                                         isInvalid={checkValue === false && username === '' ? true : false}
-                                        />
-                                    </Form.Group>
-                                </Col>
+                <Col md="12">
+                  <Form.Group className="mb-3" controlId="name">
+                    <Form.Label>password</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="เพิ่มชื่อ PassWord"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                      value={password}
+                      autoComplete="off"
+                      isValid={
+                        checkValue === false && password !== "" ? true : false
+                      }
+                      isInvalid={
+                        checkValue === false && password === "" ? true : false
+                      }
+                    />
+                  </Form.Group>
+                </Col>
 
-                                <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="name">
-                                        <Form.Label>password</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่มชื่อ PassWord"
-                                         onChange={(e) => { setPassword(e.target.value) }}
-                                         value={password} autoComplete="off"
-                                         isValid={checkValue === false && password !== '' ? true : false}
-                                         isInvalid={checkValue === false && password === '' ? true : false}
-                                        />
-                                    </Form.Group>
-                                </Col>
-
-                                <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="price">
-                                        <Form.Label>ตำแหน่ง</Form.Label>
-                                        <Form.Select  
-                                         onChange={(e) => { setUsersTypeId(e.target.value) }}
-                                         value={usersTypeId} autoComplete="off"
-                                         isValid={checkValue === false && usersTypeId !== '' ? true : false}
-                                         isInvalid={checkValue === false && usersTypeId === '' ? true : false}>
-                                            <option value="">ประเภทสินค้า</option>
-                                            {props.usersTypeData?.map((usersType, index) => (
-                                                <option key={index} value={usersType.id}>{usersType.name}</option>
-                                            ))}
-
-                                        </Form.Select>
-                                    </Form.Group>
-                                </Col>
-
-                            </Row>
-
-                        </Col>
-                    </Row>
+                <Col md="12">
+                  <Form.Group className="mb-3" controlId="price">
+                    <Form.Label>ตำแหน่ง</Form.Label>
+                    <Form.Select
+                      onChange={(e) => {
+                        setUsersTypeId(e.target.value);
+                      }}
+                      value={usersTypeId}
+                      autoComplete="off"
+                      isValid={
+                        checkValue === false && usersTypeId !== ""
+                          ? true
+                          : false
+                      }
+                      isInvalid={
+                        checkValue === false && usersTypeId === ""
+                          ? true
+                          : false
+                      }
+                    >
+                      <option value="">ประเภทสินค้า</option>
+                      {props.usersTypeData?.map((usersType, index) => (
+                        <option key={index} value={usersType.id}>
+                          {usersType.name}
+                        </option>
+                      ))}
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
         </Modal.Body>
         <Modal.Footer>
           <Button bsPrefix="cancel" className="my-0" onClick={handleClose}>

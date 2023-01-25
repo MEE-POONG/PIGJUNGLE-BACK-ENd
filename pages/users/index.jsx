@@ -29,13 +29,15 @@ export default function UsersPage() {
     pageSize: "10",
   });
 
-  const [status, setStatus] = useState("");
+  const [usersType, setUsersType] = useState("");
+
+  console.log(usersType);
 
   const [{ data: usersData, loading, error }, getUsers] = useAxios({
-    url: `/api/users?page=1&pageSize=10`,
+    url: `/api/users?page=1&pageSize=10&usersTypeId=${usersType}`,
     method: "GET",
   });
-
+ 
   useEffect(() => {
 
     if (loading === false) {
@@ -44,7 +46,7 @@ export default function UsersPage() {
         };
         getUsersList();
     }
-  }, [status]);
+  }, [usersType]);
 
   const [{ data: usersTypeData }, getUsersType] = useAxios({
     url: "../api/usersType",
@@ -88,7 +90,10 @@ export default function UsersPage() {
             <Form.Select>
               <option value="">ตำแหน่ง</option>
               {usersTypeData?.data?.map((usersType, index) => (
-                <option key={index} value={usersType.id}>
+                <option key={index} value={usersType.id} onClick={() => {
+                  setUsersType(usersType.id);
+                }}>
+                  {console.log(usersType.id)}
                   {usersType.name}
                 </option>
               ))}
