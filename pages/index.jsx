@@ -2,6 +2,8 @@ import Head from 'next/head';
 import IndexPage from "components/layouts/IndexPage";
 import { Card, Table } from 'react-bootstrap';
 import Warn from 'container/home/warn';
+import RecentSalse from '@/container/Dashboard/RecentSalse';
+import NewListing from '@/container/Dashboard/NewListing';
 export default function HomePage() {
   const contactData = [
     { id: '1', title: 'a', detail: 'แก้ฟิล title จาก มองบน เป็น มองบนฟ้าแก้ฟิล facebook จาก facebook.com/api เป็น facebook.com/ipa', firstname: 'งง', lastname: 'งง', customerId: '1', contactID: '1', audienceRecordID: '', newsId: '', aboutID: '' },
@@ -30,8 +32,10 @@ export default function HomePage() {
       </Head>
 
       <div className='home-page'>
-        {/* {contactData?.map((list) => (
-        ))} */}
+        {/* <div>
+          <RecentSalse/>
+          <NewListing/>
+        </div> */}
         <Warn contactData={contactData} checkEditLogData={warnCheckEditLogData} audienceRecordData={warnAudienceRecordData} />
       </div>
     </ >
