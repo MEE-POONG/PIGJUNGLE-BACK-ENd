@@ -64,25 +64,33 @@ export default function OrderEditModal(props) {
 
   return (
     <>
-      <Button
+       {props?.value?.status === "จัดส่งเสร็จสิ้น" ? ( "" ) 
+       : (
+        <Button
         bsPrefix="edit"
         className={showCheck ? "icon active" : "icon"}
         onClick={handleShow}
       >
         <FaEdit />
       </Button>
+          ) }
+
 
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title className="text-center">ยืนยันรายการสินค้า</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        <Row className="mb-3 ">
+            <Col md="6">
           <Image
             src={props?.value?.image}
             width="150px"
             height="150px"
             className="object-fit-cover"
           />
+          </Col>
+           <Col md="6">
           <h4 className="mb-3">
             ชื่อผู้สั่งสินค้า : {props?.value?.firstname}{" "}
             {props?.value?.lastname}
@@ -96,6 +104,8 @@ export default function OrderEditModal(props) {
             {format(new Date(props?.value?.createdAt), "HH:mm:ss")} น.
           </h4>
           <h4 className="mb-3">สถานะ : {props?.value?.status}</h4>
+          </Col>
+          </Row>
         </Modal.Body>
         <Modal.Footer>
           <Button bsPrefix="cancel" className="my-0" onClick={handleClose}>
@@ -105,13 +115,14 @@ export default function OrderEditModal(props) {
             <Button bsPrefix="succeed" className="my-0" onClick={handlePutData}>
               ยืนยันรายการสินค้า
             </Button>
-          ) : props?.value?.status === "กำลังดำเนินการ" ? (
+          ) : props?.value?.status === "กำลังดำเนินการ" ?  (
             <Button bsPrefix="succeed" className="my-0" onClick={handlePutData}>
               ยืนยันการจัดส่ง
             </Button>
           ) : (
             ""
           )}
+
         </Modal.Footer>
       </Modal>
     </>
