@@ -10,11 +10,9 @@ import FormData from 'form-data';
 import axios from 'axios'
 import { CKEditor } from 'ckeditor4-react'
 
-export default function ProductsAddModal(propsData) {
+export default function UsersAddModal(props) {
     
-    console.log(propsData.usersTypeData);
-    
-    const [{ data:productsPost, error: errorMessage, loading: ProductsLoading }, executeProducts] = useAxios({ url: '/api/products', method: 'POST' }, { manual: true });
+    const [{ data:UsersPost, error: errorMessage, loading: UsersLoading }, executeUsers] = useAxios({ url: '/api/users', method: 'POST' }, { manual: true });
     
     const [checkValue, setCheckValue] = useState(true);
 
@@ -30,9 +28,12 @@ export default function ProductsAddModal(propsData) {
     const [image, setImage] = useState([])
     const [imageURL, setImageURL] = useState([])
     
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [type, setType] = useState('');
+    const [username, setUserName] = useState('');
+    const [fname, setFname] = useState('');
+    const [lname, setLname] = useState('');
+    const [password, setPassword] = useState('');
+    const [usersTypeId, setUsersTypeId] = useState('');
+
 
 
     useEffect(() => {
@@ -51,7 +52,7 @@ export default function ProductsAddModal(propsData) {
 
     const handleSubmit = async event  => { 
         setCheckValue(false)
-        if ( name !== '' && price !== ''){ 
+        if ( username !== '' && password !== ''){ 
             
             handleClose()
             
@@ -60,22 +61,24 @@ export default function ProductsAddModal(propsData) {
             const imageData = await uploadImage({data: data})
             const id =imageData.data.result.id
 
-            await executeProducts({
+            await executeUsers({
                 data: {
-                    name: name,
-                    price: price,
-                    type,type,
+                    username: username,
+                    fname: fname,
+                    lname:lname,
+                    password:password,
+                    usersTypeId:usersTypeId,
                     image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
  
                 }
             }).then(() => {
                 Promise.all([    
-                    setName(''),
-                    setPrice(''),
-                    setImage(''),
-                    setType(''),
-
-                    props.getData(),
+                    setUserName(''),
+                    setFname(''),
+                    setLname(''),
+                    setPassword(''),
+                    setUsersTypeId(''),
+                    props.getUsersData(),
                 ])
             });
         } 
@@ -83,23 +86,23 @@ export default function ProductsAddModal(propsData) {
         
     }
 
-    if (imgLoading || ProductsLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (imgLoading || UsersLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
     if (imgError || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>
             <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
-                <FaPlus />{" "}เพิ่มสินค้า
+                <FaPlus />{" "}เพิ่มสมาชิก
             </Button>
-            <Modal show={showCheck} onHide={handleClose} centered size='lg' className='form-Products'>
+            <Modal show={showCheck} onHide={handleClose} centered size='lg' className='form-Users'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>เพิ่มสินค้า</Modal.Title>
+                    <Modal.Title className='text-center'>เพิ่มสมาชิก</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <Row>
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="formFile">
-                                <Form.Label className='text-center'>เลือกรูปสินค้า</Form.Label>
+                                <Form.Label className='text-center'>เลือกรูปสมาชิก</Form.Label>
 
                                     <Form.Label className='d-block'>รูปภาพ</Form.Label>
                                     {imageURL.map((imageSrcProduct, index) => <Image key={index} className="mb-2" style={{ height: 200 }} src={imageSrcProduct} alt="product_img" fluid rounded />)}
@@ -109,39 +112,66 @@ export default function ProductsAddModal(propsData) {
                         </Col>
                         <Col md='6'>
                             <Row>
+
+
                                 <Col md='12'>
                                     <Form.Group className="mb-3" controlId="name">
-                                        <Form.Label>ชื่อสินค้า</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่มชื่อสินค่า"
-                                         onChange={(e) => { setName(e.target.value) }}
-                                         value={name} autoComplete="off"
-                                         isValid={checkValue === false && name !== '' ? true : false}
-                                         isInvalid={checkValue === false && name === '' ? true : false}
+                                        <Form.Label>ชื่อ</Form.Label>
+                                        <Form.Control type="text" placeholder="เพิ่มชื่อ"
+                                         onChange={(e) => { setFname(e.target.value) }}
+                                         value={fname} autoComplete="off"
+                                         isValid={checkValue === false && fname !== '' ? true : false}
+                                         isInvalid={checkValue === false && fname === '' ? true : false}
                                         />
                                     </Form.Group>
                                 </Col>
+                         
                                 <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="price">
-                                        <Form.Label>ราคาสินค้า</Form.Label>
-                                        <Form.Control type="number" placeholder="เพิ่ม ราคาของสินค้า"
-                                         onChange={(e) => { setPrice(e.target.value) }}
-                                         value={price} autoComplete="off"
-                                         isValid={checkValue === false && price !== '' ? true : false}
-                                         isInvalid={checkValue === false && price === '' ? true : false}
+                                    <Form.Group className="mb-3" controlId="name">
+                                        <Form.Label>นามสกุล</Form.Label>
+                                        <Form.Control type="text" placeholder="เพิ่มนามสกุล"
+                                         onChange={(e) => { setLname(e.target.value) }}
+                                         value={lname} autoComplete="off"
+                                         isValid={checkValue === false && lname !== '' ? true : false}
+                                         isInvalid={checkValue === false && lname === '' ? true : false}
+                                        />
+                                    </Form.Group>
+                                </Col>
+
+                                <Col md='12'>
+                                    <Form.Group className="mb-3" controlId="name">
+                                        <Form.Label>username</Form.Label>
+                                        <Form.Control type="text" placeholder="เพิ่ม UserName"
+                                         onChange={(e) => { setUserName(e.target.value) }}
+                                         value={username} autoComplete="off"
+                                         isValid={checkValue === false && username !== '' ? true : false}
+                                         isInvalid={checkValue === false && username === '' ? true : false}
+                                        />
+                                    </Form.Group>
+                                </Col>
+
+                                <Col md='12'>
+                                    <Form.Group className="mb-3" controlId="name">
+                                        <Form.Label>password</Form.Label>
+                                        <Form.Control type="text" placeholder="เพิ่มชื่อ PassWord"
+                                         onChange={(e) => { setPassword(e.target.value) }}
+                                         value={password} autoComplete="off"
+                                         isValid={checkValue === false && password !== '' ? true : false}
+                                         isInvalid={checkValue === false && password === '' ? true : false}
                                         />
                                     </Form.Group>
                                 </Col>
 
                                 <Col md='12'>
                                     <Form.Group className="mb-3" controlId="price">
-                                        <Form.Label>ประเภทสินค้า</Form.Label>
+                                        <Form.Label>ตำแหน่ง</Form.Label>
                                         <Form.Select  
-                                         onChange={(e) => { setType(e.target.value) }}
-                                         value={type} autoComplete="off"
-                                         isValid={checkValue === false && type !== '' ? true : false}
-                                         isInvalid={checkValue === false && type === '' ? true : false}>
+                                         onChange={(e) => { setUsersTypeId(e.target.value) }}
+                                         value={usersTypeId} autoComplete="off"
+                                         isValid={checkValue === false && usersTypeId !== '' ? true : false}
+                                         isInvalid={checkValue === false && usersTypeId === '' ? true : false}>
                                             <option value="">ประเภทสินค้า</option>
-                                            {propsData.usersTypeData.data?.map((usersType, index) => (
+                                            {props.usersTypeData?.map((usersType, index) => (
                                                 <option key={index} value={usersType.id}>{usersType.name}</option>
                                             ))}
 

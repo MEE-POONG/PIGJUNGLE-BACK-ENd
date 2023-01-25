@@ -41,8 +41,8 @@ export default async function handler(req, res) {
                         username: req.body.username,
                         fname: req.body.fname,
                         lname: req.body.lname,
-                        passwaord: req.body.passwaord,
-                        usersTypeId: req.body.usersType,
+                        password: req.body.password,
+                        usersTypeId: req.body.usersTypeId,
                     }
                 })
                 

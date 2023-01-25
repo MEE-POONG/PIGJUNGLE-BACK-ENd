@@ -95,13 +95,13 @@ export default function UsersPage() {
             </Form.Select>
           </Form.Group>
 
-        <UsersAddModal getData={getUsers} usersTypeData={usersTypeData?.data} />
+        <UsersAddModal getUsersData={getUsers} usersTypeData={usersTypeData?.data} />
         
           </div>
         <MyTable
           data={usersData?.data}
           setNum={usersData?.page * usersData?.pageSize - usersData?.pageSize}
-          getData={getUsers}
+          getUsersData={getUsers}
           usersTypeData={usersTypeData?.data}
         />
         <MyPagination
@@ -141,30 +141,38 @@ function MyTable(props) {
               <tr key={item.id}>
                 <td>{index + 1 + numberSet}</td>
                 <td>
+                <Image
+                    src={item.image}
+                    width="150px"
+                    height="150px"
+                    className="object-fit-cover"
+                  />
+                </td>
+                <td>
                   {item.username}
                 </td>
                 <td>
-                  {item.firstname} {item.lastname}
+                  {item.fname} {item.lname}
                 </td>
-                {/* {item.status === "รอการตรวจสอบ" ? (
-                  <td>
-                    <Badge bg="danger">{item.status}</Badge>
-                  </td>
-                ) : item.status === "กำลังดำเนินการ" ? (
-                  <td>
-                    <Badge bg="warning">{item.status}</Badge>
-                  </td>
-                ) : (
-                  <td>
-                    <Badge bg="success">{item.status}</Badge>
-                  </td>
-                )} */}
+                <td>
+                    <Badge bg="danger">{item.UsersType?.name}</Badge>
+                </td>
                 <td>
                   {item.password}
                 </td>
                 <td>
-                  <UsersConfirmModal value={item} getData={props?.getData} />
-                  <UsersDeleteModal value={item} getData={props?.getData} />
+                  {/* <UsersConfirmModal value={item} getUsersData={props?.getUsersData} />
+                  <UsersDeleteModal value={item} getUsersData={props?.getUsersData} /> */}
+                  <UsersEditModal
+                    value={item}
+                    getData={props?.getData}
+                    usersTypeData={props?.usersTypeData}
+                  />
+                  <UsersDeleteModal
+                    value={item}
+                    getData={props?.getData}
+                    usersTypeData={props?.usersTypeData}
+                  />
                 </td>
               </tr>
             ))

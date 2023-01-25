@@ -128,7 +128,7 @@ model Users {
   fname       String?
   lname       String?
   username    String?
-  passwaord   String?
+  password   String?
   usersTypeId String?    @db.ObjectId
   createdAt   DateTime?  @default(now())
   updatedAt   DateTime?  @updatedAt
