@@ -171,7 +171,7 @@ export default function TheSlideNav() {
               href="/users/userType"
               className={asPath === "/users/userType" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
               
-              ปะรเภทผู้ดูแล
+              ประเภทผู้ดูแล
               
             </Link>
           </Dropdown.Menu>

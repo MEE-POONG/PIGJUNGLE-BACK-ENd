@@ -81,38 +81,8 @@ export default function UsersPage() {
         <Row>
           <Col>
             <div className="d-flex align-items-center mb-4">
-              <Card.Title className="mb-0">รายการสินค้า</Card.Title>
+              <Card.Title className="mb-0">รายชื่อผู้ดูแล</Card.Title>
             </div>
-          </Col>
-
-          <Col>
-            <Button
-              variant="danger"
-              className=" mx-2 "
-              onClick={() => {
-                setStatus("รอการตรวจสอบ");
-              }}
-            >
-              รอการตรวจสอบ
-            </Button>
-            <Button
-              variant="warning"
-              className="mx-2"
-              onClick={() => {
-                setStatus("กำลังดำเนินการ");
-              }}
-            >
-              กำลังดำเนินการ
-            </Button>
-            <Button
-              variant="success"
-              className="mx-2"
-              onClick={() => {
-                setStatus("จัดส่งเสร็จสิ้น");
-              }}
-            >
-              จัดส่งเสร็จสิ้น
-            </Button>
           </Col>
         </Row>
 
