@@ -126,7 +126,7 @@ function MyTable(props) {
     <Table striped bUsersed hover>
       <thead>
         <tr>
-          <th>No.</th>
+          <th className="text-center">No.</th>
           <th>รูปผู้ใช้</th>
           <th>ชื่อผู้ใช้</th>
           <th>ชื่อ-สกุล</th>
@@ -139,7 +139,7 @@ function MyTable(props) {
         {currentItems.length
           ? currentItems?.map((item, index) => (
               <tr key={item.id}>
-                <td>{index + 1 + numberSet}</td>
+                <td className="text-center">{index + 1 + numberSet}</td>
                 <td>
                 <Image
                     src={item.image}

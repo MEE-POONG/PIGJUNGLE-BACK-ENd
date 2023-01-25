@@ -21,7 +21,7 @@ function MyTable(props) {
         <Table striped bordered hover>
             <thead>
                 <tr>
-                    <th>No.</th>
+                    <th className="text-center">No.</th>
                     <th>ตำแหน่ง</th>
                     <th>จัดการ</th>
                 </tr>
@@ -30,7 +30,7 @@ function MyTable(props) {
                 {currentItems.length ? (
                     currentItems?.map((item, index) => (
                         <tr key={item.id}>
-                            <td>{index + 1 + numberSet}</td>
+                            <td className="text-center">{index + 1 + numberSet}</td>
                             <td>
                                 {item.name}
                             </td>

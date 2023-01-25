@@ -145,8 +145,8 @@ function MyTable(props) {
   return (
     <Table striped bordered hover>
       <thead>
-        <tr>
-          <th>No.</th>
+        <tr >
+          <th className="text-center">No.</th>
           <th>ชื่อผู้สั่งสินค้า</th>
           <th>รายละเอียดที่ต้องจัดส่ง</th>
           <th>วัน/เวลาที่สั่งซื้อ</th>
