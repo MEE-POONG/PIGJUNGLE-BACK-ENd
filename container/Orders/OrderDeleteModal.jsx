@@ -45,10 +45,10 @@ export default function OrdersDeleteModal(props) {
     
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
+                    <Button bg="cancel" className='my-0' onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handleDeleteData}>
+                    <Button bg="succeed" className='my-0' onClick={handleDeleteData}>
                         ยืนยันการลบ
                     </Button>
                 </Modal.Footer>
