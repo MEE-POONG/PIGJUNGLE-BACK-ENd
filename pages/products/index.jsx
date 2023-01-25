@@ -160,7 +160,7 @@ export default function ProductPage() {
               ))}
             </Form.Select>
           </Form.Group>
-          <ProductsAddModal getData={productsData} productTypeData={productTypeData} />
+          <ProductsAddModal getData={getProduct} productTypeData={productTypeData} />
         </div>
         <MyTable
           data={productsData?.data}
