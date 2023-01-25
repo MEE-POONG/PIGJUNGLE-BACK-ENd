@@ -116,7 +116,7 @@ export default function OrderEditModal(props) {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button bg="danger" className="my-0" onClick={handleClose}>
+          <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
             ยกเลิก
           </Button>
           {props?.value?.status === "รอการตรวจสอบ" ? (
