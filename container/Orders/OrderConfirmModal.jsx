@@ -101,7 +101,7 @@ export default function OrderEditModal(props) {
                   {props?.value?.OrderDetail?.map((product, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td>{product.products.name}</td>
+                      <td>{product.products?.name}</td>
                       <td>{product.sumQty}</td>
                       <td>{product.sumPrice} บาท</td>
                     </tr>
@@ -116,7 +116,7 @@ export default function OrderEditModal(props) {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button bsPrefix="cancel" className="my-0" onClick={handleClose}>
+          <Button bg="danger" className="my-0" onClick={handleClose}>
             ยกเลิก
           </Button>
           {props?.value?.status === "รอการตรวจสอบ" ? (
