@@ -111,7 +111,7 @@ export default function ProductsAddModal(props) {
                                 <Col md='12'>
                                     <Form.Group className="mb-3" controlId="name">
                                         <Form.Label>ชื่อสินค้า</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่มชื่อสินค่า"
+                                        <Form.Control type="text" placeholder="เพิ่มชื่อสินค้า"
                                          onChange={(e) => { setName(e.target.value) }}
                                          value={name} autoComplete="off"
                                          isValid={checkValue === false && name !== '' ? true : false}
