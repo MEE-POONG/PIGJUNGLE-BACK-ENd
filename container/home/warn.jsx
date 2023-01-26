@@ -44,7 +44,7 @@ export default function Warn(props) {
                 <Card>
                     <Card.Header>
                         <Card.Title className='text-center'>
-                            ออเดอร์วันนี้
+                            ออเดอร์ที่รอส่ง
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>
@@ -63,7 +63,7 @@ export default function Warn(props) {
                 <Card>
                     <Card.Header>
                         <Card.Title className='text-center'>
-                            รายงานการเข้าชมเว็บ
+                        ออเดอร์ที่ส่งแล้ว
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>
