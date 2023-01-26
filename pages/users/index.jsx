@@ -28,15 +28,18 @@ export default function UsersPage() {
     page: "1",
     pageSize: "10",
   });
-
+  
   const [usersType, setUsersType] = useState("");
-
-  console.log(usersType);
 
   const [{ data: usersData, loading, error }, getUsers] = useAxios({
     url: `/api/users?page=1&pageSize=10`,
     method: "GET",
   });
+
+  // const [{ data: usersSelect, loading:usersSelectLoading, error:usersSelectError }, getUsersSelect] = useAxios({
+  //   url: `/api/users?page=1&pageSize=10&usersTypeId=${usersType}`,
+  //   method: "GET",
+  // });
  
   useEffect(() => {
 
@@ -87,12 +90,10 @@ export default function UsersPage() {
            
         <Form.Group className="mb-3" controlId="price">
             <Form.Label>ตำแหน่ง</Form.Label>
-            <Form.Select>
+            <Form.Select  onChange={(e) => { setUsersType(e.target.value) }}>
               <option value="">ตำแหน่ง</option>
               {usersTypeData?.data?.map((usersType, index) => (
-                <option key={index} value={usersType.id} onClick={() => {
-                  setUsersType(usersType.id);
-                }}>
+                <option key={index} value={usersType.id} >
                   {console.log(usersType.id)}
                   {usersType.name}
                 </option>

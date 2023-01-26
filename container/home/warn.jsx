@@ -1,3 +1,4 @@
+import useAxios from 'axios-hooks';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { Container, Image, Card, Row, Col } from 'react-bootstrap';
@@ -7,6 +8,11 @@ export default function Warn(props) {
     const [contactList, setContactList] = useState();
     const [warnCheckEditLogList, setWarnCheckEditLogList] = useState();
     const [warnAudienceRecordList, setWarnAudienceRecordList] = useState();
+
+  const [{ data: orderData, loading, error }, getOrder] = useAxios({
+    url: `/api/order`,
+    method: "GET",
+  });
     useEffect(() => {
         setContactList(props.contactData)
         setWarnCheckEditLogList(props.checkEditLogData);
@@ -23,11 +29,11 @@ export default function Warn(props) {
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>
-                        {contactList?.map((list, key) => (
-                            (<Link key={key} href={"/contact/" + list.id} className="alert alert_warning">
+                        {orderData?.data.map((order, key) =>(
+                            (<Link key={key} href="" className="alert alert_warning">
 
-                                <Card.Title>{list.title}</Card.Title>
-                                <Card.Text>{list.detail}</Card.Text>
+                                <Card.Title>{order.orderCode}</Card.Title>
+                                <Card.Text>{order.firstname} {order.lastname}</Card.Text>
 
                             </Link>)
                         ))}
@@ -38,21 +44,18 @@ export default function Warn(props) {
                 <Card>
                     <Card.Header>
                         <Card.Title className='text-center'>
-                            ออเดอร์ที่ส่งแล้ว
+                            ออเดอร์วันนี้
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>
-                        {warnCheckEditLogList?.map((list, key) => (
-                            (<Link
-                                key={key}
-                                href={"/" + list.tagLink + "/" + list.id}
-                                className="alert alert_warning">
+                        {orderData?.data.map((order, key) => order.status == "กำลังดำเนินการ" ?(
+                            (<Link key={key} href="" className="alert alert_warning">
 
-                                <Card.Title className="alert--content">{list.title}</Card.Title>
-                                <Card.Text>{list.detail}</Card.Text>
+                                <Card.Title>{order.orderCode}</Card.Title>
+                                <Card.Text>{order.firstname} {order.lastname}</Card.Text>
 
                             </Link>)
-                        ))}
+                        ):(""))}
                     </Card.Body>
                 </Card>
             </Col>
