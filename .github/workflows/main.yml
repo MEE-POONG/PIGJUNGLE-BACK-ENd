@@ -36,4 +36,4 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         user: ${{ secrets.SERVER_USER }}
         private_key: ${{ secrets.SSH_KEY }}
-        command: docker pull chunwarayut/pig-jungle-back-end:latest && docker restart pig-jungle-back-end
+        command: docker pull chunwarayut/pig-jungle-back-end:latest && docker stop pig-jungle-back-end && docker rm pig-jungle-back-end && docker run --name pig-jungle-back-end --restart=always -d -p 6071:3000 chunwarayut/pig-jungle-back-end 
